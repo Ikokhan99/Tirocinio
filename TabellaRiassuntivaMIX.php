@@ -1,5 +1,9 @@
-<html>
+<html lang="it">
 <head>
+    <title>
+        Tabella riassuntiva mix
+    </title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -265,53 +269,53 @@ $mchoicesF16 = $row['choicesF'];
 $mchoicesM16 = $row['choicesM'];
 $SwipeFM16 = $row['SwipeFM'];
 
-echo "<center> <form action=\"PaginaAmministratore.php\" method=\"post\">";
-echo "<table width=\"100%\" height=\"100%\">";
+echo " <form action=\"PaginaAmministratore.php\" method=\"post\">";
+echo "<table class='default-table'>";
 echo "<tr><td>";
-echo "<center>";
 
-echo "<table  width=80% align='center' cellspacing='10'>";
-echo "<tr><th colspan='10' bgcolor='#E5EDF5'><h2><br>Risultati complessivi</h2></th></tr>";
+
+echo "<table class='table80'>";
+echo "<tr><th class='margin-admin'><h2><br>Risultati complessivi</h2></th></tr>";
 echo "</thead>";
-echo "</table><table width=80% height=80%><tr><td colspan='5' align='center' bgcolor='#B1E1FC'><h3><br> Avatar Maschi</h3></td><td colspan='5' align='center' bgcolor='#D7DDFC'><h3><br>Avatar Femmine</h3></td>";
-echo "<tr align='center'>";
+echo "</table><table class='table80'><tr><td class='admin-avatar-maschi'><h3><br> Avatar Maschi</h3></td><td class='admin-avatar-femmine' ><h3><br>Avatar Femmine</h3></td>";
+echo "<tr class='center'>";
 
 
-echo "<td width=10%><b>CodiceF</b></td><td  width= 10%><b>ChoicesT</b></td> </td><td width=10%><b>ChoicesM</b></td> <td  width=10%><b>ChoicesF</b></td> <td  width=10%><b>SwipeFM</b></td>";
-echo "<td width=10%><b>CodiceM</b></td><td  width= 10%><b>ChoicesT</b></td> </td><td width=10%><b>ChoicesF</b></td> <td  width=10%><b>ChoicesM</b></td> <td  width=10%><b>SwipeMF</b></td></tr>";
+echo "<td class='small'><b>CodiceF</b></td><td class='small'><b>ChoicesT</b></td> </td><td class='small'><b>ChoicesM</b></td> <td class='small'><b>ChoicesF</b></td> <td class='small'><b>SwipeFM</b></td>";
+echo "<td class='small'><b>CodiceM</b></td><td class='small'><b>ChoicesT</b></td> </td><td class='small'><b>ChoicesF</b></td> <td class='small'><b>ChoicesM</b></td> <td class='small'><b>SwipeMF</b></td></tr>";
 
-echo "<td width=10% bgcolor='DFF2FE' align='center'>01_m</td><td  align='center' width= 10%>$m1</td> <td align='center' width=10%>$mchoicesM1</td> <td  align='center' width=10%>$mchoicesF1</td> <td  align='center' width=10%>$SwipeFM1</td>";
-echo "<td width=10% bgcolor='EEF1FE' align='center'>01_f</td><td  align='center' width= 10%>$f1</td> <td align='center' width=10%>$fchoicesF1</td> <td  align='center' width=10%>$fchoicesM1</td> <td  align='center' width=10%>$SwipeMF1</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>02_m</td>  <td align='center'>$m2</td><td width=10%>$mchoicesM2</td> </td><td  width=10%>$mchoicesF2</td><td  width=10%>$SwipeFM2</td>";
-echo "<td bgcolor='EEF1FE'>02_f</td><td align='center'>$f2</td>  <td width=10%>$fchoicesF2</td> </td><td width=10%>$fchoicesM2</td> <td  width=10%>$SwipeMF2</td></tr>   ";
-echo "<tr align='center'><td bgcolor='DFF2FE'>03_m</td>  <td align='center'>$m3</td><td width=10%>$mchoicesM3</td> </td><td width=10%>$mchoicesF3</td> <td  width=10%>$SwipeFM3</td>";
-echo "<td bgcolor='EEF1FE'>03_f</td><td align='center'>$f3</td><td width=10%>$fchoicesF3</td> </td><td width=10%>$fchoicesM3</td> <td width=10%>$SwipeMF3</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>04_m</td>  <td align='center'>$m4</td><td width=10%>$mchoicesM4</td> </td><td width=10%>$mchoicesF4</td> <td  width=10%>$SwipeFM4</td>";
-echo "<td bgcolor='EEF1FE'>04_f</td><td align='center'>$f4</td><td width=10%>$fchoicesF4</td> </td><td width=10%>$fchoicesM4</td> <td width=10%>$SwipeMF4</td></tr>  ";
-echo "<tr align='center'><td bgcolor='DFF2FE'>05_m</td>  <td align='center'>$m5</td><td width=10%>$mchoicesM5</td> </td><td width=10%>$mchoicesF5</td> <td  width=10%>$SwipeFM5</td>";
-echo "<td bgcolor='EEF1FE'>05_f</td><td align='center'>$f5</td><td width=10%>$fchoicesF5</td> </td><td width=10%>$fchoicesM5</td> <td width=10%>$SwipeMF5</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>06_m</td>  <td align='center'>$m6</td><td width=10%>$mchoicesM6</td> </td><td width=10%>$mchoicesF6</td> <td  width=10%>$SwipeFM6</td>";
-echo "<td bgcolor='EEF1FE'>06_f</td><td align='center'>$f6</td><td width=10%>$fchoicesF6</td> </td><td width=10%>$fchoicesM6</td> <td width=10%>$SwipeMF6</td></tr> "; 
-echo "<tr align='center'><td bgcolor='DFF2FE'>07_m</td>  <td align='center'>$m7</td><td width=10%>$mchoicesM7</td> </td><td width=10%>$mchoicesF7</td> <td  width=10%>$SwipeFM7</td>";
-echo "<td bgcolor='EEF1FE'>07_f</td><td align='center'>$f7</td><td width=10%>$fchoicesF7</td> </td><td width=10%>$fchoicesM7</td> <td width=10%>$SwipeMF7</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>08_m</td>  <td align='center'>$m8</td><td width=10%>$mchoicesM8</td> </td><td width=10%>$mchoicesF8</td> <td  width=10%>$SwipeFM8</td>";
-echo "<td bgcolor='EEF1FE'>08_f</td><td align='center'>$f8</td><td width=10%>$fchoicesF8</td> </td><td width=10%>$fchoicesM8</td> <td width=10%>$SwipeMF8</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>09_m</td>  <td align='center'>$m9</td><td width=10%>$mchoicesM9</td> </td><td width=10%>$mchoicesF9</td> <td  width=10%>$SwipeFM9</td>";
-echo "<td bgcolor='EEF1FE'>09_f</td><td align='center'>$f9</td><td width=10%>$fchoicesF9</td> </td><td width=10%>$fchoicesM9</td> <td width=10%>$SwipeMF9</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>10_m</td>  <td align='center'>$m10</td><td width=10%>$mchoicesM10</td> </td><td width=10%>$mchoicesF10</td> <td  width=10%>$SwipeFM10</td>";
-echo "<td bgcolor='EEF1FE'>10_f</td><td align='center'>$f10</td><td width=10%>$fchoicesF10</td> </td><td width=10%>$fchoicesM10</td> <td width=10%>$SwipeMF10</td></tr>  ";
-echo "<tr align='center'><td bgcolor='DFF2FE'>11_m</td>  <td align='center'>$m11</td><td width=10%>$mchoicesM11</td> </td><td width=10%>$mchoicesF11</td> <td  width=10%>$SwipeFM11</td>";
-echo "<td bgcolor='EEF1FE'>11_f</td><td align='center'>$f11</td><td width=10%>$fchoicesF11</td> </td><td width=10%>$fchoicesM11</td> <td width=10%>$SwipeMF11</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>12_m</td>  <td align='center'>$m12</td><td width=10%>$mchoicesM12</td> </td><td width=10%>$mchoicesF12</td> <td  width=10%>$SwipeFM12</td>";
-echo "<td bgcolor='EEF1FE'>12_f</td><td align='center'>$f12</td><td width=10%>$fchoicesF12</td> </td><td width=10%>$fchoicesM12</td> <td width=10%>$SwipeMF12</td></tr>  "; 
-echo "<tr align='center'><td bgcolor='DFF2FE'>13_m</td>  <td align='center'>$m13</td><td width=10%>$mchoicesM13</td> </td><td width=10%>$mchoicesF13</td> <td  width=10%>$SwipeFM13</td>";
-echo "<td bgcolor='EEF1FE'>13_f</td><td align='center'>$f13</td><td width=10%>$fchoicesF13</td> </td><td width=10%>$fchoicesM13</td> <td width=10%>$SwipeMF13</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>14_m</td>  <td align='center'>$m14</td><td width=10%>$mchoicesM14</td> </td><td width=10%>$mchoicesF14</td> <td  width=10%>$SwipeFM14</td>";
-echo "<td bgcolor='EEF1FE'>14_f</td><td align='center'>$f14</td><td width=10%>$fchoicesF14</td> </td><td width=10%>$fchoicesM14</td> <td width=10%>$SwipeMF14</td></tr>  ";
-echo "<tr align='center'><td bgcolor='DFF2FE'>15_m</td>  <td align='center'>$m15</td><td width=10%>$mchoicesM15</td> </td><td width=10%>$mchoicesF15</td> <td  width=10%>$SwipeFM15</td>";
-echo "<td bgcolor='EEF1FE'>15_f</td><td align='center'>$f15</td><td width=10%>$fchoicesF15</td> </td><td width=10%>$fchoicesM15</td> <td width=10%>$SwipeMF15</td></tr>";
-echo "<tr align='center'><td bgcolor='DFF2FE'>16_m</td>  <td align='center'>$m16</td><td width=10%>$mchoicesM16</td> </td><td width=10%>$mchoicesF16</td> <td  width=10%>$SwipeFM16</td>";
-echo "<td bgcolor='EEF1FE'>16_f</td><td align='center'>$f16</td><td width=10%>$fchoicesF16</td> </td><td width=10%>$fchoicesM16</td> <td width=10%>$SwipeMF16</td></tr>";
+echo "<td class='small center m'>01_m</td><td class='small center'>$m1</td> <td class='small center'>$mchoicesM1</td> <td class='small center'>$mchoicesF1</td> <td class='small center'>$SwipeFM1</td>";
+echo "<td class='small center f'>01_f</td><td class='small center'>$f1</td> <td class='small center'>$fchoicesF1</td> <td class='small center'>$fchoicesM1</td> <td class='small center'>$SwipeMF1</td></tr>";
+echo "<tr align='center'><td class='m'>02_m</td>  <td class='center'>$m2</td><td class='small'>$mchoicesM2</td> </td><td class='small'>$mchoicesF2</td><td class='small'>$SwipeFM2</td>";
+echo "<td class='f'>02_f</td><td class='center'>$f2</td>  <td class='small'>$fchoicesF2</td> </td><td class='small'>$fchoicesM2</td> <td class='small'>$SwipeMF2</td></tr>   ";
+echo "<tr align='center'><td class='m'>03_m</td>  <td class='center'>$m3</td><td class='small'>$mchoicesM3</td> </td><td class='small'>$mchoicesF3</td> <td class='small'>$SwipeFM3</td>";
+echo "<td class='f'>03_f</td><td class='center'>$f3</td><td class='small'>$fchoicesF3</td> </td><td class='small'>$fchoicesM3</td> <td class='small'>$SwipeMF3</td></tr>";
+echo "<tr align='center'><td class='m'>04_m</td>  <td class='center'>$m4</td><td class='small'>$mchoicesM4</td> </td><td class='small'>$mchoicesF4</td> <td class='small'>$SwipeFM4</td>";
+echo "<td class='f'>04_f</td><td class='center'>$f4</td><td class='small'>$fchoicesF4</td> </td><td class='small'>$fchoicesM4</td> <td class='small'>$SwipeMF4</td></tr>  ";
+echo "<tr align='center'><td class='m'>05_m</td>  <td class='center'>$m5</td><td class='small'>$mchoicesM5</td> </td><td class='small'>$mchoicesF5</td> <td class='small'>$SwipeFM5</td>";
+echo "<td class='f'>05_f</td><td class='center'>$f5</td><td class='small'>$fchoicesF5</td> </td><td class='small'>$fchoicesM5</td> <td class='small'>$SwipeMF5</td></tr>";
+echo "<tr align='center'><td class='m'>06_m</td>  <td class='center'>$m6</td><td class='small'>$mchoicesM6</td> </td><td class='small'>$mchoicesF6</td> <td class='small'>$SwipeFM6</td>";
+echo "<td class='f'>06_f</td><td class='center'>$f6</td><td class='small'>$fchoicesF6</td> </td><td class='small'>$fchoicesM6</td> <td class='small'>$SwipeMF6</td></tr> "; 
+echo "<tr align='center'><td class='m'>07_m</td>  <td class='center'>$m7</td><td class='small'>$mchoicesM7</td> </td><td class='small'>$mchoicesF7</td> <td class='small'>$SwipeFM7</td>";
+echo "<td class='f'>07_f</td><td class='center'>$f7</td><td class='small'>$fchoicesF7</td> </td><td class='small'>$fchoicesM7</td> <td class='small'>$SwipeMF7</td></tr>";
+echo "<tr align='center'><td class='m'>08_m</td>  <td class='center'>$m8</td><td class='small'>$mchoicesM8</td> </td><td class='small'>$mchoicesF8</td> <td class='small'>$SwipeFM8</td>";
+echo "<td class='f'>08_f</td><td class='center'>$f8</td><td class='small'>$fchoicesF8</td> </td><td class='small'>$fchoicesM8</td> <td class='small'>$SwipeMF8</td></tr>";
+echo "<tr align='center'><td class='m'>09_m</td>  <td class='center'>$m9</td><td class='small'>$mchoicesM9</td> </td><td class='small'>$mchoicesF9</td> <td class='small'>$SwipeFM9</td>";
+echo "<td class='f'>09_f</td><td class='center'>$f9</td><td class='small'>$fchoicesF9</td> </td><td class='small'>$fchoicesM9</td> <td class='small'>$SwipeMF9</td></tr>";
+echo "<tr align='center'><td class='m'>10_m</td>  <td class='center'>$m10</td><td class='small'>$mchoicesM10</td> </td><td class='small'>$mchoicesF10</td> <td class='small'>$SwipeFM10</td>";
+echo "<td class='f'>10_f</td><td class='center'>$f10</td><td class='small'>$fchoicesF10</td> </td><td class='small'>$fchoicesM10</td> <td class='small'>$SwipeMF10</td></tr>  ";
+echo "<tr align='center'><td class='m'>11_m</td>  <td class='center'>$m11</td><td class='small'>$mchoicesM11</td> </td><td class='small'>$mchoicesF11</td> <td class='small'>$SwipeFM11</td>";
+echo "<td class='f'>11_f</td><td class='center'>$f11</td><td class='small'>$fchoicesF11</td> </td><td class='small'>$fchoicesM11</td> <td class='small'>$SwipeMF11</td></tr>";
+echo "<tr align='center'><td class='m'>12_m</td>  <td class='center'>$m12</td><td class='small'>$mchoicesM12</td> </td><td class='small'>$mchoicesF12</td> <td class='small'>$SwipeFM12</td>";
+echo "<td class='f'>12_f</td><td class='center'>$f12</td><td class='small'>$fchoicesF12</td> </td><td class='small'>$fchoicesM12</td> <td class='small'>$SwipeMF12</td></tr>  "; 
+echo "<tr align='center'><td class='m'>13_m</td>  <td class='center'>$m13</td><td class='small'>$mchoicesM13</td> </td><td class='small'>$mchoicesF13</td> <td class='small'>$SwipeFM13</td>";
+echo "<td class='f'>13_f</td><td class='center'>$f13</td><td class='small'>$fchoicesF13</td> </td><td class='small'>$fchoicesM13</td> <td class='small'>$SwipeMF13</td></tr>";
+echo "<tr align='center'><td class='m'>14_m</td>  <td class='center'>$m14</td><td class='small'>$mchoicesM14</td> </td><td class='small'>$mchoicesF14</td> <td class='small'>$SwipeFM14</td>";
+echo "<td class='f'>14_f</td><td class='center'>$f14</td><td class='small'>$fchoicesF14</td> </td><td class='small'>$fchoicesM14</td> <td class='small'>$SwipeMF14</td></tr>  ";
+echo "<tr align='center'><td class='m'>15_m</td>  <td class='center'>$m15</td><td class='small'>$mchoicesM15</td> </td><td class='small'>$mchoicesF15</td> <td class='small'>$SwipeFM15</td>";
+echo "<td class='f'>15_f</td><td class='center'>$f15</td><td class='small'>$fchoicesF15</td> </td><td class='small'>$fchoicesM15</td> <td class='small'>$SwipeMF15</td></tr>";
+echo "<tr align='center'><td class='m'>16_m</td>  <td class='center'>$m16</td><td class='small'>$mchoicesM16</td> </td><td class='small'>$mchoicesF16</td> <td class='small'>$SwipeFM16</td>";
+echo "<td class='f'>16_f</td><td class='center'>$f16</td><td class='small'>$fchoicesF16</td> </td><td class='small'>$fchoicesM16</td> <td class='small'>$SwipeMF16</td></tr>";
 echo "</center>";
 echo "</table>";
 echo "</center>";

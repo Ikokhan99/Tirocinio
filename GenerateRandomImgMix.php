@@ -1,5 +1,7 @@
-<html>
+<html lang="it">
 <head>
+    <title>Esperimento - Scelta mix</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initSubmit();">
 <?php
@@ -79,13 +81,13 @@
 		
 		if ($reverse)
 		{
-			echo "<center><table width=100% height=100% cellspacing='10%' cellpadding='10%' border=0><tr>";
-			echo "<td width=48%>";
+			echo "<table class='default-table center'><tr>";
+			echo "<td class='half'>";
 			echo "<form action=\"Sceltissima2Mix.php\" method=\"post\" align=\"right\" id=\"form1\">";
 			echo "<button type= \"submit\" name=\"avatarsx1\" id=\"avatarsx1\" style=\"border:none; background:none; padding:0; visibility:hidden\">";
 			echo $message .$pic2. $message2 . "</img>";
 			echo "</button></form>";
-			echo "</td><td width=4%><center><h3>+</h3></center></td><td width=48%>";
+			echo "</td><td class='very-small'><h3>+</h3></td><td class='half'>";
 			echo "<form action=\"SceltissimaMix.php\" method=\"post\" align=\"left\" id=\"form2\">";
 			echo "<button type= \"submit\" name=\"avatarsx1\" id=\"avatardx1\" style=\"border:none; background:none; padding:0; visibility:hidden\">";
 			echo $message .$pic1. $message2 . "</img>";
@@ -95,13 +97,13 @@
 		}
 		else
 		{
-			echo "<center><table width=100% height=100% cellspacing='10%' cellpadding='10%' border=0><tr>";
+			echo "<table class='center default-table'><tr>";
 			echo "<td>";
 			echo "<form action=\"SceltissimaMix.php\" method=\"post\" align=\"right\" id=\"form1\">";
 			echo "<button type= \"submit\" name=\"avatarsx\" id=\"avatarsx1\" style=\"border:none; background:none; padding:0; visibility:hidden \">";
 			echo $message .$pic1. $message2 . "</img>";
 			echo "</button></form>";
-			echo "</td><td width=4%><center><h3>+</h3></center></td><td width=48%>";
+			echo "</td><td class='very-small'><h3>+</h3></td><td class='half'>";
 			echo "<form action=\"Sceltissima2Mix.php\" method=\"post\" align=\"left\" id=\"form2\">";
 			echo "<button type= \"submit\" name=\"avatardx\" id=\"avatardx1\" style=\"border:none; background:none; padding:0; visibility:hidden\">";
 			echo $message .$pic2. $message2 . "</img>";

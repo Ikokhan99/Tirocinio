@@ -1,12 +1,16 @@
-<html>
+<html lang="it">
 <head>
+    <title>
+        Pausa
+    </title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <?php
 session_start();
 $_SESSION['avatargender'] = 1;
 ?>
-<center><table width=100% height=100%><tr><td><center><table width=80% height=80%><tr><td><center>
+echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
 <h1> Continua il Test</h1><br>
 Prenditi il tempo di cui hai bisogno e quando sei pronto a continuare clicca il tasto \"Start\" posto in basso.
 <br><br><br>

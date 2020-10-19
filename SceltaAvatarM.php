@@ -1,5 +1,9 @@
-<html>
+<html lang="it">
 <head>
+    <title>
+        Scelta avatar maschile
+    </title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <?php 
@@ -28,7 +32,7 @@ $num_rows = mysqli_num_rows($result);
 		$frase="a continuare ";
 		$inizio="";
 	}
-echo "<center><table width=100% height=100%><tr><td><center><table width=80% height=80%><tr><td><center>";
+echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
 echo "<h1>" .$titolo. "</h1><br>";
 echo $inizio. "Prenditi il tempo di cui hai bisogno e quando sei pronto ".$frase."clicca il tasto \"Start\" posto in basso.";
 echo "<br><br><br>";
