@@ -72,4 +72,3 @@
 	$updateresulttotali = mysqli_query($link, $updateresult) or die(mysqli_error($link));
 	
 	header("Location:GenerateRandomImg.php");
-?>

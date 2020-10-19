@@ -12,7 +12,7 @@ else
 {
 	$connection = mysqli_connect(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 	$bo = "SELECT * FROM user WHERE usercode = $ID";
-	$riga= mysqli_query($connection, $bo) or die ('Query non valida ' . mysql_error());
+	$riga= mysqli_query($connection, $bo) or die ('Query non valida ' . mysqli_error());
 	$tmp = mysqli_fetch_array($riga);
 		
 	if ($tmp['password'] == $pass)
@@ -36,7 +36,7 @@ else
 
 			// Caso 1 ---> result vuoto
 			$Selectresult1= "SELECT * FROM result WHERE usercode = $ID";
-			$riga1= mysqli_query($connection, $Selectresult1) or die ('Query non valida ' . mysql_error());
+			$riga1= mysqli_query($connection, $Selectresult1) or die ('Query non valida ' . mysqli_error());
 			$row1 = mysqli_fetch_array($riga1);
 			$num_rows1 = mysqli_num_rows($riga1);
 			$scelto = $row1['avatarchoosencode'];
@@ -57,13 +57,13 @@ else
 				// se hai dati nel choicebuffermix --> allora lanci il sceltaavatarmix
 				// altrimenti ---> se ha già fatto il questionario, allora scrivi test completato, altrimenti lancia questionario
 				$Selectresultmix = "SELECT * FROM resultmix WHERE usercode = $ID";
-				$riga2= mysqli_query($connection, $Selectresultmix) or die ('Query non valida ' . mysql_error());
+				$riga2= mysqli_query($connection, $Selectresultmix) or die ('Query non valida ' . mysqli_error());
 				$row = mysqli_fetch_array($riga2);
 				$num_rows = mysqli_num_rows($riga2);
 				$sceltomix = $row['avatarchoosencode']
 				;
 				$SelectUser = "SELECT * FROM user WHERE usercode = $ID";
-				$rigaU= mysqli_query($connection, $SelectUser) or die ('Query non valida ' . mysql_error());
+				$rigaU= mysqli_query($connection, $SelectUser) or die ('Query non valida ' . mysqli_error());
 				$rowU = mysqli_fetch_array($rigaU);
 				$userID = $rowU['userID'];
 				$age = $rowU['age'];
@@ -110,11 +110,11 @@ else
 			else if ($_SESSION['step'] == 1)	
 			{
 				$CercaFemmine = "SELECT * FROM result WHERE usercode = $ID AND (avatar1code like '%%%f') AND (avatar2code like '%%%f') AND avatarchoosencode != ''";
-				$rigaa1= mysqli_query($connection, $CercaFemmine) or die ('Query non valida 1' . mysql_error());
+				$rigaa1= mysqli_query($connection, $CercaFemmine) or die ('Query non valida 1' . mysqli_error());
 				$righefemmineComplete = mysqli_num_rows($rigaa1);
 				
 				$CercaMaschi = "SELECT * FROM result WHERE usercode = $ID AND (avatar1code like '%%%m') AND (avatar2code like '%%%m') AND avatarchoosencode != ''";
-				$rigaa2= mysqli_query($connection, $CercaMaschi) or die ('Query non valida 2' . mysql_error());
+				$rigaa2= mysqli_query($connection, $CercaMaschi) or die ('Query non valida 2' . mysqli_error());
 				$righemaschiComplete = mysqli_num_rows($rigaa2);
 			
 				if ($reverse == 0)
@@ -167,5 +167,5 @@ else
 		echo "Password Errata";
 		}
 }	
-?>
+
 

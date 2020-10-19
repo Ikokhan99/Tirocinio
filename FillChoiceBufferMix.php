@@ -9,7 +9,7 @@
 	$link = mysqli_connect(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 	$sql = "SELECT * FROM useravatar WHERE usercode = '$username' AND gender='m' order by nchoices desc";
 	
-	$riga= mysqli_query($link, $sql) or die ('Query non valida ' . mysql_error());
+	$riga= mysqli_query($link, $sql) or die ('Query non valida ' . mysqli_error());
 	$tmp = mysqli_fetch_array($riga);
 
 	$nextentryno = 1;
@@ -78,4 +78,3 @@
 	header("Location:GenerateRandomImgMix.php");	
 
 
-?>

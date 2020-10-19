@@ -36,7 +36,7 @@
         <label>
             <input type="number" name="age" maxlength=2 required>
         </label><br>
-	</td><td class="extra-small" "></td>
+	</td><td class="extra-small" ></td>
 	<td class="q1">
 	<p class="right"><b>Orintamento sessuale:</b><br></p>
 	</td><td class="q2">

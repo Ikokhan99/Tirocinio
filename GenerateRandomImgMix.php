@@ -128,8 +128,8 @@
 	{
 		document.onkeydown = function(e) 
 		{
-			var reverse_var = '<?php echo $reverse; ?>';
-			switch (e.keyCode) 
+			let reverse_var = '<?php echo $reverse; ?>';
+			switch (e.key)
 			{
 				case 37:
 					if (reverse_var)

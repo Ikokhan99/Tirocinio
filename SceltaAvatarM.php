@@ -42,9 +42,9 @@ echo "<br><br><br>";
 <table border: 1px solid black;> <td> </td></table>
 <table border: 1px solid black;> <td> </td></table> <br>
 <input type="submit" value="Start" name="submit">
-</center>
+</form>
 </td></tr></table> </td></tr></table>
-</center>
+
 </body>
-</center>
+
 </html>

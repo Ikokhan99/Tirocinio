@@ -78,4 +78,3 @@
 	header("Location:GenerateRandomImg.php");	
 
 
-?>

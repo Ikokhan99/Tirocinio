@@ -30,4 +30,3 @@ header("Pragma: no-cache");
 header("Expires: 0");  
   
 echo ucwords($columnHeader) . "\n" . $setData . "\n";  
-?> 

@@ -1,3 +1,10 @@
+.wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 table.center {
     margin-left:auto;
@@ -10,22 +17,25 @@ table.center {
 table.default-table{
     width: fit-content;
     height: fit-content;
-    cellspacing:10%;
-    cellpadding:10%;
+    border-spacing: 10px;
+    border-collapse: separate;
+    padding: 10%;
     border:0;
 }
 table.table80{
     width:80%;
     text-align: center;
-    cellspacing:10;
-    cellpadding:10%;
+    border-spacing: 10px;
+    border-collapse: separate;
+    padding: 10%;
 }
 table.table70{
     width:70%;
 }
 table.table80-2{
-    cellpadding:5%;
-    cellspacing:5;
+    padding: 5%;
+    border-spacing: 5px;
+    border-collapse: separate;
     width:80%;
 }
 table.table80-3{
@@ -35,32 +45,33 @@ table.table80-3{
 table.empty-table{
     width:60%;
     height:80%;
-    cellpadding:40%;
+    padding: 40%;
 }
 
 table.q{
-    bgcolor:#F6F9FF;
-    cellspacing:0;
-    cellpadding:10%;
+    background-color:#F6F9FF;
+    border-spacing: 0;
+    border-collapse: collapse;
+    padding: 10%;
     width:80%;
 }
 
 tr.margin-admin{
     text-align: center;
-    bgcolor:#E5EDF5;
+    background-color:#E5EDF5;
 }
 
 th.margin-admin{
     colspan:10;
-    bgcolor:#E5EDF5;
+    background-color:#E5EDF5;
 }
 
 tr.color-admin{
-    bgcolor:#F6F9FF;
+    background-color:#F6F9FF;
 }
 
 tr.tr10{
-    cellpadding:10%;
+    padding: 10%;
 }
 tr.center{
     text-align: center;
@@ -73,12 +84,12 @@ td.middle-admin{
 td.admin-avatar-maschi{
     colspan:5;
     text-align: center;
-    bgcolor:#B1E1FC;
+    background-color:#B1E1FC;
 }
 td.admin-avatar-femmine{
     colspan:5;
     text-align: center;
-    bgcolor:#D7DDFC;
+    background-color:#D7DDFC;
 }
 
 td.center{
@@ -91,10 +102,10 @@ td.left{
     text-align: left;
 }
 td.m{
-    bgcolor:#DFF2FE;
+    background-color:#DFF2FE;
 }
 td.f{
-    bgcolor:#EEF1FE;
+    background-color:#EEF1FE;
 }
 td.half{
     width:48%;
@@ -111,10 +122,10 @@ td.extra-small{
     width:2%;
 }
 td.q1{
-    bgcolor:#E5EDF5
+    background-color:#E5EDF5
 }
 td.q2{
-    bgcolor:#F6F9FF
+    background-color:#F6F9FF
 }
 
 

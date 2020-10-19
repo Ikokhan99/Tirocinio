@@ -137,11 +137,11 @@
 	  }
 	}	
 ?>
-<script type="text/javascript">	
+<script type="text/javascript">
 
-var tempo1 = Math.round(+new Date()/1000);
+    const tempo1 = Math.round(+new Date() / 1000);
 
-	function initSubmit()
+    function initSubmit()
 	{
 		setTimeout( "document.forms[0].elements['avatarsx1'].style.visibility = 'visible'", 600 );
 		setTimeout( "document.forms[0].elements['avatardx1'].style.visibility = 'visible'", 600 );
@@ -153,38 +153,38 @@ var tempo1 = Math.round(+new Date()/1000);
 	{
 		document.onkeydown = function (e) 
 		{
-			var reverse_var = '<?php echo $reverse; ?>';
-			switch (e.keyCode) 
+            const reverse_let = '<?php echo $reverse; ?>';
+            switch (e.key)
 			{
 				case 37:
-						if (reverse_var)
+						if (reverse_let)
 					{
-						var tempo2 = Math.round(+new Date()/1000);
-						var tempo = tempo2 - tempo1;
+						let tempo2 = Math.round(+new Date()/1000);
+						let tempo = tempo2 - tempo1;
 												
 						window.location.href="./Sceltissima2.php?tempo=" + tempo;
 					}
 					else
 					{
-						var tempo2 = Math.round(+new Date()/1000);
-						var tempo = tempo2 - tempo1;
+						let tempo2 = Math.round(+new Date()/1000);
+						let tempo = tempo2 - tempo1;
 					
 						window.location.href="./Sceltissima.php?tempo=" + tempo;
 
 					}	
 					break;
 				case 39:
-					if (reverse_var)
+					if (reverse_let)
 					{
-						var tempo2 = Math.round(+new Date()/1000);
-						var tempo = tempo2 - tempo1;
+						let tempo2 = Math.round(+new Date()/1000);
+						let tempo = tempo2 - tempo1;
 						
 						window.location.href="./Sceltissima.php?tempo=" + tempo;
 					}
 					else
 					{
-						var tempo2 = Math.round(+new Date()/1000);
-						var tempo = tempo2 - tempo1;
+						let tempo2 = Math.round(+new Date()/1000);
+						let tempo = tempo2 - tempo1;
 						
 						window.location.href="./Sceltissima2.php?tempo=" + tempo;
 					}	

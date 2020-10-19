@@ -159,10 +159,10 @@ class PHPExcel
     }
 
     /**
-    * Set the macros code
-    *
-    * @param string $MacrosCode string|null
-    */
+     * Set the macros code
+     *
+     * @param null $MacrosCode string|null
+     */
     public function setMacrosCode($MacrosCode = null)
     {
         $this->macrosCode=$MacrosCode;
@@ -221,9 +221,10 @@ class PHPExcel
     }
 
     /**
-    * set ribbon XML data
-    *
-    */
+     * set ribbon XML data
+     * @param null $Target
+     * @param null $XMLData
+     */
     public function setRibbonXMLData($Target = null, $XMLData = null)
     {
         if (!is_null($Target) && !is_null($XMLData)) {
@@ -234,10 +235,12 @@ class PHPExcel
     }
 
     /**
-    * retrieve ribbon XML Data
-    *
-    * return string|null|array
-    */
+     * retrieve ribbon XML Data
+     *
+     * return string|null|array
+     * @param string $What
+     * @return mixed|string|null
+     */
     public function getRibbonXMLData($What = 'all') //we need some constants here...
     {
         $ReturnData = null;
@@ -258,9 +261,10 @@ class PHPExcel
     }
 
     /**
-    * store binaries ribbon objects (pictures)
-    *
-    */
+     * store binaries ribbon objects (pictures)
+     * @param null $BinObjectsNames
+     * @param null $BinObjectsData
+     */
     public function setRibbonBinObjects($BinObjectsNames = null, $BinObjectsData = null)
     {
         if (!is_null($BinObjectsNames) && !is_null($BinObjectsData)) {
@@ -269,19 +273,22 @@ class PHPExcel
             $this->ribbonBinObjects = null;
         }
     }
+
     /**
-    * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function)
-    *
-    */
+     * return the extension of a filename. Internal use for a array_map callback (php<5.3 don't like lambda function)
+     * @param $ThePath
+     * @return string|string[]
+     */
     private function getExtensionOnly($ThePath)
     {
         return pathinfo($ThePath, PATHINFO_EXTENSION);
     }
 
     /**
-    * retrieve Binaries Ribbon Objects
-    *
-    */
+     * retrieve Binaries Ribbon Objects
+     * @param string $What
+     * @return array|mixed|null
+     */
     public function getRibbonBinObjects($What = 'all')
     {
         $ReturnData = null;
@@ -289,7 +296,6 @@ class PHPExcel
         switch($What) {
             case 'all':
                 return $this->ribbonBinObjects;
-                break;
             case 'names':
             case 'data':
                 if (is_array($this->ribbonBinObjects) && array_key_exists($What, $this->ribbonBinObjects)) {
@@ -332,10 +338,10 @@ class PHPExcel
     /**
      * Check if a sheet with a specified code name already exists
      *
-     * @param string $pSheetCodeName  Name of the worksheet to check
+     * @param string $pSheetCodeName Name of the worksheet to check
      * @return boolean
      */
-    public function sheetCodeNameExists($pSheetCodeName)
+    public function sheetCodeNameExists(string $pSheetCodeName)
     {
         return ($this->getSheetByCodeName($pSheetCodeName) !== null);
     }
@@ -407,7 +413,7 @@ class PHPExcel
     public function disconnectWorksheets()
     {
         $worksheet = null;
-        foreach ($this->workSheetCollection as $k => &$worksheet) {
+        foreach ($this->workSheetCollection as $k => $worksheet) {
             $worksheet->disconnectCells();
             $this->workSheetCollection[$k] = null;
         }
@@ -494,10 +500,10 @@ class PHPExcel
     /**
      * Check if a sheet with a specified name already exists
      *
-     * @param  string $pSheetName  Name of the worksheet to check
+     * @param string $pSheetName Name of the worksheet to check
      * @return boolean
      */
-    public function sheetNameExists($pSheetName)
+    public function sheetNameExists(string $pSheetName)
     {
         return ($this->getSheetByName($pSheetName) !== null);
     }
@@ -728,7 +734,11 @@ class PHPExcel
         $returnValue = array();
         $worksheetCount = $this->getSheetCount();
         for ($i = 0; $i < $worksheetCount; ++$i) {
-            $returnValue[] = $this->getSheet($i)->getTitle();
+            try {
+                $returnValue[] = $this->getSheet($i)->getTitle();
+            } catch (PHPExcel_Exception $e) {
+                echo $e;
+            }
         }
 
         return $returnValue;
@@ -923,7 +933,7 @@ class PHPExcel
     /**
      * Check if style exists in style collection
      *
-     * @param  PHPExcel_Style $pCellStyle
+     * @param null $pCellStyle
      * @return boolean
      */
     public function cellXfExists($pCellStyle = null)
@@ -1075,7 +1085,11 @@ class PHPExcel
         foreach ($this->getWorksheetIterator() as $sheet) {
             // from cells
             foreach ($sheet->getCellCollection(false) as $cellID) {
-                $cell = $sheet->getCell($cellID);
+                try {
+                    $cell = $sheet->getCell($cellID);
+                } catch (PHPExcel_Exception $e) {
+                    echo $e;
+                }
                 ++$countReferencesCellXf[$cell->getXfIndex()];
             }
 
@@ -1120,7 +1134,11 @@ class PHPExcel
         foreach ($this->getWorksheetIterator() as $sheet) {
             // for all cells
             foreach ($sheet->getCellCollection(false) as $cellID) {
-                $cell = $sheet->getCell($cellID);
+                try {
+                    $cell = $sheet->getCell($cellID);
+                } catch (PHPExcel_Exception $e) {
+                    echo $e;
+                }
                 $cell->setXfIndex($map[$cell->getXfIndex()]);
             }
 

@@ -58,4 +58,3 @@
 	$delbufferresult = mysqli_query($link, $delbuffsql) or die(mysqli_error($link));
 	
 	header("Location:GenerateRandomImgMix.php");
-?>
