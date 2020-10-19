@@ -1,6 +1,8 @@
-<html>
+<html lang="it">
 <head>
-</head>
+    <title>
+        Esperimento
+    </title></head>
 <body onload="initSubmit();">
 <?php
 	require "ConnectionParameters.php";
