@@ -100,7 +100,7 @@
 		if ($reverse)
 		{
 			echo "<table class='default-table'><tr>";
-			echo "<td class='half' >";
+			echo "<td class='half'>";
 			echo "<form action=\"Sceltissima2.php\" method=\"post\"  align=\"right\"  id=\"form1\">";
 			echo "<button type= \"submit\" name=\"avatarsx1\" id=\"avatarsx1\"style=\"border:none; background:none; padding:0; visibility:hidden\">";
 			echo "<div id=\"pic1\">";
@@ -124,7 +124,7 @@
 			echo "<div id=\"pic1\">";
 			echo $message .$pic1. $message2 . "</img></div>";
 			echo "</button></form>";
-			echo "</td><td class='very-small' >><h3>+</h3></td><td class='half'>";
+			echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
 			echo "<form action=\"Sceltissima2.php\" method=\"post\" align=\"left\" id=\"form2\">";
 			echo "<button type= \"submit\" name=\"avatardx\" id=\"avatardx1\" style=\"border:none; background:none; padding:0; visibility:hidden\">";
 			echo "<div id=\"pic2\">";
@@ -154,7 +154,7 @@
 		document.onkeydown = function (e) 
 		{
             const reverse_let = '<?php echo $reverse; ?>';
-            switch (e.key)
+            switch (e.keyCode)
 			{
 				case 37:
 						if (reverse_let)
