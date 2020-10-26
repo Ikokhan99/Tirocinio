@@ -1,7 +1,7 @@
-<html lang="it">
+<html lang="en">
 <head>
     <title>
-        Pagina amministratore
+        Administrator page
     </title>
     <link rel="stylesheet" href="style.css">
 </head>

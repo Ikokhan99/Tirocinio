@@ -1,7 +1,7 @@
-<html lang="it">
+<html lang="en">
 <head>
     <title>
-        Scelta avatar maschile
+			Choice male avatar
     </title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -20,21 +20,21 @@ $num_rows = mysqli_num_rows($result);
 	// Start 2017.11.01
 	if ($num_rows == 0)
 	{
-		$titolo="Inizia il Test";
-		$frase="ad iniziare ";
-		$inizio="Immagina di aver appena iniziato un nuovo videogioco e di trovarti a dover scegliere il tuo avatar personale.<br>
-		<br>Ti troverai davanti varie coppie di avatar; per ogni coppia scegli il tuo avatar preferito premendo la <b>freccia destra</b> (&#8594) o <b>sinistra</b> (&#8592) da tastiera per selezionare l'avatar corrispondente. <br><br>(<b>freccia destra = avatar a destra </b> & <b> freccia sinistra = avatar a sinistra</b>).<br><br><br>";
+		$titolo="Begin test";
+		$frase="to start ";
+		$inizio="Imagine that you have just started a new video game and find yourself having to choose your personal avatar.<br>
+		<br>You will be faced with various pairs of avatars; for each couple choose your favorite avatar by pressing the <b>right arrow</b> (&#8594) or <b>left</b> (&#8592) from the keyboard to select the corresponding avatar. <br><br>(<b>right arrow = right avatar </b> & <b> left arrow = left avatar</b>).<br><br><br>";
 	
 	}
 	else 
 	{
-		$titolo="Continua il Test";
-		$frase="a continuare ";
+		$titolo="Continue Test";
+		$frase="to continue";
 		$inizio="";
 	}
 echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
 echo "<h1>" .$titolo. "</h1><br>";
-echo $inizio. "Prenditi il tempo di cui hai bisogno e quando sei pronto ".$frase."clicca il tasto \"Start\" posto in basso.";
+echo $inizio. "Take the time you need and when you are ready".$frase."click the button \"Start\" placed at the bottom.";
 echo "<br><br><br>";
 ?>
 <form action="FillChoiceBuffer.php" method="POST">

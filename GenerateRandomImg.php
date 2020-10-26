@@ -1,7 +1,7 @@
 <html lang="it">
 <head>
     <title>
-        Esperimento
+        Experiment
     </title>
     <link rel="stylesheet" href="style.css">
 </head>

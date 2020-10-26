@@ -1,6 +1,6 @@
-<html lang="it">
+<html lang="en">
 <head>
-    <title>Esperimento - Scelta mix</title>
+    <title>Experiment - Choice mix</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initSubmit();">

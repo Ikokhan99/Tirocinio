@@ -1,7 +1,7 @@
-<html lang="it">
+<html lang="en">
 <head>
     <title>
-        Tabella riassuntiva mix
+		Summary mix table
     </title>
     <link rel="stylesheet" href="style.css">
 </head>

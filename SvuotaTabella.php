@@ -1,7 +1,7 @@
-<html lang="it">
+<html lang="en">
 <head>
     <title>
-        Eliminare tutti i dati?
+        Delete all data?
     </title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,12 +12,12 @@
 
 <table class="empty-table">
 <tr><td colspan=2>
-<div style="text-align: center;"><h2> Sei sicuro di voler eliminare Tutti i dati aggiunti alle tabelle di partenza?</h2><br><br>
+<div style="text-align: center;"><h2> Are you sure you want to delete All data added to the starting tables?</h2><br><br>
 <form action="SvuotaTabella.php" method="post">
 </td></tr><tr><td class="r">
 <button type="submit" name=no value="NO">NO</button>
 </td><td class="left">
-<button type="submit" name=si value="SI">SI</button>
+<button type="submit" name=si value="SI">sYES</button>
             </form>
 </td></tr>
 </table>
