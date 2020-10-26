@@ -34,7 +34,7 @@
 	<p class="right"><b>Age:</b></p>
 	</td><td class="q2">
         <label>
-            <input type="number" name="age" maxlength=2 required>
+            <input type="number" name="age" min="0" max="99">
         </label><br>
 	</td><td class="extra-small" ></td>
 	<td class="q1">
