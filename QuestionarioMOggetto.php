@@ -55,8 +55,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>2. Most men tend to approach a woman only when they want to have
-    sex with her. </td>
+    <td>2. Most men tend to approach a woman only when they want to have sex with her. </td>
         <td style="text-align: center">
             <input type="radio" name="approach" value="1" id = "one">
             <label for="one"> 
@@ -89,8 +88,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>3. Most men are interested in women’s feelings because they want to
-    be close to women.</td>
+    <td>3. Most men are interested in women’s feelings because they want to  be close to women.</td>
         <td style="text-align: center">
             <input type="radio" name="interested" value="1" id = "one">
             <label for="one"> 
@@ -123,8 +121,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>4. When a man flatters a woman, it is because he wants to have sex
-    with her. </td>
+    <td>4. When a man flatters a woman, it is because he wants to have sex with her. </td>
         <td style="text-align: center">
             <input type="radio" name="flatters" value="1" id = "one">
             <label for="one"> 
@@ -157,8 +154,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>5. A man is likely to be interested in a woman to the extent to which she
-    can satisfy his sexual appetite. </td>
+    <td>5. A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite. </td>
         <td style="text-align: center">
             <input type="radio" name="appetite" value="1" id = "one">
             <label for="one"> 
@@ -224,8 +220,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>7.Most relationships between a man and a woman are based on
-    closeness and affection. </td>
+    <td>7.Most relationships between a man and a woman are based on closeness and affection. </td>
         <td style="text-align: center">
             <input type="radio" name="relationships" value="1" id = "one">
             <label for="one"> 
@@ -258,8 +253,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>8. When his sexual desire weakens, a man will likely lose interest in a
-    woman. </td>
+    <td>8. When his sexual desire weakens, a man will likely lose interest in a woman. </td>
         <td style="text-align: center">
             <input type="radio" name="weakens" value="1" id = "one">
             <label for="one"> 
@@ -292,8 +286,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         </td>
     </tr>
     <tr>
-    <td>9. When it comes to sex, for most men a woman equals another as long
-    as she satisfies his sexual needs. </td>
+    <td>9. When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs. </td>
         <td style="text-align: center">
             <input type="radio" name="sex" value="1" id = "one">
             <label for="one"> 
