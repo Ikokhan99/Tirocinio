@@ -35,11 +35,12 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 CREATE TABLE IF NOT EXISTS `user` (
   `ID` INT AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
   `SEX` BIT(1) NOT NULL COMMENT '0=m, 1=f', -- biological sex
-  `AGE` INT(2) NOT NULL, -- between 6 and 99
+  `AGE` INT(2) NOT NULL, -- between 6 and 99, 0 for admin
   `SEXOR` INT(2) NOT NULL,  -- sexual orientation, at the moment: 0=dont't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other 	probably we're going to add more
   `PASSWORD` VARCHAR(200) NOT NULL,  -- hashed password
   `SALT` VARCHAR(20) NOT NULL, --salt for the hashed password
-  `startwith` enum('m','f') COLLATE utf8mb4_unicode_ci NOT NULL,  --??????
+  --`access_level` INT DEFAULT 0,  -- 0 user, 1 admin
+  --`startwith` enum('m','f') COLLATE utf8mb4_unicode_ci NOT NULL,  --??????
   PRIMARY KEY (`ID`)
 );
 
@@ -52,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `Q1` (
   `GAME2` VARCHAR(100) NOT NULL,  --Title of the second game
   `SEXISM1` INT NOT NULL,  --Should be between 1 and 5
   `SEXISM2` INT NOT NULL,  --Should be between 1 and 5
+  `COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done'  --whether this specific questionnaire was completed 
   `USER_ID` INT NOT NULL,  -- The id of the user of course		FOREIGN KEY	
   
   PRIMARY KEY (`ID`),
@@ -86,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `Q2` (
   `QUESTION20`INT NOT NULL COMMENT 'women fail appreciate',  	--Should be between 0 and 5   -   Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives.
   `QUESTION21`INT NOT NULL COMMENT 'man financial sacrifice',  	--Should be between 0 and 5   -   Feminists are making entirely reasonable demands of men.
   `QUESTION22`INT NOT NULL COMMENT 'women more culture',  		--Should be between 0 and 5   -   Women, as compared to men, tend to have a more refined sense of culture and good taste.
+  `COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done'  --whether this specific questionnaire was completed 
   `USER_ID` INT NOT NULL,  -- The id of the user of course		FOREIGN KEY	
   
   PRIMARY KEY (`ID`),
@@ -108,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `Q3` (
   `QUESTION8`INT NOT NULL COMMENT 'man loses interest',  		 --Should be between 1 and 5   -   When his sexual desire weakens, a man will likely lose interest in a woman.
   `QUESTION9`INT NOT NULL COMMENT 'women equals if sex',  		 --Should be between 1 and 5   -   When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs.
   `QUESTION10`INT NOT NULL COMMENT 'man full cons. women',  	 --Should be between 1 and 5   -   Most men have a full consideration of women as persons.
+  `COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done'  --whether this specific questionnaire was completed 
   `USER_ID` INT NOT NULL,  -- The id of the user of course		FOREIGN KEY	
   
   PRIMARY KEY (`ID`),
