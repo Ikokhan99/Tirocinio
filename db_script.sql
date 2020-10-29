@@ -15,10 +15,11 @@ USE `VaesDB`;
 CREATE TABLE IF NOT EXISTS `avatar` (
   `ID` INT NOT NULL,  -- PRIMARY KEY
   `CODE` CHAR(4) NOT NULL UNIQUE,  -- The avatar code, e.g. '01_f'
+  `SEX` BIT(1) NOT NULL COMMENT '0=m, 1=f', -- The sex of the avatar
   `POWER` BIT(1) NOT NULL COMMENT '0=not powerful, 1=powerful',  			-- Whether the avatar is muscular or not
   `EXPERIENCE` BIT(1) NOT NULL COMMENT '0=not experienced, 1=experienced',  -- Whether the avatar is experienced or not
   `SEXUAL` BIT(1) NOT NULL COMMENT '0=not sexualized, 1=sexualized',  		-- Whether the avatar is sexualized or not
-  `INTENTION` BIT(1) NOT NULL COMMENT '0=good, 1=bad'   --The intention of the avatar, 0=neutral, 1=good
+  `INTENTION` BIT(1) NOT NULL COMMENT '0=good, 1=bad'   --The intention of the avatar
   `pic` text  NOT NULL UNIQUE,  -- path of the image file
   
   PRIMARY KEY (`ID`),
