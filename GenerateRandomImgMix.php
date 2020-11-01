@@ -31,7 +31,7 @@
 	// Start 2017.11.01
 	if ($num_rows == 0)
 	{
-		header("Location:Questionario.php");
+		header("Location:Q1.php");
 	}
 	// Stop 2017.11.01
 	
