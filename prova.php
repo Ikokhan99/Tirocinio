@@ -152,7 +152,7 @@ else
 			
 			else if ($_SESSION['step'] == 3)
 			{
-				Header("Location:Questionario.php");
+				Header("Location:Q1.php");
 			}
 			
 			else if ($_SESSION['step'] == 4)

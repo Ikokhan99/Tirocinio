@@ -22,7 +22,7 @@
 		header("Location:GenerateRandomImgMix.php");
 	}
 	else {
-		header("Location:Questionario.php");
+		header("Location:Q1.php");
 	}
 	
 	
