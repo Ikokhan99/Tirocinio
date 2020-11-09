@@ -1,0 +1,20 @@
+pagina iniziale (start)
+con info
+
+avatar m o f
+
+mix(quelle che ha scelto prima)
+
+questionari
+	shuffle sia ordine che domande
+	ordine tutto random
+	Update questionario sui giochi(tipi) (tipo mmo, roguelike, arcade, retro, ecc,puzzle, music)
+	
+Domande di controllo (da metà in poi)
+ - The answer for this question is only four and no other number
+ - If I'm paying attention I must leave this answer empty
+ - domande contraddittorie, tipo "Sono una donna" -> "non sono una donna"
+
+
+Ultime cose(priorità infima)
+--parlare con Mattei per il login
