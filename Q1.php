@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-<form action="ultima.php" method="post">
+<form action="index.php" method="post">
 <table class="center">
 <tr><td>
 </div>

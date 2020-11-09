@@ -3,8 +3,7 @@
 --
 
 USE VaesDB;
-
---ID  SEX  POWER  EXPERIENCE  SEXUAL  INTENTION  pic
+-- ID  SEX  POWER  EXPERIENCE  SEXUAL  INTENTION  pic
 
 INSERT INTO `avatar` VALUES 
  (1,    1, 	0, 	 	0,   		1,		0, 		'01_f.jpg'),/* --f*/
@@ -40,7 +39,5 @@ INSERT INTO `avatar` VALUES
 ( 31	,0	,0		,0			,0		,0,		'15_m.jpg'),
 ( 32	,0	,0		,0			,0		,1,		'16_m.jpg');
 
---dummy user 1, password konodioda
-INSERT INTO `user` VALUES (0,'facocero22@gmail.com',0,18,0
-,'b38cdbbe0a2b36ec7617d6f95cefbb1071f5d464c86018f7d988f3e8ad0d4bd5dd717ed08c6b3493346225c48131613ff8c476e21fce13026549cf741c29498c12f7c8bce9d4037460e200ca37f3e1cac4ed6713c262ae5f74d41d3cd64f60bbd63c1856'
-,'ZA WARUDO',1,null,0)
+-- dummy user 1
+INSERT INTO `user` VALUES (0,0,18,0)

@@ -1,6 +1,6 @@
 <?php
 
-//TODO:test
+//TODO:test, update una volta avuta la struttura finale del questionario
 
 include_once "./config/InputCheckFoo.php";
 

@@ -18,3 +18,6 @@ Domande di controllo (da metà in poi)
 
 Ultime cose(priorità infima)
 --parlare con Mattei per il login
+--pensare ad ulteriori variabili da analizzare (oltre al sessismo, 
+quindi ad esempio forza ecc, andando a vertere sugli stereotipi di genere), 
+così da rendere il progetto più divisibile per la tesi

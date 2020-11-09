@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-<form action="ultima.php" method="post">
+<form action="" method="post">
 <p style= "font-weight: 1000;">
 Here are some statements about the relationship between men and women in society. Please indicate your
 agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.

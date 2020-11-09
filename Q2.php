@@ -1,3 +1,44 @@
+<?php
+// core configuration
+include_once "config/core.php";
+
+include_once 'config/database.php';
+include_once 'objects/user.php';
+
+// page title
+$page_title = "Survey - part 4";
+include_once "layout_head.php";
+
+//TODO
+if (isset($_POST['action']) && $_POST['action'] == 'next') {
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $user = new User($db);
+
+    $user->accomplished = $_POST['Register_sex'];
+    $user->age = $_POST['Register_age'];
+    $user->sexor = $_POST['Register_sexor'];
+
+    $db->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
+    $db->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
+    // create the user and start transaction
+    if($db->beginTransaction())
+    {
+        $db->exec('SAVEPOINT begin;'); //serve in caso di fallimnento di domande di controllo
+        if($user->create())
+        {
+            $db->exec('SAVEPOINT uinfo;');
+            $_POST=array();
+        }
+        //echo "<script> location.replace(\".php?action=success\"); </script>"; //replace ad Avatar TODO: settare
+    } else {
+        echo "<div class='alert alert-danger' role='alert'>Something went wrong.</div>";
+    }
+}
+?>
+
+
 <html lang="en">
 <head>
     <title>
@@ -7,7 +48,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-<form action="ultima.php" method="post">
+<form action="" method="post">
 <p style= "font-weight: 1000;">
 Below is a series of statements concerning men and women and their
 relationships in contemporary society. Please indicate the degree to
@@ -20,7 +61,7 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
         <td> </td>
         <td style= "font-weight: 1000;">disagree strongly</td>
         <td style= "font-weight: 1000;">disagree somewhat</td>
-        <td style= "font-weight: 1000;">disagree slightlyy</td>
+        <td style= "font-weight: 1000;">disagree slightly</td>
         <td style= "font-weight: 1000;">agree slightly</td>>
         <td style= "font-weight: 1000;">agree somewhat</td>
         <td style= "font-weight: 1000;">agree strongly</td>
@@ -28,37 +69,37 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
     <tr>
     <td>1. No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>
         <td style="text-align: center">
-            <input type="radio" name="accomplishedbe" value="0" id = "zero">
+            <input type="radio" name="accomplished" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="accomplishedbe" value="1" id = "one">
+            <input type="radio" name="accomplished" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="accomplishedbe" value="2" id = "two">
+        <input type="radio" name="accomplished" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="accomplishedbe" value="3" id = "three">
+        <input type="radio" name="accomplished" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="accomplishedbe" value="4" id = "four">
+        <input type="radio" name="accomplished" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="accomplishedbe" value="5" id = "five">
+        <input type="radio" name="accomplished" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -67,37 +108,37 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
     <tr>
     <td>2. Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
         <td style="text-align: center">
-            <input type="radio" name="special favors" value="0" id = "zero">
+            <input type="radio" name="special_favors" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="special favors" value="1" id = "one">
+            <input type="radio" name="special_favors" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="special favors" value="2" id = "two">
+        <input type="radio" name="special_favors" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="special favors" value="3" id = "three">
+        <input type="radio" name="special_favors" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="special favors" value="4" id = "four">
+        <input type="radio" name="special_favors" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="special favors" value="5" id = "five">
+        <input type="radio" name="special_favors" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -223,37 +264,37 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
     <tr>
         <td>6. People are often truly happy in life without being romantically involved with a member of the other sex.</td>
         <td style="text-align: center">
-            <input type="radio" name="romantically involved" value="0" id = "zero">
+            <input type="radio" name="romantically_involved" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="romantically involved" value="1" id = "one">
+            <input type="radio" name="romantically_involved" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="romantically involved" value="2" id = "two">
+        <input type="radio" name="romantically_involved" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="romantically involved" value="3" id = "three">
+        <input type="radio" name="romantically_involved" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="romantically involved" value="4" id = "four">
+        <input type="radio" name="romantically_involved" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="romantically involved" value="5" id = "five">
+        <input type="radio" name="romantically_involved" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -691,37 +732,37 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
     <tr>
         <td>18. There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. </td>
         <td style="text-align: center">
-            <input type="radio" name="teasing men" value="0" id = "zero">
+            <input type="radio" name="teasing_men" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="teasing men" value="1" id = "one">
+            <input type="radio" name="teasing_men" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="teasing men" value="2" id = "two">
+        <input type="radio" name="teasing_men" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="teasing men" value="3" id = "three">
+        <input type="radio" name="teasing_men" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="teasing men" value="4" id = "four">
+        <input type="radio" name="teasing_men" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="teasing men" value="5" id = "five">
+        <input type="radio" name="teasing_men" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -847,37 +888,37 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
     <tr>
         <td>22. Women, as compared to men, tend to have a more refined sense of culture and good taste.</td>
         <td style="text-align: center">
-            <input type="radio" name="good taste" value="0" id = "zero">
+            <input type="radio" name="good_taste" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="good taste" value="1" id = "one">
+            <input type="radio" name="good_taste" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="good taste" value="2" id = "two">
+        <input type="radio" name="good_taste" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="good taste" value="3" id = "three">
+        <input type="radio" name="good_taste" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="good taste" value="4" id = "four">
+        <input type="radio" name="good_taste" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="good taste" value="5" id = "five">
+        <input type="radio" name="good_taste" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -886,7 +927,7 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
 </table>
 <p></p>
 <p></p>
-    <input type="submit" name="end" Value="Confirm">
+    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Next">
 </div>
 <style>
 table {

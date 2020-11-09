@@ -40,7 +40,7 @@
 		{
 			if ($reverseID == 0)
 			{
-				header("Location:SceltaAvatarM.php");
+				//header("Location:SceltaAvatar.php");
 			}
 			else
 			{
