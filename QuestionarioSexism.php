@@ -8,13 +8,13 @@
 <body>
 <div style="text-align: center;">
 <form action="ultima.php" method="post">
-<p style= "font-weight: 1000;">
+<div style= "font-weight: 1000;">
 Below is a series of statements concerning men and women and their
 relationships in contemporary society. Please indicate the degree to
 which you agree or disagree with each statement using the following
 scale: 0 = disagree strongly; 1 = disagree somewhat; 2 = disagree
 slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
-</p>
+</div>
 <table class="center">
     <tr>
         <td> </td>
