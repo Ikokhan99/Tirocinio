@@ -8,6 +8,11 @@ date_default_timezone_set('Europe/Rome');
 // home page url
 //TODO: da modificare
 $home_url="http://localhost/tirocinio/";
-$debug = true;
-$fast_debug = true;
+
+//constants
+const IMG_EXT = '.jpg';
+const TOTAL_PERMUTATIONS = 240; //nPr = n! / (n - r)!, where n=16 and r = 2
+const debug = true; //outputs the various thing that you as a debugger would like to see
+const fast_debug = true; //fast debug skips all db interactions, set it at true if you want to see just the structure
+const n_experiment = 3; //number of experiment cases, in our case we have  male, female and mix
 

@@ -33,6 +33,7 @@ class User
 		// var_dump($q);
 		$this->conn->query($q);
 		$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
+        $_SESSION['uid'] = $this->conn->lastInsertId();
 	 
 		return true;
  

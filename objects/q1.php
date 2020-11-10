@@ -36,13 +36,10 @@ class Q1
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        if($flag_create)
-        {
-            $q = "INSERT INTO Q1 VALUES(:playtime,:game1,:game2,:sexism1,:sexism2,:completed,:userID);";
-        }
-        else{
-            $q = "UPDATE Q1 SET playtime=:playtime,game1=:game1,game2=:game2,sexism1=:sexism1,completed=:completed WHERE user_id = :userID";
-        }
+
+        $q = "INSERT INTO Q1 VALUES(:playtime,:game1,:game2,:sexism1,:sexism2,:completed,:userID);";
+
+
 
         $stmt = $this->conn->prepare($q);
 
