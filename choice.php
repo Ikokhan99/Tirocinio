@@ -118,12 +118,19 @@ echo    "</button>
 
 <style>
     /* todo: il mouse si vede*/
-    body{
+    
+    button {
         cursor: none;
     }
-</style>
-<script type="text/javascript">
 
+    img {
+  max-width: 76%;
+  max-height: 76%;
+    }
+
+</style>
+<script type="text/javascript" >
+    document.body.style.cursor = 'none';
     const tempo1 = Math.round(+new Date() / 1000);
 
     setTimeout( "document.forms[0].elements['chosenL'].style.visibility = 'visible'", 600 );
@@ -172,6 +179,7 @@ echo    "</button>
     }
 
 window.setTimeout("click()", 1000);
+
 </script>
 
 <?php
