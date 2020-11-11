@@ -55,8 +55,9 @@ if(isset($_SESSION['at']))
                 print_r($mix_av);
             }
             //permutazioni?
-            $result = iterator_to_array(permutations($mix_av, 2));
-            shuffle($result);
+            $_SESSION['p_mix'] = array();
+            exec_combine(2,range(1,16),3);
+            shuffle($_SESSION['p_male']);
             if(debug)
             {
                 print_r($result);
@@ -78,11 +79,15 @@ if(isset($_SESSION['at']))
    </pre>";
         }
     }
-echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
-echo "<h1>" .$title. "</h1><br>";
-echo $text. "Take the time you need and when you are ready".$f."click the button \"Start\" placed at the bottom.";
-echo "<br><br><br>";
-echo "<a href='choice.php' class='btn btn-primary'>Start</a>";
+    echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
+    echo "<h1>" .$title. "</h1><br>";
+    echo $text. "Take the time you need and when you are ready ".$f." click the button \"Start\" placed at the bottom.";
+    echo "<br><br><br>";
+    echo "<a href='choice.php' class='btn btn-primary'>Start</a>";
+
+    if(debug){
+        print_r($_SESSION["at"]);
+    }
 
 
 } else {

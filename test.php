@@ -1,6 +1,8 @@
 <?php
 include_once 'config/permutations.php';
 
-$result = iterator_to_array(permutations(range(1,16), 2));
-shuffle($result);
-print_r($result);
+$_SESSION['p_male'] = array();
+exec_combine(2,range(1,16),1);
+
+print_r($_SESSION['p_male']);
+

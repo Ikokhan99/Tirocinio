@@ -20,50 +20,51 @@ $q_order = range(1,4);
 shuffle($q_order);
 $_SESSION['Q'] = $q_order;
 //male order
-$result = iterator_to_array(permutations(range(1,16), 2));
-shuffle($result);
-$_SESSION['p_male'] = $result;
+$_SESSION['p_male'] = array();
+exec_combine(2,range(1,16),1);
+shuffle($_SESSION['p_male']);
 //female order
-shuffle($result);
-$_SESSION['p_female'] = $result;
-//the mix order will be made only from chosen avatars, so it will be in SceltaAvatar.php
+$_SESSION['p_female'] = array();
+exec_combine(2,range(1,16),2);
+shuffle($_SESSION['p_female']);
+//the mix order will be made only from chosen avatar, so it will be in SceltaAvatar.php
 //now, time for the avatar's img
 
 
 if(fast_debug)
 {
-    $m_img = array(   "avatars/01_m".IMG_EXT,
-        "avatars/02_m".IMG_EXT,
-        "avatars/03_m".IMG_EXT,
-        "avatars/04_m".IMG_EXT,
-        "avatars/05_m".IMG_EXT,
-        "avatars/06_m".IMG_EXT,
-        "avatars/07_m".IMG_EXT,
-        "avatars/08_m".IMG_EXT,
-        "avatars/09_m".IMG_EXT,
-        "avatars/010_m".IMG_EXT,
-        "avatars/011_m".IMG_EXT,
-        "avatars/012_m".IMG_EXT,
-        "avatars/013_m".IMG_EXT,
-        "avatars/014_m".IMG_EXT,
-        "avatars/015_m".IMG_EXT,
-        "avatars/016_m".IMG_EXT);
-    $f_img = array(   "avatars/01_f".IMG_EXT,
-    "avatars/02_f".IMG_EXT,
-    "avatars/03_f".IMG_EXT,
-    "avatars/04_f".IMG_EXT,
-    "avatars/05_f".IMG_EXT,
-    "avatars/06_f".IMG_EXT,
-    "avatars/07_f".IMG_EXT,
-    "avatars/08_f".IMG_EXT,
-    "avatars/09_f".IMG_EXT,
-    "avatars/010_f".IMG_EXT,
-    "avatars/011_f".IMG_EXT,
-    "avatars/012_f".IMG_EXT,
-    "avatars/013_f".IMG_EXT,
-    "avatars/014_f".IMG_EXT,
-    "avatars/015_f".IMG_EXT,
-    "avatars/016_f".IMG_EXT);
+    $m_img = array(   "avatar/01_m".IMG_EXT,
+        "avatar/02_m".IMG_EXT,
+        "avatar/03_m".IMG_EXT,
+        "avatar/04_m".IMG_EXT,
+        "avatar/05_m".IMG_EXT,
+        "avatar/06_m".IMG_EXT,
+        "avatar/07_m".IMG_EXT,
+        "avatar/08_m".IMG_EXT,
+        "avatar/09_m".IMG_EXT,
+        "avatar/10_m".IMG_EXT,
+        "avatar/11_m".IMG_EXT,
+        "avatar/12_m".IMG_EXT,
+        "avatar/13_m".IMG_EXT,
+        "avatar/14_m".IMG_EXT,
+        "avatar/15_m".IMG_EXT,
+        "avatar/16_m".IMG_EXT);
+    $f_img = array(   "avatar/01_f".IMG_EXT,
+    "avatar/02_f".IMG_EXT,
+    "avatar/03_f".IMG_EXT,
+    "avatar/04_f".IMG_EXT,
+    "avatar/05_f".IMG_EXT,
+    "avatar/06_f".IMG_EXT,
+    "avatar/07_f".IMG_EXT,
+    "avatar/08_f".IMG_EXT,
+    "avatar/09_f".IMG_EXT,
+    "avatar/10_f".IMG_EXT,
+    "avatar/11_f".IMG_EXT,
+    "avatar/12_f".IMG_EXT,
+    "avatar/13_f".IMG_EXT,
+    "avatar/14_f".IMG_EXT,
+    "avatar/15_f".IMG_EXT,
+    "avatar/16_f".IMG_EXT);
 } else {
     include_once 'config/database.php';
     $database = new Database();
@@ -87,6 +88,7 @@ if(fast_debug)
     for($i = 0; $f_img[$i] = mysqli_fetch_assoc($result); $i++) ;
     // Delete last empty one
     array_pop($array);
+    //TODO:add extension
     if(debug)
     {
         echo "<p>Imagini avatar maschili  </p>";
@@ -107,6 +109,14 @@ if(debug){
     print_r($_SESSION['Q']);
     echo "<p>Ordine esperimento:  </p>";
     print_r($_SESSION['exp']);
+    echo "<p>Ordine male:  </p>";
+    print_r($_SESSION['i_male']);
+    echo "<p>Ordine female:  </p>";
+    print_r($_SESSION['i_female']);
+    echo "<p>Perm male:  </p>";
+    print_r($_SESSION['p_male']);
+    echo "<p>Perm female:  </p>";
+    print_r($_SESSION['p_female']);
 }
 
 
