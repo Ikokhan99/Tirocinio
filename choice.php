@@ -3,14 +3,29 @@ include_once "config/core.php";
 $action = '';
 $page_title="Experiment";
 
+
 if(skip_experiment)
 {
-    header("Location: ".home_url."Q1.php");
+    header("Location: ".home_url."Q.php");
 }
 if(fast_debug && $_SESSION['at']==2)
 {
-    header("Location: ".home_url."Q1.php");
+    header("Location: ".home_url."Q.php");
 }
+
+//this checks if the user has refreshed the page during the experiment  TODO:wip
+if($_SESSION['permutation']>0)
+{
+    if($_SESSION['last_chosen'] === $_POST['id'] )
+    {
+        header("Location: ".home_url."user_error.php?error=refresh");
+    } else {
+        $_SESSION['last_chosen'] = $_POST['id'];
+    }
+} else {
+    $_SESSION['last_chosen']=0;
+}
+
 
 //insert previous choice in db                                120 rn
 if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
@@ -52,7 +67,7 @@ if ($_SESSION['permutation'] >= TOTAL_PERMUTATIONS){
 //                          3
 if($_SESSION['at'] == n_experiment)
 {
-    header("Location: ".home_url."Q1.php");
+    header("Location: ".home_url."Q.php");
 }
 
 include_once 'layout_head.php';

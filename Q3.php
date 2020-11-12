@@ -1,7 +1,48 @@
+<?php
+// core configuration
+include_once "config/core.php";
+
+include_once 'config/database.php';
+include_once 'objects/user.php';
+
+// page title
+$page_title = "Survey - part 4";
+include_once "layout_head.php";
+
+//TODO
+if (isset($_POST['action']) && $_POST['action'] == 'next') {
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $user = new User($db);
+
+    $user->accomplished = $_POST['Register_sex'];
+    $user->age = $_POST['Register_age'];
+    $user->sexor = $_POST['Register_sexor'];
+
+    $db->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
+    $db->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
+    // create the user and start transaction
+    if($db->beginTransaction())
+    {
+        $db->exec('SAVEPOINT begin;'); //serve in caso di fallimnento di domande di controllo
+        if($user->create())
+        {
+            $db->exec('SAVEPOINT uinfo;');
+            $_POST=array();
+        }
+        //echo "<script> location.replace(\".php?action=success\"); </script>"; //replace ad Avatar TODO: settare
+    } else {
+        echo "<div class='alert alert-danger' role='alert'>Something went wrong.</div>";
+    }
+}
+?>
+
+
 <html lang="en">
 <head>
     <title>
-        Questionnaire 3
+        Questionnaire 2
     </title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -9,350 +50,884 @@
 <div style="text-align: center;">
 <form action="" method="post">
 <p style= "font-weight: 1000;">
-Here are some statements about the relationship between men and women in society. Please indicate your
-agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
- </p>
+Below is a series of statements concerning men and women and their
+relationships in contemporary society. Please indicate the degree to
+which you agree or disagree with each statement using the following
+scale: 0 = disagree strongly; 1 = disagree somewhat; 2 = disagree
+slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
+</p>
 <table class="center">
     <tr>
         <td> </td>
         <td style= "font-weight: 1000;">disagree strongly</td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
+        <td style= "font-weight: 1000;">disagree somewhat</td>
+        <td style= "font-weight: 1000;">disagree slightly</td>
+        <td style= "font-weight: 1000;">agree slightly</td>>
+        <td style= "font-weight: 1000;">agree somewhat</td>
         <td style= "font-weight: 1000;">agree strongly</td>
     </tr>
     <tr>
-    <td>1. When approaching a woman, most men think more about what that
-    women can do to please him than what he can do to please her. </td>
+    <td>1. No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>
         <td style="text-align: center">
-            <input type="radio" name="please" value="1" id = "one">
+            <input type="radio" name="accomplished" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="accomplished" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="please" value="2" id = "two">
+        <input type="radio" name="accomplished" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="please" value="3" id = "three">
+        <input type="radio" name="accomplished" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
-        <td style="text-align: center">  <input type="radio" name="please" value="4" id = "four">
+        <td style="text-align: center">  
+        <input type="radio" name="accomplished" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="please" value="5" id = "five">
+        <input type="radio" name="accomplished" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>2. Most men tend to approach a woman only when they want to have sex with her. </td>
+    <td>2. Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
         <td style="text-align: center">
-            <input type="radio" name="approach" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="special_favors" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="special_favors" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="approach" value="2" id = "two">
+        <input type="radio" name="special_favors" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="approach" value="3" id = "three">
+        <input type="radio" name="special_favors" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
-        <td style="text-align: center">  
-            <input type="radio" name="approach" value="4" id = "four">
+        <td style="text-align: center"> 
+        <input type="radio" name="special_favors" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="approach" value="5" id = "five">
+        <input type="radio" name="special_favors" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>3. Most men are interested in women’s feelings because they want to  be close to women.</td>
+    <td>3. In a disaster, women ought not necessarily to be rescued before men. </td>
         <td style="text-align: center">
-            <input type="radio" name="interested" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="disaster" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="disaster" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="interested" value="2" id = "two">
+        <input type="radio" name="disaster" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="interested" value="3" id = "three">
+        <input type="radio" name="disaster" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="interested" value="4" id = "four">
+        <input type="radio" name="disaster" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="interested" value="5" id = "five">
+        <input type="radio" name="disaster" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>4. When a man flatters a woman, it is because he wants to have sex with her. </td>
+    <td>4. Most women interpret innocent remarks or acts as being sexist. </td>
         <td style="text-align: center">
-            <input type="radio" name="flatters" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="innocent" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="innocent" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="flatters" value="2" id = "two">
+        <input type="radio" name="innocent" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="flatters" value="3" id = "three">
+        <input type="radio" name="innocent" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="flatters" value="4" id = "four">
+        <input type="radio" name="innocent" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="flatters" value="5" id = "five">
+        <input type="radio" name="innocent" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>5. A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite. </td>
+        <td>5. Women are too easily offended. </td>
         <td style="text-align: center">
-            <input type="radio" name="appetite" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="offended" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="offended" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="appetite" value="2" id = "two">
+        <input type="radio" name="offended" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="appetite" value="3" id = "three">
+        <input type="radio" name="offended" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="appetite" value="4" id = "four">
+        <input type="radio" name="offended" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="appetite" value="5" id = "five">
+        <input type="radio" name="offended" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>6. Most men consider women sexual objects. </td>
+        <td>6. People are often truly happy in life without being romantically involved with a member of the other sex.</td>
         <td style="text-align: center">
-            <input type="radio" name="objects" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="romantically_involved" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="romantically_involved" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="objects" value="2" id = "two">
+        <input type="radio" name="romantically_involved" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="objects" value="3" id = "three">
+        <input type="radio" name="romantically_involved" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="objects" value="4" id = "four">
+        <input type="radio" name="romantically_involved" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="objects" value="5" id = "five">
+        <input type="radio" name="romantically_involved" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>7.Most relationships between a man and a woman are based on closeness and affection. </td>
+        <td>7. Feminists are not seeking for women to have more power than men.</td>
         <td style="text-align: center">
-            <input type="radio" name="relationships" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="power" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="power" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="relationships" value="2" id = "two">
+        <input type="radio" name="power" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="relationships" value="3" id = "three">
+        <input type="radio" name="power" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="relationships" value="4" id = "four">
+        <input type="radio" name="power" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="relationships" value="5" id = "five">
+        <input type="radio" name="power" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>8. When his sexual desire weakens, a man will likely lose interest in a woman. </td>
+        <td>8. Many women have a quality of purity that few men possess.</td>
         <td style="text-align: center">
-            <input type="radio" name="weakens" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="purity" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="purity" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="weakens" value="2" id = "two">
+        <input type="radio" name="purity" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="weakens" value="3" id = "three">
+        <input type="radio" name="purity" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="weakens" value="4" id = "four">
+        <input type="radio" name="purity" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="weakens" value="5" id = "five">
+        <input type="radio" name="purity" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>9. When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs. </td>
+        <td>9. Women should be cherished and protected by men.</td>
         <td style="text-align: center">
-            <input type="radio" name="sex" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="cherished" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="cherished" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="sex" value="2" id = "two">
+        <input type="radio" name="cherished" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="sex" value="3" id = "three">
+        <input type="radio" name="cherished" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="sex" value="4" id = "four">
+        <input type="radio" name="cherished" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="sex" value="5" id = "five">
+        <input type="radio" name="cherished" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
     <tr>
-    <td>10. Most men have a full consideration of women as persons. </td>
+        <td>10. Most women fail to appreciate fully all that men do for them.</td>
         <td style="text-align: center">
-            <input type="radio" name="consideration" value="1" id = "one">
-            <label for="one"> 
+            <input type="radio" name="appreciate" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="appreciate" value="1" id = "one">
+            <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="consideration" value="2" id = "two">
+        <input type="radio" name="appreciate" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="consideration" value="3" id = "three">
+        <input type="radio" name="appreciate" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="consideration" value="4" id = "four">
+        <input type="radio" name="appreciate" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="consideration" value="5" id = "five">
+        <input type="radio" name="appreciate" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
         </td>
     </tr>
-    
+    <tr>
+        <td>11. Women seek to gain power by getting control over men.</td>
+        <td style="text-align: center">
+            <input type="radio" name="seek" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="seek" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="seek" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="seek" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="seek" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="seek" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>12. Every man ought to have a woman whom he adores.</td>
+        <td style="text-align: center">
+            <input type="radio" name="adores" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="adores" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="adores" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="adores" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="adores" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="adores" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>13. Men are complete without women.</td>
+        <td style="text-align: center">
+            <input type="radio" name="complete" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="complete" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="complete" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="complete" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="complete" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="complete" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>14. Women exaggerate problems they have at work.</td>
+        <td style="text-align: center">
+            <input type="radio" name="exaggerate" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="exaggerate" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="exaggerate" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="exaggerate" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="exaggerate" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="exaggerate" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>15. Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.</td>
+        <td style="text-align: center">
+            <input type="radio" name="leash" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="leash" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="leash" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="leash" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="leash" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="leash" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>16. When women lose to men in a fair competition, they typically complain about being discriminated against.</td>
+        <td style="text-align: center">
+            <input type="radio" name="discriminated" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="discriminated" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="discriminated" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="discriminated" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="discriminated" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="discriminated" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>17. A good woman should be set on a pedestal by her man</td>
+        <td style="text-align: center">
+            <input type="radio" name="pedestal" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="pedestal" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="pedestal" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="pedestal" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="pedestal" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="pedestal" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>18. There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. </td>
+        <td style="text-align: center">
+            <input type="radio" name="teasing_men" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="teasing_men" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="teasing_men" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="teasing_men" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="teasing_men" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="teasing_men" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>19. Women, compared to men, tend to have a superior moral sensibility. </td>
+        <td style="text-align: center">
+            <input type="radio" name="sensibility" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="sensibility" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="sensibility" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="sensibility" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="sensibility" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="sensibility" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>20. Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives. </td>
+        <td style="text-align: center">
+            <input type="radio" name="financially" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="financially" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="financially" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="financially" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="financially" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="financially" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>21. Feminists are making entirely reasonable demands of men.</td>
+        <td style="text-align: center">
+            <input type="radio" name="demands" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="demands" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="demands" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="demands" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="demands" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="demands" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
+    <tr>
+        <td>22. Women, as compared to men, tend to have a more refined sense of culture and good taste.</td>
+        <td style="text-align: center">
+            <input type="radio" name="good_taste" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="good_taste" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="good_taste" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="good_taste" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="good_taste" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="good_taste" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>
 </table>
+<p></p>
+<p></p>
+    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Next">
 </div>
 <style>
 table {

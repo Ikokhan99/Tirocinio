@@ -1,10 +1,8 @@
 pagina iniziale (start)
-con info
-
+info
 avatar m o f
-
+avatar m o f
 mix(quelle che ha scelto prima)
-
 questionari
 	shuffle sia ordine che domande
 	ordine tutto random

@@ -20,5 +20,18 @@
 
     <!-- user custom CSS -->
   <link href="<?php echo $home_url . "style.css" ?>" rel="stylesheet" />
+    <?php
+
+    //TODO
+    // if(!debug && !fast_debug)
+    {
+        echo "<script>
+    if (String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"back_forward\" || String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"reload\") {
+        location.replace('user_error.php');
+    }
+</script>";
+    }
+    ?>
 </head>
+
 <body>

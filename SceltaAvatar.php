@@ -88,6 +88,11 @@ if(isset($_SESSION['at']))
     if(debug){
         print_r($_SESSION["at"]);
     }
+    if(skip_experiment){
+        echo "<pre>
+    Warning: skipping experiment!
+   </pre>";
+    }
 
 
 } else {

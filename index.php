@@ -73,17 +73,20 @@ if(fast_debug)
     $m_img = array();
     $f_img = array();
 
+    $default=0;
+
     //male
     $q = "SELECT pic from avatar where sex=:sex";
     $stmt = $db->prepare($q);
     //male
-    $stmt->bindParam(':sex', 0);
+    $stmt->bindParam(':sex', $default);
     $result = $stmt->execute();
     for($i = 0; $m_img[$i] = mysqli_fetch_assoc($result); $i++) ;
     // Delete last empty one
     array_pop($array);
     //female
-    $stmt->bindParam(':sex', 1);
+    $default=1;
+    $stmt->bindParam(':sex', $default);
     $result = $stmt->execute();
     for($i = 0; $f_img[$i] = mysqli_fetch_assoc($result); $i++) ;
     // Delete last empty one

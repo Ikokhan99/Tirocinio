@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 --TODO: da completare
 -- first questionnaire, the one with the two games
-CREATE TABLE IF NOT EXISTS `Q1` (
+CREATE TABLE IF NOT EXISTS `Q2` (
   `ID` INT  AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
   `PLAYTIME` INT(5) NOT NULL COMMENT '0=never, ...', --  0=Never, 1=Less than 1 hour, 2=Between 1 and 2 hours, 3=Between 2 and 4 hours, 4=More than 4 hours
   `GAME1` VARCHAR(100) NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `Q1` (
 
 
 -- TODO: aggiungere domande di controllo
-CREATE TABLE IF NOT EXISTS `Q2` (
+CREATE TABLE IF NOT EXISTS `Q3` (
   `ID` INT  AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
   `CONTROL_QUESTION` INT NOT NULL DEFAULT 4,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man not complete',  			/*---Should be between 0 and 5   -   No matter how accomplishable is, a man is not truly complete as a person unless he has the love of a woman.*/
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `Q2` (
 		ON UPDATE CASCADE
 ) ENGINE = 'InnoDB';
 
-CREATE TABLE IF NOT EXISTS `Q3` (
+CREATE TABLE IF NOT EXISTS `Q4` (
   `ID` INT  AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
   `CONTROL_QUESTION` INT DEFAULT 0,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man approach please himself', /*---Should be between 1 and 5   -   When approaching a woman, most men think more about what that women can do to please him than what he can do to please her*/
