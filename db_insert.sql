@@ -40,4 +40,4 @@ INSERT INTO `avatar` VALUES
 ( 32	,0	,0		,0			,0		,1,		'16_m');
 
 -- dummy user 1
-INSERT INTO `user` VALUES (0,0,18,0)
+INSERT INTO `user` VALUES (0,0,18,0,0,0);

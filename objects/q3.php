@@ -2,7 +2,7 @@
 
 //TODO:test, update una volta avuta la struttura finale del questionario
 
-include_once "./config/InputCheckFoo.php";
+include_once "./config/Foes.php";
 
 class Q3 extends Q
 {
@@ -10,6 +10,7 @@ class Q3 extends Q
     // costruttore
     public function __construct($db,$user_id)
 	{
+	    $this->control_questions = array(3,3); //more than 10 items, so two control questions
         $this->conn = $db;
         $this->questions = array(3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3); //3 is the default value, the questionnaire has 22 items
         $this->user_id = $user_id;
@@ -21,7 +22,8 @@ class Q3 extends Q
 		// var_dump($this);
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		$q = "INSERT INTO Q1 VALUES($this->questions[0],
+		$q = "INSERT INTO Q1 VALUES($this->control_questions[0],$this->control_questions[1],
+                      $this->questions[0],
                       $this->questions[1],
                       $this->questions[2],
                       $this->questions[3],
@@ -42,12 +44,12 @@ class Q3 extends Q
                       $this->questions[18],
                       $this->questions[19],
                       $this->questions[20],
-                      $this->questions[21]";
+                      $this->questions[21],
+                      $this->q_order,
+                      $this->user_id";
 
 		// var_dump($q);
 		$stmt = $this->conn->prepare($q);
-
-		$stmt->bindParam(':uid', $this->user_id);
 
         if($stmt->execute())
         {
@@ -60,20 +62,4 @@ class Q3 extends Q
         }
 
     }
-	
-	function get($id)
-	{
-		$query = "SELECT * FROM Q2 WHERE user_id = ?";
-		$stmt = $this->conn->prepare( $query );
-		$stmt->bindParam(1, $id, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt;
-	}
-
-	public function showError($stmt)
-	{
-		echo "<pre>";
-        print_r($stmt->errorInfo());
-		echo "</pre>";
-	}
 }

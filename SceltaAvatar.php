@@ -21,13 +21,10 @@ if(isset($_SESSION['at']))
 
         if(!fast_debug)
         {
-            include_once 'config/database.php';
+           
             include_once 'objects/user.php';
 
-            $database = new Database();
-            $db = $database->getConnection();
-
-            $user = new User($db);
+            $user = new User($_SESSION['db']);
             $user->create();
         }
 
@@ -36,15 +33,12 @@ if(isset($_SESSION['at']))
     } elseif ($_SESSION['at'] == 2){
         if(!fast_debug) {
             //getting chosen avatars
-            include_once 'config/database.php';
-            $database = new Database();
-            $db = $database->getConnection();
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
             $mix_av = array();
 
 
             $q = "SELECT DISTINCT a.id AS id,a.pic AS pic,a.sex AS sex from avatar AS a INNER JOIN choice AS c ON (a.id = c.chosen)where c.user_id=:id";
-            $stmt = $db->prepare($q);
+            $stmt = $_SESSION['db']->prepare($q);
             $stmt->bindParam(':id', $_SESSION['uid']);
             $result = $stmt->execute();
             for ($i = 0; $mix_av[$i] = mysqli_fetch_assoc($result); $i++) ;

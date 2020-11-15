@@ -1,6 +1,6 @@
 <?php
 // 'user' object
-include_once "./config/InputCheckFoo.php";
+include_once "./config/Foes.php";
 //include_once "./config/pbkdf2.php";
 class User
 {
@@ -14,6 +14,9 @@ class User
 	public int $sexor;
 	public int $age;
 	public int $trusted;  //bool
+    public int $q_order; //bool
+
+    private $stmt;
 
 	//constructor
     public function __construct($db)
@@ -29,19 +32,19 @@ class User
 	{
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		$q = "INSERT INTO user VALUES(null,$this->sex,$this->age,$this->sexor,$this->trusted);";
+		$q = "INSERT INTO user VALUES(null,$this->sex,$this->age,$this->sexor,$this->trusted,$this->q_order);";
 		// var_dump($q);
-		$this->conn->query($q);
+		$this->stmt = $this->conn->query($q);
 		$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
         $_SESSION['uid'] = $this->conn->lastInsertId();
 	 
 		return true;
  
 	}
-	public function showError($stmt)
+	public function showError()
 	{
 		echo "<pre>";
-        print_r($stmt->errorInfo());
+        print_r($this->stmt->errorInfo());
 		echo "</pre>";
 	}
 

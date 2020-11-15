@@ -33,9 +33,10 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 CREATE TABLE IF NOT EXISTS `user` (
     `ID` INT AUTO_INCREMENT NOT NULL,  /*--- PRIMARY KEY  we'll probably convert it into a string-*/
     `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- biological sex
-    `AGE` INT(2) NOT NULL DEFAULT 0, -- between 6 and 99, 0 for admin
+    `AGE` INT(2) NOT NULL DEFAULT 0, /* age range  TODO:not yet set in stone*/
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  -- sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other 	probably we're going to add more
     `TRUSTED` BIT(1) NOT NULL DEFAULT 0 COMMENT '1 = trusted', /*Check whether the user is trusted or not. for example,it's not trusted if it has failed a control question, contradicted himself or the survey site flags it lower than good*/
+    `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questionnaire*/
 
   PRIMARY KEY (`ID`)
 ) ENGINE = 'InnoDB';
@@ -44,17 +45,15 @@ CREATE TABLE IF NOT EXISTS `user` (
 --TODO: da completare
 -- first questionnaire, the one with the two games
 CREATE TABLE IF NOT EXISTS `Q2` (
-  `ID` INT  AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
   `PLAYTIME` INT(5) NOT NULL COMMENT '0=never, ...', --  0=Never, 1=Less than 1 hour, 2=Between 1 and 2 hours, 3=Between 2 and 4 hours, 4=More than 4 hours
   `GAME1` VARCHAR(100) NOT NULL,
   `GAME2` VARCHAR(100) NOT NULL,  /*Title of the second game   --Title of the first game*/
   `SEXISM1` INT NOT NULL, /*- --Should be between 1 and 5*/
   `SEXISM2` INT NOT NULL, /*- --Should be between 1 and 5*/
-    /*`COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done' */
-  `USER_ID` INT NOT NULL,  /*--- The id of the user of course		FOREIGN KEY	*/
+  `USER_ID` INT NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
   
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `fk_USERQ1`
+  PRIMARY KEY (`USER_ID`),
+  CONSTRAINT `fk_USERQ2`
 		FOREIGN KEY (`USER_ID`)
 		REFERENCES `VaesDB`.`USER`(`ID`)
 		ON DELETE CASCADE
@@ -64,8 +63,8 @@ CREATE TABLE IF NOT EXISTS `Q2` (
 
 -- TODO: aggiungere domande di controllo
 CREATE TABLE IF NOT EXISTS `Q3` (
-  `ID` INT  AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
-  `CONTROL_QUESTION` INT NOT NULL DEFAULT 4,
+  `CONTROL_QUESTION1` INT NOT NULL DEFAULT 4,
+  `CONTROL_QUESTION2` INT NOT NULL DEFAULT 4,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man not complete',  			/*---Should be between 0 and 5   -   No matter how accomplishable is, a man is not truly complete as a person unless he has the love of a woman.*/
   `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'women seeking favors', 		/*---Should be between 0 and 5   -   Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality."*/
   `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT 'women not rescue', 			/*---Should be between 0 and 5   -   In a disaster, women ought not necessarily to be rescued before men.*/
@@ -88,11 +87,11 @@ CREATE TABLE IF NOT EXISTS `Q3` (
   `QUESTION20`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*---Should be between 0 and 5   -   Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives.*/
   `QUESTION21`INT NOT NULL DEFAULT 0 COMMENT 'man financial sacrifice',  	/*--Should be between 0 and 5   -   Feminists are making entirely reasonable demands of men.*/
   `QUESTION22`INT NOT NULL DEFAULT 0 COMMENT 'women more culture',  		/*--Should be between 0 and 5   -   Women, as compared to men, tend to have a more refined sense of culture and good taste.*/
-    /*`COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done'*/
-  `USER_ID` INT NOT NULL,  -- The id of the user of course		FOREIGN KEY	
+  `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questions*/
+  `USER_ID` INT NOT NULL,  -- The id of the user of course		primary and FOREIGN KEY
   
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `fk_USERQ2`
+  PRIMARY KEY (`USER_ID`),
+  CONSTRAINT `fk_USERQ3`
 		FOREIGN KEY (`USER_ID`)
 		REFERENCES `VaesDB`.`USER`(`ID`)
 		ON DELETE CASCADE
@@ -100,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `Q3` (
 ) ENGINE = 'InnoDB';
 
 CREATE TABLE IF NOT EXISTS `Q4` (
-  `ID` INT  AUTO_INCREMENT NOT NULL,  -- PRIMARY KEY
   `CONTROL_QUESTION` INT DEFAULT 0,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man approach please himself', /*---Should be between 1 and 5   -   When approaching a woman, most men think more about what that women can do to please him than what he can do to please her*/
   `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'man approach have sex', 		 /*--Should be between 1 and 5   -   Most men tend to approach a woman only when they want to have sex with her.*/
@@ -112,17 +110,17 @@ CREATE TABLE IF NOT EXISTS `Q4` (
   `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT 'man loses interest',  		 /*---Should be between 1 and 5   -   When his sexual desire weakens, a man will likely lose interest in a woman.*/
   `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT 'women equals if sex',  		/*- --Should be between 1 and 5   -   When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs.*/
   `QUESTION10`INT NOT NULL DEFAULT 0 COMMENT 'man full cons. women',  	 /*---Should be between 1 and 5   -   Most men have a full consideration of women as persons.*/
+  `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questions*/
     /*`COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done' */
-  `USER_ID` INT NOT NULL,  /*--- The id of the user of course		FOREIGN KEY	*/
+  `USER_ID` INT NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
   
-  PRIMARY KEY (`ID`),
-  CONSTRAINT `fk_USERQ3`
+  PRIMARY KEY (`USER_ID`),
+  CONSTRAINT `fk_USERQ4`
 		FOREIGN KEY (`USER_ID`)
 		REFERENCES `VaesDB`.`USER`(`ID`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 )ENGINE = 'InnoDB';
-
 
 
 --

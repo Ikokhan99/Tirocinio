@@ -1,5 +1,5 @@
 <?php
-include_once "./config/InputCheckFoo.php";
+include_once "./config/Foes.php";
 
 //TODO:test
 

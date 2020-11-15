@@ -10,7 +10,8 @@ abstract class Q
     public int $user_id;
     public array $questions;
     public string $table_name;
-    public int $control_question;
+    public array $control_questions;
+    public int $q_order; //bool
 
     function get()
     {
