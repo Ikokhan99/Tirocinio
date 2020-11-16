@@ -126,6 +126,7 @@ echo    "</button>
     img {
   max-width: 76%;
   max-height: 76%;
+  object-fit: contain;
     }
 
 </style>
