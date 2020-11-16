@@ -1,8 +1,5 @@
-<?php
-include_once 'config/permutations.php';
-
-$_SESSION['p_male'] = array();
-exec_combine(2,range(1,16),1);
-
-print_r($_SESSION['p_male']);
-
+<script>
+    if (String(window.performance.getEntriesByType("navigation")[0].type) === "back_forward" || String(window.performance.getEntriesByType("navigation")[0].type) === "reload") {
+        console.log("ciccio balena");
+    }
+</script>

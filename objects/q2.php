@@ -1,62 +1,49 @@
 <?php
+include_once "./config/Foes.php";
 
-//TODO:test, update una volta avuta la struttura finale del questionario
+//TODO:test
 
-include_once "./config/InputCheckFoo.php";
-
-class Q2
+class Q2 extends Q
 {
-	 // database connection and table name
-    public $conn;
- 
+
     // object properties
-    public int $user_id;
-    public $questions; //3 is the default value, the questionnaire has 22 items
-    public int $completed;
+    public int $playtime;
+    public string $game1;
+    public string $game2;
+    public int $sexism1;  // Should be between 1 and 5
+    public int $sexism2;
 
- 
-    // costruttore
     public function __construct($db,$user_id)
-	{
+    {
         $this->conn = $db;
-        $this->questions = array(3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3,3,3,3, 3,3); //3 is the default value, the questionnaire has 22 items
-        $this->completed = 0;
         $this->user_id = $user_id;
+        $this->playtime = 0;
+        $this->game1="";
+        $this->game2 = "";
+        $this->sexism1 = 0;
+        $this->sexism2=0;
     }
-	
-	function create($create_flag=true)
-	{
 
-		// var_dump($this);
-		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    function create()
+    {
 
-		$q = "INSERT INTO Q1 VALUES($this->questions[0],
-                      $this->questions[1],
-                      $this->questions[2],
-                      $this->questions[3],
-                      $this->questions[4],
-                      $this->questions[5],
-                      $this->questions[6],
-                      $this->questions[7],
-                      $this->questions[8],
-                      $this->questions[9],
-                      $this->questions[10],
-                      $this->questions[11],
-                      $this->questions[12],
-                      $this->questions[13],
-                      $this->questions[14],
-                      $this->questions[15],
-                      $this->questions[16],
-                      $this->questions[17],
-                      $this->questions[18],
-                      $this->questions[19],
-                      $this->questions[20],
-                      $this->questions[21],$this->completed,:uid);";
+        // var_dump($this);
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		// var_dump($q);
-		$stmt = $this->conn->prepare($q);
 
-		$stmt->bindParam(':uid', $this->user_id);
+        $q = "INSERT INTO Q1 VALUES(:playtime,:game1,:game2,:sexism1,:sexism2,:completed,:userID);";
+
+
+
+        $stmt = $this->conn->prepare($q);
+
+        $stmt->bindParam(':playtime', $this->playtime);
+        $stmt->bindParam(':game1', $this->game1);
+        $stmt->bindParam(':game2', $this->game2);
+        $stmt->bindParam(':sexism1', $this->sexism1);
+        $stmt->bindParam(':sexism2', $this->sexism2);
+        $stmt->bindParam(':completed', $this->completed);
+        $stmt->bindParam(':userID', $this->user_id);
 
         if($stmt->execute())
         {
@@ -67,22 +54,6 @@ class Q2
             $this->showError($stmt);
             return false;
         }
-
     }
-	
-	function get($id)
-	{
-		$query = "SELECT * FROM Q2 WHERE user_id = ?";
-		$stmt = $this->conn->prepare( $query );
-		$stmt->bindParam(1, $id, PDO::PARAM_INT);
-		$stmt->execute();
-		return $stmt;
-	}
 
-	public function showError($stmt)
-	{
-		echo "<pre>";
-        print_r($stmt->errorInfo());
-		echo "</pre>";
-	}
 }

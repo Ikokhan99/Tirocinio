@@ -15,9 +15,27 @@ $exp_order = range(1,2); // 1 = male, 2 = female
 shuffle($exp_order);
 $_SESSION['exp'] = $exp_order; //saving in session
 array_push($_SESSION['exp'],3); //the mix should always be last
-//questionnaires order
-$q_order = range(1,4);
-shuffle($q_order);
+//questionnaires order TODO:che percentuale di controllo vogliamo?
+if(rand(1,100) < 50)
+    $_SESSION['Q_ORDERED'] = true;
+else
+    $_SESSION['Q_ORDERED'] = false;
+if(rand(1,100) < 50)
+    $_SESSION['Q3_ORDERED'] = true;
+else
+    $_SESSION['Q3_ORDERED'] = false;
+if(rand(1,100) < 50)
+    $_SESSION['Q4_ORDERED'] = true;
+else
+    $_SESSION['Q4_ORDERED'] = false;
+if(rand(1,100) < 50)
+    $_SESSION['Q5_ORDERED'] = true;
+else
+    $_SESSION['Q5_ORDERED'] = false;
+
+$q_order = range(2,5);
+if(!$_SESSION['Q_ORDERED'])
+    shuffle($q_order);
 $_SESSION['Q'] = $q_order;
 //male order
 $_SESSION['p_male'] = array();
@@ -28,9 +46,31 @@ $_SESSION['p_female'] = array();
 exec_combine(2,range(1,16),2);
 shuffle($_SESSION['p_female']);
 //the mix order will be made only from chosen avatar, so it will be in SceltaAvatar.php
+//Q3 questions order.  0 and 23 are the control questions
+$q_order = range(0,23);
+if(!$_SESSION['Q3_ORDERED'])
+    shuffle($q_order);
+$_SESSION['Q3'] = $q_order;
+//Q4 questions order.  0 and 11 are the control questions
+$q_order = range(0,11);
+if(!$_SESSION['Q4_ORDERED'])
+    shuffle($q_order);
+$_SESSION['Q4'] = $q_order;
+//Q5 questions order.  TODO: creare il nuovo questionario
+//TODO: $q_order = range(0,11); 
+if(!$_SESSION['Q5_ORDERED'])
+    shuffle($q_order);
+$_SESSION['Q5'] = $q_order;
+
+//db
+include_once 'config/database.php';
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$_SESSION['db'] = $db;
+
+
 //now, time for the avatar's img
-
-
 if(fast_debug)
 {
     $m_img = array(   "avatar/01_m".IMG_EXT,
@@ -67,23 +107,23 @@ if(fast_debug)
     "avatar/16_f".IMG_EXT);
 } else {
     include_once 'config/database.php';
-    $database = new Database();
-    $db = $database->getConnection();
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $m_img = array();
     $f_img = array();
 
+    $default=0;
+
     //male
     $q = "SELECT pic from avatar where sex=:sex";
-    $stmt = $db->prepare($q);
+    $stmt = $_SESSION['db']->prepare($q);
     //male
-    $stmt->bindParam(':sex', 0);
+    $stmt->bindParam(':sex', $default);
     $result = $stmt->execute();
     for($i = 0; $m_img[$i] = mysqli_fetch_assoc($result); $i++) ;
     // Delete last empty one
     array_pop($array);
     //female
-    $stmt->bindParam(':sex', 1);
+    $default=1;
+    $stmt->bindParam(':sex', $default);
     $result = $stmt->execute();
     for($i = 0; $f_img[$i] = mysqli_fetch_assoc($result); $i++) ;
     // Delete last empty one
@@ -122,20 +162,17 @@ if(debug){
 
 if(!fast_debug){
     //start transaction
-    //include_once 'config/database.php';
-    //$database = new Database();
-    //$db = $database->getConnection();
-    $db->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
-    $db->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
+    $_SESSION['db']->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
+    $_SESSION['db']->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
 }
 
 
 // create the user and start transaction
-if((isset($db)&& $db->beginTransaction())|| fast_debug)
+if((isset($_SESSION['db'])&& $_SESSION['db']->beginTransaction())|| fast_debug)
 {
     if(!fast_debug){
         include_once 'objects/user.php';
-        $user = new User($db);
+        $user = new User($_SESSION['db']);
         $user->create();
 
     }

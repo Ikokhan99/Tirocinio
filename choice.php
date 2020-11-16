@@ -3,6 +3,7 @@ include_once "config/core.php";
 $action = '';
 $page_title="Experiment";
 
+
 if(skip_experiment)
 {
     header("Location: ".home_url."Q1.php");
@@ -12,6 +13,20 @@ if(fast_debug && $_SESSION['at']==2)
     header("Location: ".home_url."Q1.php");
 }
 
+//this checks if the user has refreshed the page during the experiment  TODO:wip
+if($_SESSION['permutation']>0)
+{
+    if($_SESSION['last_chosen'] === $_POST['id'] )
+    {
+        header("Location: ".home_url."user_error.php?error=refresh");
+    } else {
+        $_SESSION['last_chosen'] = $_POST['id'];
+    }
+} else {
+    $_SESSION['last_chosen']=0;
+}
+
+
 //insert previous choice in db                                120 rn
 if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
     //permutations starts at 0
@@ -19,11 +34,8 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
     if(!fast_debug) {
         //insering previous result at db
         include_once 'objects/experiment.php';
-        include_once 'config/database.php';
-        $database = new Database();
-        $db = $database->getConnection();
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $exp = new Experiment($db, $_SESSION['uid']);
+        
+        $exp = new Experiment($_SESSION['db'], $_SESSION['uid']);
         $exp->entry = $_SESSION['permutation'] + 1;
         if ($_SESSION['exp'][$_SESSION['at']] == 1) //male case
         {
@@ -52,7 +64,7 @@ if ($_SESSION['permutation'] >= TOTAL_PERMUTATIONS){
 //                          3
 if($_SESSION['at'] == n_experiment)
 {
-    header("Location: ".home_url."Q1.php");
+    header("Location: ".home_url."Q.php");
 }
 
 include_once 'layout_head.php';
