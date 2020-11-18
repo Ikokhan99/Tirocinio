@@ -21,7 +21,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         <td> </td>
         <td style= "font-weight: 1000;">agree strongly</td>
     </tr>
-    <tr>
+<?php
+echo    '<tr>
     <td>1. When approaching a woman, most men think more about what that
     women can do to please him than what he can do to please her. </td>
         <td style="text-align: center">
@@ -53,8 +54,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>2. Most men tend to approach a woman only when they want to have sex with her. </td>
         <td style="text-align: center">
             <input type="radio" name="approach" value="1" id = "one">
@@ -86,8 +87,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>3. Most men are interested in women’s feelings because they want to  be close to women.</td>
         <td style="text-align: center">
             <input type="radio" name="interested" value="1" id = "one">
@@ -119,8 +120,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>4. When a man flatters a woman, it is because he wants to have sex with her. </td>
         <td style="text-align: center">
             <input type="radio" name="flatters" value="1" id = "one">
@@ -152,8 +153,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>5. A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite. </td>
         <td style="text-align: center">
             <input type="radio" name="appetite" value="1" id = "one">
@@ -185,8 +186,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>6. Most men consider women sexual objects. </td>
         <td style="text-align: center">
             <input type="radio" name="objects" value="1" id = "one">
@@ -218,8 +219,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>7.Most relationships between a man and a woman are based on closeness and affection. </td>
         <td style="text-align: center">
             <input type="radio" name="relationships" value="1" id = "one">
@@ -251,8 +252,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>8. When his sexual desire weakens, a man will likely lose interest in a woman. </td>
         <td style="text-align: center">
             <input type="radio" name="weakens" value="1" id = "one">
@@ -284,8 +285,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>9. When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs. </td>
         <td style="text-align: center">
             <input type="radio" name="sex" value="1" id = "one">
@@ -317,8 +318,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    <tr>
+    </tr>';
+echo    '<tr>
     <td>10. Most men have a full consideration of women as persons. </td>
         <td style="text-align: center">
             <input type="radio" name="consideration" value="1" id = "one">
@@ -350,8 +351,8 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
                 5
             </label>
         </td>
-    </tr>
-    
+    </tr>';
+?>    
 </table>
 </div>
 <style>
