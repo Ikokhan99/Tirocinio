@@ -1,6 +1,6 @@
 <?php
 include_once "./config/Foes.php";
-
+include_once "Q.php";
 //TODO:test
 
 class Q2 extends Q
@@ -42,7 +42,6 @@ class Q2 extends Q
         $stmt->bindParam(':game2', $this->game2);
         $stmt->bindParam(':sexism1', $this->sexism1);
         $stmt->bindParam(':sexism2', $this->sexism2);
-        $stmt->bindParam(':completed', $this->completed);
         $stmt->bindParam(':userID', $this->user_id);
 
         if($stmt->execute())

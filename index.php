@@ -15,27 +15,10 @@ $exp_order = range(1,2); // 1 = male, 2 = female
 shuffle($exp_order);
 $_SESSION['exp'] = $exp_order; //saving in session
 array_push($_SESSION['exp'],3); //the mix should always be last
-//questionnaires order TODO:che percentuale di controllo vogliamo?
-if(rand(1,100) < 50)
-    $_SESSION['Q_ORDERED'] = true;
-else
-    $_SESSION['Q_ORDERED'] = false;
-if(rand(1,100) < 50)
-    $_SESSION['Q3_ORDERED'] = true;
-else
-    $_SESSION['Q3_ORDERED'] = false;
-if(rand(1,100) < 50)
-    $_SESSION['Q4_ORDERED'] = true;
-else
-    $_SESSION['Q4_ORDERED'] = false;
-if(rand(1,100) < 50)
-    $_SESSION['Q5_ORDERED'] = true;
-else
-    $_SESSION['Q5_ORDERED'] = false;
 
 $q_order = range(2,5);
-if(!$_SESSION['Q_ORDERED'])
-    shuffle($q_order);
+
+shuffle($q_order);
 $_SESSION['Q'] = $q_order;
 //male order
 $_SESSION['p_male'] = array();
@@ -48,26 +31,29 @@ shuffle($_SESSION['p_female']);
 //the mix order will be made only from chosen avatar, so it will be in SceltaAvatar.php
 //Q3 questions order.  0 and 23 are the control questions
 $q_order = range(0,23);
-if(!$_SESSION['Q3_ORDERED'])
-    shuffle($q_order);
+
+shuffle($q_order);
 $_SESSION['Q3'] = $q_order;
 //Q4 questions order.  0 and 11 are the control questions
 $q_order = range(0,11);
-if(!$_SESSION['Q4_ORDERED'])
-    shuffle($q_order);
+
+shuffle($q_order);
 $_SESSION['Q4'] = $q_order;
 //Q5 questions order.  TODO: creare il nuovo questionario
 //TODO: $q_order = range(0,11); 
-if(!$_SESSION['Q5_ORDERED'])
-    shuffle($q_order);
+
+shuffle($q_order);
 $_SESSION['Q5'] = $q_order;
 
 //db
+if(!fast_debug)
+{
 include_once 'config/database.php';
 $database = new Database();
 $db = $database->getConnection();
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $_SESSION['db'] = $db;
+}
 
 
 //now, time for the avatar's img

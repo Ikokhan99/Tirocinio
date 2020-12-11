@@ -5,8 +5,7 @@ include_once 'config/core.php';
 include_once 'objects/q2.php';
 include_once 'config/Foes.php';
 
-if (isset($_POST)) {
-    $_SESSION['at'] += 1;
+if (!empty($_POST)) {
     if(!fast_debug) {
         //TODO
         $q2 = new Q2($_SESSION['db'],$_SESSION['uid']);
@@ -25,6 +24,15 @@ if (isset($_POST)) {
     }
     header("Location: ".home_url."Q1.php?action=goto");
 }
+if(debug) {
+    echo "<p> DEBUG: ";
+    print_r($_SESSION['at']);
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    print_r($_SESSION['Q'][$_SESSION['at']]);
+    echo "</p>";
+}
+//TODO: tipologia, realismo di ambientazione?, realismo grafico?, livello violenza?
 
 ?>
 
@@ -78,9 +86,11 @@ if (isset($_POST)) {
 	</td></tr></table><br><br>
 	<table class='table70'><tr><td style='width=100%'>
 	<div style='text-align: center;'>
-	<input type='submit' name='fine' Value='fine'>
+	<input type='submit' name='action' Value='Continue'>
 	</div>
 	</tr>
 </table>
-</body>
-</html>
+<?php
+
+// footer HTML and JavaScript codes
+include_once "layout_foot.php";

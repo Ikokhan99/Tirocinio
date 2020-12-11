@@ -23,14 +23,15 @@
     <?php
 
     //TODO
-    // if(!debug && !fast_debug)
-    {
+
+    if(user_error){
         echo "<script>
-    if (String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"back_forward\" || String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"reload\") {
-        location.replace('user_error.php');
-    }
-</script>";
-    }
+                    if (String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"back_forward\" || String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"reload\") {
+                        location.replace('user_error.php');
+                    }
+              </script>";
+        }
+
     ?>
 </head>
 

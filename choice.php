@@ -6,19 +6,23 @@ $page_title="Experiment";
 
 if(skip_experiment)
 {
+    $_SESSION['at']=0;
     header("Location: ".home_url."Q1.php");
 }
 if(fast_debug && $_SESSION['at']==2)
 {
+    $_SESSION['at']=0;
     header("Location: ".home_url."Q1.php");
 }
 
+//prolific academic
 //this checks if the user has refreshed the page during the experiment  TODO:wip
 if($_SESSION['permutation']>0)
 {
     if($_SESSION['last_chosen'] === $_POST['id'] )
     {
-        header("Location: ".home_url."user_error.php?error=refresh");
+        if(user_error)
+            header("Location: ".home_url."user_error.php?error=refresh");
     } else {
         $_SESSION['last_chosen'] = $_POST['id'];
     }
@@ -138,16 +142,18 @@ echo    "</button>
     img {
   max-width: 76%;
   max-height: 76%;
-  object-fit: contain;
     }
 
 </style>
 <script type="text/javascript" >
+    //TODO: controllare la cosa del tempo
     document.body.style.cursor = 'none';
     const tempo1 = Math.round(+new Date() / 1000);
 
     setTimeout( "document.forms[0].elements['chosenL'].style.visibility = 'visible'", 600 );
     setTimeout( "document.forms[0].elements['chosenR'].style.visibility = 'visible'", 600 );
+
+
 
 
     function click()

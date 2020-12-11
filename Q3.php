@@ -6,51 +6,43 @@ include_once 'config/database.php';
 include_once 'objects/user.php';
 
 // page title
-$page_title = "Survey - part 4";
+$order = range(1,22);
+shuffle($order);
+
+$page_title = "Survey";
 include_once "layout_head.php";
 
 //TODO
-if (!fast_debug){
-if (isset($_POST['action']) && $_POST['action'] == 'next') {
-    $database = new Database();
-    $db = $database->getConnection();
-
-    $user = new User($db);
-
-    $user->accomplished = $_POST['Register_sex'];
-    $user->age = $_POST['Register_age'];
-    $user->sexor = $_POST['Register_sexor'];
-
-    $db->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
-    $db->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
-    // create the user and start transaction
-    if($db->beginTransaction())
-    {
-        $db->exec('SAVEPOINT begin;'); //serve in caso di fallimnento di domande di controllo
-        if($user->create())
-        {
-            $db->exec('SAVEPOINT uinfo;');
-            $_POST=array();
+if (!empty($_POST)) {
+    if(!fast_debug) {
+        //TODO
+        $q2 = new Q2($_SESSION['db'],$_SESSION['uid']);
+        $q2->playtime = $_POST['playtime'];
+        $q2->sexor = $_POST['user-sexor'];
+        $q2->sex = $_POST['user-sex'];
+        $q2->age = $_POST['user-age'];
+        if ($_SESSION['Q_ORDERED'])
+            $q2->q_order = 0;
+        else
+            $q2->q_order = 1;
+        if (!$q2->create()) {
+            $q2->showError();
+            die();
         }
-        //echo "<script> location.replace(\".php?action=success\"); </script>"; //replace ad Avatar TODO: settare
-    } else {
-        echo "<div class='alert alert-danger' role='alert'>Something went wrong.</div>";
     }
+    header("Location: ".home_url."Q1.php?action=goto");
 }
+if(debug) {
+    echo "<p> DEBUG: ";
+    print_r($_SESSION['at']);
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    print_r($_SESSION['Q'][$_SESSION['at']]);
+    echo "</p>";
 }
 ?>
-
-
-<html lang="en">
-<head>
-    <title>
-        Questionnaire 2
-    </title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
 <div style="text-align: center;">
-<form action="" method="post">
+<form action="Q3.php" method="post">
 <p style= "font-weight: 1000;">
 Below is a series of statements concerning men and women and their
 relationships in contemporary society. Please indicate the degree to
@@ -69,9 +61,12 @@ slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
         <td style= "font-weight: 1000;">agree strongly</td>
     </tr>
 <?php
+foreach ($order as $num )
+{
+    switch ($num) {case 1:default:
 
-echo '<tr>
-    <td>1. No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>
+    echo '<tr>
+    <td> No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>
         <td style= "text-align: center">
             <input type="radio" name="accomplished" value="0" id = "zero">
             <label  for="zero"> 
@@ -108,9 +103,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-    <td>2. Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
+    </tr>'; break;
+        case 2:
+    echo '<tr>
+    <td> Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
         <td style="text-align: center">
             <input type="radio" name="special_favors" value="0" id = "zero">
             <label  for="zero"> 
@@ -147,9 +143,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-    <td>3. In a disaster, women ought not necessarily to be rescued before men. </td>
+    </tr>'; break;
+        case 3:
+    echo '<tr>
+    <td> In a disaster, women ought not necessarily to be rescued before men. </td>
         <td style="text-align: center">
             <input type="radio" name="disaster" value="0" id = "zero">
             <label  for="zero"> 
@@ -186,9 +183,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-    <td>4. Most women interpret innocent remarks or acts as being sexist. </td>
+    </tr>'; break;
+        case 4:
+    echo '<tr>
+    <td> Most women interpret innocent remarks or acts as being sexist. </td>
         <td style="text-align: center">
             <input type="radio" name="innocent" value="0" id = "zero">
             <label  for="zero"> 
@@ -225,9 +223,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>5. Women are too easily offended. </td>
+    </tr>'; break;
+        case 5:
+    echo '<tr>
+        <td> Women are too easily offended. </td>
         <td style="text-align: center">
             <input type="radio" name="offended" value="0" id = "zero">
             <label  for="zero"> 
@@ -264,9 +263,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>6. People are often truly happy in life without being romantically involved with a member of the other sex.</td>
+    </tr>'; break;
+        case 6:
+    echo '<tr>
+        <td> People are often truly happy in life without being romantically involved with a member of the other sex.</td>
         <td style="text-align: center">
             <input type="radio" name="romantically_involved" value="0" id = "zero">
             <label  for="zero"> 
@@ -303,9 +303,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>7. Feminists are not seeking for women to have more power than men.</td>
+    </tr>'; break;
+        case 7:
+    echo '<tr>
+        <td> Feminists are not seeking for women to have more power than men.</td>
         <td style="text-align: center">
             <input type="radio" name="power" value="0" id = "zero">
             <label  for="zero"> 
@@ -342,9 +343,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>8. Many women have a quality of purity that few men possess.</td>
+    </tr>'; break;
+        case 8:
+    echo '<tr>
+        <td> Many women have a quality of purity that few men possess.</td>
         <td style="text-align: center">
             <input type="radio" name="purity" value="0" id = "zero">
             <label  for="zero"> 
@@ -381,9 +383,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>9. Women should be cherished and protected by men.</td>
+    </tr>'; break;
+        case 9:
+    echo '<tr>
+        <td> Women should be cherished and protected by men.</td>
         <td style="text-align: center">
             <input type="radio" name="cherished" value="0" id = "zero">
             <label  for="zero"> 
@@ -420,9 +423,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>10. Most women fail to appreciate fully all that men do for them.</td>
+    </tr>'; break;
+        case 10:
+    echo '<tr>
+        <td> Most women fail to appreciate fully all that men do for them.</td>
         <td style="text-align: center">
             <input type="radio" name="appreciate" value="0" id = "zero">
             <label  for="zero"> 
@@ -459,9 +463,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>11. Women seek to gain power by getting control over men.</td>
+    </tr>'; break;
+        case 11:
+    echo '<tr>
+        <td> Women seek to gain power by getting control over men.</td>
         <td style="text-align: center">
             <input type="radio" name="seek" value="0" id = "zero">
             <label  for="zero"> 
@@ -498,9 +503,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo '<tr>
-        <td>12. Every man ought to have a woman whom he adores.</td>
+    </tr>'; break;
+        case 12:
+    echo '<tr>
+        <td> Every man ought to have a woman whom he adores.</td>
         <td style="text-align: center">
             <input type="radio" name="adores" value="0" id = "zero">
             <label  for="zero"> 
@@ -537,9 +543,10 @@ echo '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>13. Men are complete without women.</td>
+    </tr>'; break;
+        case 13:
+    echo '<tr>
+        <td> Men are complete without women.</td>
         <td style="text-align: center">
             <input type="radio" name="complete" value="0" id = "zero">
             <label  for="zero"> 
@@ -576,9 +583,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>14. Women exaggerate problems they have at work.</td>
+    </tr>'; break;
+        case 14:
+    echo '<tr>
+        <td> Women exaggerate problems they have at work.</td>
         <td style="text-align: center">
             <input type="radio" name="exaggerate" value="0" id = "zero">
             <label  for="zero"> 
@@ -615,9 +623,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>15. Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.</td>
+    </tr>'; break;
+        case 15:
+    echo '<tr>
+        <td> Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.</td>
         <td style="text-align: center">
             <input type="radio" name="leash" value="0" id = "zero">
             <label  for="zero"> 
@@ -654,9 +663,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>16. When women lose to men in a fair competition, they typically complain about being discriminated against.</td>
+    </tr>'; break;
+        case 16:
+    echo '<tr>
+        <td> When women lose to men in a fair competition, they typically complain about being discriminated against.</td>
         <td style="text-align: center">
             <input type="radio" name="discriminated" value="0" id = "zero">
             <label  for="zero"> 
@@ -693,9 +703,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>17. A good woman should be set on a pedestal by her man</td>
+    </tr>'; break;
+        case 17:
+    echo '<tr>
+        <td> A good woman should be set on a pedestal by her man</td>
         <td style="text-align: center">
             <input type="radio" name="pedestal" value="0" id = "zero">
             <label  for="zero"> 
@@ -732,9 +743,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>18. There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. </td>
+    </tr>'; break;
+        case 18:
+    echo '<tr>
+        <td> There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. </td>
         <td style="text-align: center">
             <input type="radio" name="teasing_men" value="0" id = "zero">
             <label  for="zero"> 
@@ -771,9 +783,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>19. Women, compared to men, tend to have a superior moral sensibility. </td>
+    </tr>'; break;
+        case 19:
+    echo '<tr>
+        <td> Women, compared to men, tend to have a superior moral sensibility. </td>
         <td style="text-align: center">
             <input type="radio" name="sensibility" value="0" id = "zero">
             <label  for="zero"> 
@@ -810,9 +823,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo    '<tr>
-        <td>20. Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives. </td>
+    </tr>'; break;
+        case 20:
+    echo '<tr>
+        <td> Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives. </td>
         <td style="text-align: center">
             <input type="radio" name="financially" value="0" id = "zero">
             <label  for="zero"> 
@@ -849,9 +863,10 @@ echo    '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo  '<tr>
-        <td>21. Feminists are making entirely reasonable demands of men.</td>
+    </tr>'; break;
+        case 21:
+    echo '<tr>
+        <td> Feminists are making entirely reasonable demands of men.</td>
         <td style="text-align: center">
             <input type="radio" name="demands" value="0" id = "zero">
             <label  for="zero"> 
@@ -888,9 +903,10 @@ echo  '<tr>
                 5
             </label>
         </td>
-    </tr>';
-echo   '<tr>
-        <td>22. Women, as compared to men, tend to have a more refined sense of culture and good taste.</td>
+    </tr>'; break;
+        case 22:
+    echo '<tr>
+        <td> Women, as compared to men, tend to have a more refined sense of culture and good taste.</td>
         <td style="text-align: center">
             <input type="radio" name="good_taste" value="0" id = "zero">
             <label  for="zero"> 
@@ -928,11 +944,13 @@ echo   '<tr>
             </label>
         </td>
     </tr>';
+    }
+}
 ?>
 </table>
 <p></p>
 <p></p>
-    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Next">
+    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Continue">
 </div>
 <style>
 table {
@@ -951,5 +969,8 @@ td {
 }
 
 </style>
-</body>
-</html>
+<?php
+
+// footer HTML and JavaScript codes
+include_once "layout_foot.php";
+

@@ -33,9 +33,8 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 CREATE TABLE IF NOT EXISTS `user` (
     `ID` INT AUTO_INCREMENT NOT NULL,  /*--- PRIMARY KEY  we'll probably convert it into a string-*/
     `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- biological sex
-    `AGE` INT(2) NOT NULL DEFAULT 0, /* age range  TODO:not yet set in stone*/
+    `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age TODO:not yet set in stone*/
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  -- sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other 	probably we're going to add more
-    `TRUSTED` BIT(1) NOT NULL DEFAULT 0 COMMENT '1 = trusted', /*Check whether the user is trusted or not. for example,it's not trusted if it has failed a control question, contradicted himself or the survey site flags it lower than good*/
     `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questionnaire*/
 
   PRIMARY KEY (`ID`)

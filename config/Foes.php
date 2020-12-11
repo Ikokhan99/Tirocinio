@@ -32,16 +32,11 @@ function test_input($string)
 }
 function check_int(int $val, int $min,int $max)
 {
-    // ----- remove HTML TAGs -----
-    $string = preg_replace ('/<[^>]*>/', ' ', $string);
-
-    // ----- remove control characters -----
-    $string = str_replace("\r", '', $string);    // --- replace with empty space
-    $string = str_replace("\n", '', $string);   // --- replace with empty space
-    $string = str_replace("\t", '', $string);   // --- replace with empty space
-
-    // ----- remove multiple spaces -----
-    $string = trim(preg_replace('/ {2,}/', ' ', $string));
-
-    return $string;
+    if($val < $min || $val > $max)
+    {
+        return $min -1;
+    }
+    else{
+        return $val;
+    }
 }

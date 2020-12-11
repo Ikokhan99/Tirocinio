@@ -3,6 +3,7 @@
 //TODO:test, update una volta avuta la struttura finale del questionario
 
 include_once "./config/Foes.php";
+include_once "Q.php";
 
 class Q3 extends Q
 {

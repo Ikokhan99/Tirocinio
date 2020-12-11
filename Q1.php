@@ -3,41 +3,18 @@
 include_once "config/core.php";
 //include_once 'config/database.php';
 include_once 'objects/user.php';
+include_once 'config/Foes.php';
 
-if(isset($_GET['action']) && $_GET['action'] === 'goto')
-{
-    $_SESSION['at'] += 1;
-    switch ($_SESSION['Q'][$_SESSION['at']]){
-        case 2: default:{
-            header("Location: ".home_url."Q2.php");
-            break;
-        }
-        case 3:{
-            header("Location: ".home_url."Q3.php");
-            break;
-        }
-        case 4:{
-            header("Location: ".home_url."Q4.php");
-            break;
-        }
-        case 5:{
-            header("Location: ".home_url."Q5.php");
-            break;
-        }
-    }
-}
 
-$_SESSION['at'] = 0;
-//insert data
-
-if (isset($_POST)) {
-    $_SESSION['at'] += 1;
+if (!empty($_POST)) {
     if(!fast_debug) {
         $user = new User($_SESSION['db']);
         $user->trusted = 1;
-        $user->sexor = $_POST['user-sexor'];
-        $user->sex = $_POST['user-sex'];
-        $user->age = $_POST['user-age'];
+        $user->sexor = check_int($_POST['user-sexor'],0,4);
+        $user->sex = check_int($_POST['user-sex'],0,1);
+        $user->age = check_int($_POST['user-age'],18,70);
+        //todo:controlli
+
         if ($_SESSION['Q_ORDERED'])
             $user->q_order = 0;
         else
@@ -49,12 +26,66 @@ if (isset($_POST)) {
     }
 }
 
+//TODO: redirect in ordine
+if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET) && $_GET['action']=='goto'))
+{
+
+    switch ($_SESSION['Q'][$_SESSION['at']]){
+        case 2:{
+        $_SESSION['at'] += 1;
+            header("Location: ".home_url."Q2.php");
+            break;
+        }
+        case 3:{
+            $_SESSION['at'] += 1;
+            header("Location: ".home_url."Q3.php");
+            break;
+        }
+        case 4:{
+            $_SESSION['at'] += 1;
+            header("Location: ".home_url."Q4.php");
+            break;
+        }
+        case 5:{
+            $_SESSION['at'] += 1;
+            header("Location: ".home_url."Q5.php");
+            break;
+        }
+        case 6:default:{
+            $_SESSION['at'] += 1;
+            header("Location: ".home_url."last.php");
+            break;
+        }
+    }
+}
 
 
-//TODO:redirect a questionari
+if(debug)
+{
+    echo "<p> DEBUG: ";
+    print_r($_SESSION['at']);
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    var_dump($_POST['action'] === 'Continue');
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    var_dump(isset($_POST['action'])  );
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    var_dump(isset($_POST['action']) && $_POST['action'] === 'Continue');
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    var_dump(!empty($_POST));
+    echo "</p>";
+    echo "<p> DEBUG: ";
+    print_r($_POST['action']);
+    echo "</p>";
+}
+
+//TODO: prolific ID (domanda aperta)
 
 // page title
-$page_title = "User General info";
+$page_title = "Survey";
 include_once "layout_head.php";
 
 ?>
@@ -73,95 +104,13 @@ include_once "layout_head.php";
                     <div class="row">
                         <div class="col-lg-12">
                             <form name="user-form" method="post" action="Q1.php" id="user-form" role="form" style="display: block;">
-                                <!-- TODO: range di età o età in numero?
+                                <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
                                 <div class="form-group">
-                                    <input type="number" id="age" size="6" name="Register_age" min="6" max="99" value="21" required="required" tabindex="3" class="form-control">
-                                </div>-->
+                                    <label for="prolific">Prolific Id</label><input id="prolific" size="25" name="user-id"  required="required" tabindex="1" class="form-control">
+                                </div>
                                 <div class="form-group">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                            <label for="user-age" class="required"><span class="label-text">Age:</span>
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="0" id = "no" tabindex="1">
-                                            <label for="no">
-                                                I don't want to specify my age
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="1" id = "less14" tabindex="2">
-                                            <label for="less14">
-                                                Less than 14
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="2" id = "1419" tabindex="3">
-                                            <label for="1419">
-                                                Between 14 and 19
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="3" id = "2029" tabindex="4">
-                                            <label for="2029">
-                                                Between 20 and 29
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="4" id = "3039" tabindex="5">
-                                            <label for="3039">
-                                                Between 30 and 39
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="5" id = "4049" tabindex="6">
-                                            <label for="4049">
-                                                Between 40 and 49
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="6" id = "5059" tabindex="7">
-                                            <label for="5059">
-                                                Between 50 and 59
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="7" id = "6069" tabindex="8">
-                                            <label for="6069">
-                                                Between 60 and 69
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="8" id = "7079" tabindex="9">
-                                            <label for="7079">
-                                                Between 70 and 79
-                                            </label>
-                                        </td>
-                                    </tr><tr>
-                                        <td>
-                                            <input type="radio" required="required" name="user-age" value="9" id = "plus79" tabindex="10">
-                                            <label for="plus79">
-                                                More than 79
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="21" required="required" tabindex="3" class="form-control">
+                                </div>
                                 <div class="form-group">
                                     <div style="overflow-x:auto; align-items: flex-start">
                                             <table>
@@ -183,7 +132,7 @@ include_once "layout_head.php";
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <input type="radio"  required="required"  name="user-sex" value="0" id = "female" tabindex="4">
+                                                        <input type="radio"  required="required"  name="user-sex" value="1" id = "female" tabindex="4">
                                                         <label for="female">
                                                             Female
                                                         </label>
@@ -252,7 +201,7 @@ include_once "layout_head.php";
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="action" id="toQ" tabindex="6" class="form-control btn btn-send" value="toQ">
+                                            <input type="submit" name="action" id="toQ" tabindex="6" class="form-control btn btn-send" value="Continue">
                                         </div>
                                     </div>
                                 </div>
