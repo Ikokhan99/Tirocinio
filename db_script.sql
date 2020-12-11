@@ -31,17 +31,15 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-    `ID` INT AUTO_INCREMENT NOT NULL,  /*--- PRIMARY KEY  we'll probably convert it into a string-*/
+    `ID` VARCHAR(100) NOT NULL,  /*--- PRIMARY KEY  TODO:check the lenght of the prolific id -*/
     `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- biological sex
     `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age TODO:not yet set in stone*/
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  -- sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other 	probably we're going to add more
-    `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questionnaire*/
-
   PRIMARY KEY (`ID`)
 ) ENGINE = 'InnoDB';
 
 
---TODO: da completare
+-- TODO: da completare
 -- first questionnaire, the one with the two games
 CREATE TABLE IF NOT EXISTS `Q2` (
   `PLAYTIME` INT(5) NOT NULL COMMENT '0=never, ...', --  0=Never, 1=Less than 1 hour, 2=Between 1 and 2 hours, 3=Between 2 and 4 hours, 4=More than 4 hours
@@ -49,12 +47,12 @@ CREATE TABLE IF NOT EXISTS `Q2` (
   `GAME2` VARCHAR(100) NOT NULL,  /*Title of the second game   --Title of the first game*/
   `SEXISM1` INT NOT NULL, /*- --Should be between 1 and 5*/
   `SEXISM2` INT NOT NULL, /*- --Should be between 1 and 5*/
-  `USER_ID` INT NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
+  `USER_ID` VARCHAR(100) NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
   
   PRIMARY KEY (`USER_ID`),
   CONSTRAINT `fk_USERQ2`
 		FOREIGN KEY (`USER_ID`)
-		REFERENCES `VaesDB`.`USER`(`ID`)
+		REFERENCES `USER`(`ID`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 ) ENGINE = 'InnoDB';
@@ -86,8 +84,7 @@ CREATE TABLE IF NOT EXISTS `Q3` (
   `QUESTION20`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*---Should be between 0 and 5   -   Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives.*/
   `QUESTION21`INT NOT NULL DEFAULT 0 COMMENT 'man financial sacrifice',  	/*--Should be between 0 and 5   -   Feminists are making entirely reasonable demands of men.*/
   `QUESTION22`INT NOT NULL DEFAULT 0 COMMENT 'women more culture',  		/*--Should be between 0 and 5   -   Women, as compared to men, tend to have a more refined sense of culture and good taste.*/
-  `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questions*/
-  `USER_ID` INT NOT NULL,  -- The id of the user of course		primary and FOREIGN KEY
+  `USER_ID` VARCHAR(100) NOT NULL,  -- The id of the user of course		primary and FOREIGN KEY
   
   PRIMARY KEY (`USER_ID`),
   CONSTRAINT `fk_USERQ3`
@@ -109,9 +106,8 @@ CREATE TABLE IF NOT EXISTS `Q4` (
   `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT 'man loses interest',  		 /*---Should be between 1 and 5   -   When his sexual desire weakens, a man will likely lose interest in a woman.*/
   `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT 'women equals if sex',  		/*- --Should be between 1 and 5   -   When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs.*/
   `QUESTION10`INT NOT NULL DEFAULT 0 COMMENT 'man full cons. women',  	 /*---Should be between 1 and 5   -   Most men have a full consideration of women as persons.*/
-  `Q_order` BIT(1) NOT NULL DEFAULT 1 COMMENT '0=control, 1 = not control', /*control is in order (e.g. 1-2-3-4). The order of the questions*/
     /*`COMPLETED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=not yet, 1=done' */
-  `USER_ID` INT NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
+  `USER_ID` VARCHAR(100) NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
   
   PRIMARY KEY (`USER_ID`),
   CONSTRAINT `fk_USERQ4`
@@ -119,6 +115,27 @@ CREATE TABLE IF NOT EXISTS `Q4` (
 		REFERENCES `VaesDB`.`USER`(`ID`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
+)ENGINE = 'InnoDB';
+
+CREATE TABLE IF NOT EXISTS `Q5` (
+        `CONTROL_QUESTION` INT DEFAULT 10,
+        `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT '', /*---Should be between 1 and 5   -   When approaching a woman, most men think more about what that women can do to please him than what he can do to please her*/
+        `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT '', 		 /*--Should be between 1 and 5   -   Most men tend to approach a woman only when they want to have sex with her.*/
+        `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT '', /*---Should be between 1 and 5   -   Most men are interested in women’s feelings because they want to be close to women.*/
+        `QUESTION4`INT NOT NULL DEFAULT 0 COMMENT '',  		 /*---Should be between 1 and 5   -   When a man flatters a woman, it is because he wants to have sex with her.*/
+        `QUESTION5`INT NOT NULL DEFAULT 0 COMMENT '', 	 /*--Should be between 1 and 5   -   A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite.*/
+        `QUESTION6`INT NOT NULL DEFAULT 0 COMMENT '',  	 /*---Should be between 1 and 5   -   Most men consider women sexual objects.*/
+        `QUESTION7`INT NOT NULL DEFAULT 0 COMMENT '',/*---Should be between 1 and 5   -   Most relationships between a man and a woman are based on closeness and affection.*/
+        `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT '',  		 /*---Should be between 1 and 5   -   When his sexual desire weakens, a man will likely lose interest in a woman.*/
+        `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT '',  		/*- --Should be between 1 and 5   -   When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs.*/
+        `USER_ID` VARCHAR(100) NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
+
+        PRIMARY KEY (`USER_ID`),
+        CONSTRAINT `fk_USERQ5`
+            FOREIGN KEY (`USER_ID`)
+                REFERENCES `VaesDB`.`USER`(`ID`)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE
 )ENGINE = 'InnoDB';
 
 
@@ -132,8 +149,8 @@ CREATE TABLE IF NOT EXISTS `choice` (
   `ENTRY` INT NOT NULL COMMENT '1= first entry for user',/*-  -- NUMBER OF THE ENTRY FOR THE CURRENT USER, E.G.  1 -> FIRST ENTRY FOR THIS USER*/
   `TYPE` INT NOT NULL COMMENT '0=male, 1=female, 3=mix', /*- -- Type of choice, same sex or different sex*/
   `TIME` FLOAT NOT NULL COMMENT 'response time',/*- -- response time of each choice*/
-  `CHOSEN` INT NOT NULL COMMENT 'id of avatar chosen',
-  `USER_ID` INT NOT NULL, /*- -- The id of the user of course		FOREIGN KEY	*/
+  `CHOSEN` varchar(3) NOT NULL COMMENT 'id of avatar chosen',
+  `USER_ID` VARCHAR(100) NOT NULL, /*- -- The id of the user of course		FOREIGN KEY	*/
   `AVATAR1_ID` INT NOT NULL COMMENT 'left',/*-  -- The avatar presented on the left    FOREIGN KEY*/
   `AVATAR2_ID` INT NOT NULL COMMENT 'right',/*-  -- The avatar presented on the right  FOREIGN KEY*/
   

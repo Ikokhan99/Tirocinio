@@ -7,11 +7,11 @@ abstract class Q
     public $conn;
 
     // object properties
-    public int $user_id;
+    public string $user_id;
     public array $questions;
     public string $table_name;
     public array $control_questions;
-    public int $q_order; //bool
+    //public int $q_order; //bool
 
     function get()
     {

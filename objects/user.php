@@ -13,8 +13,6 @@ class User
     public int $sex; //bool
 	public int $sexor;
 	public int $age;
-	public int $trusted;  //bool
-    public int $q_order; //bool
 
     private $stmt;
 
@@ -24,20 +22,23 @@ class User
         $this->conn = $db;
         $this->sex = 0;
         $this->sexor=0;
-        $this->trusted=1;
         $this->age = 18;
     }
 
-	function create()
-	{
+	function create(): bool
+    {
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		$q = "INSERT INTO user VALUES(null,$this->sex,$this->age,$this->sexor,$this->trusted,$this->q_order);";
+		$temp_id = generateRandomID(25);
+		$_SESSION['user-id'] = $temp_id;
+
+
+		$q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->age,$this->sexor);";
 		// var_dump($q);
 		$this->stmt = $this->conn->query($q);
-		$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
-        $_SESSION['uid'] = $this->conn->lastInsertId();
-	 
+		//$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
+        //$_SESSION['uid'] = $this->conn->lastInsertId();
+	    //we are going to use the prolific id
 		return true;
  
 	}

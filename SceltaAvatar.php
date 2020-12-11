@@ -23,48 +23,114 @@ if(isset($_SESSION['at']))
         {
            
             include_once 'objects/user.php';
-
-            $user = new User($_SESSION['db']);
+            /** @var $db, declared in head */
+            $user = new User($db);
             $user->create();
         }
 
 
 
     } elseif ($_SESSION['at'] == 2){
+        //mix case
         if(!fast_debug) {
-            //getting chosen avatars
+            //getting most chosen avatars
             
             $mix_av = array();
+//
+//select chosen from choice where type = 0 AND user_id = 'dummyFYGkMfNP3B5CLt7YC965wjazS' group by chosen order by count(*) desc limit 5;
 
-
-            $q = "SELECT DISTINCT a.id AS id,a.pic AS pic,a.sex AS sex from avatar AS a INNER JOIN choice AS c ON (a.id = c.chosen)where c.user_id=:id";
-            $stmt = $_SESSION['db']->prepare($q);
-            $stmt->bindParam(':id', $_SESSION['uid']);
-            $result = $stmt->execute();
-            for ($i = 0; $mix_av[$i] = mysqli_fetch_assoc($result); $i++) ;
-            // Delete last empty one
-            array_pop($mix_av);
-            if (debug) {
-                echo "<p>Avatar scelti  </p>";
-                print_r($mix_av);
+            //5 most frequent choices for males
+            $q = "select chosen from choice where type = :type AND user_id = '".$_SESSION['user-id']."' group by chosen order by count(*) desc limit 5;";
+            $type=0;
+            $k =0;
+            /** @var $db, declared in head */
+            $stmt = $db->prepare($q);
+           // $stmt->bindParam(':id', $_SESSION['user-id']);
+            $stmt->bindParam(':type', $type);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+            for($i = 0; $i< count($result);$i++)
+            {
+                $result[$i] = strval($result[$i]) . "m";
             }
+            if(debug)
+               print_r($result);
+            //5 most frequent choices for females
+            $type=1;
+           // $stmt->bindParam(':id', $_SESSION['user-id']);
+            $stmt->bindParam(':type', $type);
+            $stmt->execute();
+            $result2 = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+            for($i = 0; $i< count($result2);$i++)
+            {
+                $result2[$i] = strval($result2[$i]) . "f";
+            }
+            $result = array_merge($result, $result2 );
+
+            if(debug){
+                print_r($q);
+                //var_dump($db);
+                echo "<p>Avatar scelti  </p>";
+                var_dump($result);
+
+            }
+
+            //probabilmente è più comodo farlo a mano
+            $_SESSION['p_mix'] = array(
+            0=>array(0=>$result[0],1=>$result[5]),
+                1=>array(0=>$result[0],1=>$result[6]),
+                2=>array(0=>$result[0],1=>$result[7]),
+                3=>array(0=>$result[0],1=>$result[8]),
+                4=>array(0=>$result[0],1=>$result[9]),
+            6=>array(0=>$result[1],1=>$result[5]),
+                7=>array(0=>$result[1],1=>$result[6]),
+                8=>array(0=>$result[1],1=>$result[7]),
+                9=>array(0=>$result[1],1=>$result[8]),
+                10=>array(0=>$result[1],1=>$result[9]),
+            11=>array(0=>$result[2],1=>$result[5]),
+                12=>array(0=>$result[2],1=>$result[6]),
+                13=>array(0=>$result[2],1=>$result[7]),
+                14=>array(0=>$result[2],1=>$result[8]),
+                15=>array(0=>$result[2],1=>$result[9]),
+            16=>array(0=>$result[3],1=>$result[5]),
+                17=>array(0=>$result[3],1=>$result[6]),
+                18=>array(0=>$result[3],1=>$result[7]),
+                19=>array(0=>$result[3],1=>$result[8]),
+                20=>array(0=>$result[3],1=>$result[9]),
+            21=>array(0=>$result[4],1=>$result[5]),
+                22=>array(0=>$result[4],1=>$result[6]),
+                23=>array(0=>$result[4],1=>$result[7]),
+                24=>array(0=>$result[4],1=>$result[8]),
+                25=>array(0=>$result[4],1=>$result[9])
+            );
+            shuffle($_SESSION['p_mix']);
+
+
+            /*
             //permutazioni?
+            include_once "config/permutations.php";
             $_SESSION['p_mix'] = array();
-            exec_combine(2,range(1,16),3);
-            shuffle($_SESSION['p_male']);
+            exec_combine(2,$result,3);
+            shuffle($_SESSION['p_mix']);
             if(debug)
             {
-                print_r($result);
+                echo "<p>Mix:  </p>";
+                print_r($_SESSION['p_mix']);
             }
 
             //TODO: delete delle coppie same sex?
-            foreach ($result as $k => $value) {
-                if($value[0]['sex'] == $value[1]['sex']){
-                    unset($result[$k]);
+            foreach ($_SESSION['p_mix'] as $key => $couple){
+                if($couple[0][strlen($couple[0])-1] === $couple[1][strlen($couple[1])-1]){
+                    unset($_SESSION['p_mix'][$key]);
                 }
             }
+            if(debug)
+            {
+                echo "<p>Mix after same sex delete:  </p>";
+                print_r($_SESSION['p_mix']);
+            }
 
-            $_SESSION['p_mix'] = $result;
+           // $_SESSION['p_mix'] = $result;*/
 
         }
         else{

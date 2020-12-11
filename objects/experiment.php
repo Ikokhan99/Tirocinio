@@ -9,8 +9,8 @@ class Experiment
     public int $entry;
     public int $type; //0 = mix, 1= same
     public float $time; //rt
-    public int $chosen; //id of chosen avatar
-    public int $uid; //user id
+    public string $chosen; //id of chosen avatar
+    public string $uid; //user id
     public int $a1; //left avatar id
     public int $a2; //right avatar id
 
@@ -38,7 +38,7 @@ class Experiment
         // var_dump($q);
         $stmt = $this->conn->prepare($q);
 
-        $stmt->bindParam(':uid', $this->entry);
+        $stmt->bindParam(':entry', $this->entry);
         $stmt->bindParam(':type', $this->type);
         $stmt->bindParam(':time', $this->time);
         $stmt->bindParam(':chosen', $this->chosen);

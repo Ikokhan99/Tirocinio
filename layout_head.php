@@ -19,7 +19,7 @@
 
 
     <!-- user custom CSS -->
-  <link href="<?php echo $home_url . "style.css" ?>" rel="stylesheet" />
+  <link href="<?php echo home_url . "style.css" ?>" rel="stylesheet" />
     <?php
 
     //TODO
@@ -31,6 +31,12 @@
                     }
               </script>";
         }
+    include_once 'config/database.php';
+    if(isset($page_title)&& $page_title!="Experiment"){
+        $database = new Database();
+        $db = $database->getConnection();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
 
     ?>
 </head>

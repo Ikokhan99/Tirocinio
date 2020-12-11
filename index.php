@@ -48,18 +48,17 @@ $_SESSION['Q5'] = $q_order;
 //db
 if(!fast_debug)
 {
-include_once 'config/database.php';
-$database = new Database();
-$db = $database->getConnection();
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$_SESSION['db'] = $db;
+include_once 'objects/user.php';
+/** @var  $db, declared and initialized in head */
+$user = new User($db);
+$error = !$user->create();
 }
 
 
 //now, time for the avatar's img
-if(fast_debug)
-{
-    $m_img = array(   "avatar/01_m".IMG_EXT,
+//if(fast_debug)
+//{
+$m_img = array(   "avatar/01_m".IMG_EXT,
         "avatar/02_m".IMG_EXT,
         "avatar/03_m".IMG_EXT,
         "avatar/04_m".IMG_EXT,
@@ -75,7 +74,7 @@ if(fast_debug)
         "avatar/14_m".IMG_EXT,
         "avatar/15_m".IMG_EXT,
         "avatar/16_m".IMG_EXT);
-    $f_img = array(   "avatar/01_f".IMG_EXT,
+$f_img = array(   "avatar/01_f".IMG_EXT,
     "avatar/02_f".IMG_EXT,
     "avatar/03_f".IMG_EXT,
     "avatar/04_f".IMG_EXT,
@@ -91,7 +90,7 @@ if(fast_debug)
     "avatar/14_f".IMG_EXT,
     "avatar/15_f".IMG_EXT,
     "avatar/16_f".IMG_EXT);
-} else {
+/*} else {
     include_once 'config/database.php';
     $m_img = array();
     $f_img = array();
@@ -122,7 +121,7 @@ if(fast_debug)
         echo "<p>Imagini avatar femminili  </p>";
         print_r($f_img);
     }
-}
+}*/
 $_SESSION['i_male'] = $m_img;
 $_SESSION['i_female'] = $f_img;
 
@@ -143,27 +142,21 @@ if(debug){
     print_r($_SESSION['p_male']);
     echo "<p>Perm female:  </p>";
     print_r($_SESSION['p_female']);
+    echo "<p>Temporary User Id  </p>";
+    print_r($_SESSION['user-id']);
 }
 
-
+/*
 if(!fast_debug){
     //start transaction
     $_SESSION['db']->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
     $_SESSION['db']->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
-}
+}*/
 
 
 // create the user and start transaction
-if((isset($_SESSION['db'])&& $_SESSION['db']->beginTransaction())|| fast_debug)
+if((isset($error)&& $error === false)|| fast_debug)
 {
-    if(!fast_debug){
-        include_once 'objects/user.php';
-        $user = new User($_SESSION['db']);
-        $user->create();
-
-    }
-
-
 
 echo "
         <div class='container'>
@@ -190,6 +183,7 @@ else{
     echo "<pre>
     Spiacenti, si è verificato un errore
    </pre>";
+    $user->showError();
 }
 
 // footer HTML and JavaScript codes
