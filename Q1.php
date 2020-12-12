@@ -1,24 +1,23 @@
 <?php
 // core configuration
 include_once "config/core.php";
-//include_once 'config/database.php';
 include_once 'objects/user.php';
 include_once 'config/Foes.php';
 
 
 if (!empty($_POST)) {
     if(!fast_debug) {
-        $user = new User($_SESSION['db']);
-        $user->trusted = 1;
+        include_once 'config/database.php';
+        $database = new Database();
+        $db = $database->getConnection();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $user = new User($db);
         $user->sexor = check_int($_POST['user-sexor'],0,4);
         $user->sex = check_int($_POST['user-sex'],0,1);
         $user->age = check_int($_POST['user-age'],18,70);
         //todo:controlli
+        $user->create($_POST['user-id']);
 
-        if ($_SESSION['Q_ORDERED'])
-            $user->q_order = 0;
-        else
-            $user->q_order = 1;
         if (!$user->create()) {
             $user->showError();
             die();
@@ -82,7 +81,7 @@ if(debug)
     echo "</p>";
 }
 
-//TODO: prolific ID (domanda aperta)
+//TODO:controlli input
 
 // page title
 $page_title = "Survey";
@@ -96,9 +95,8 @@ include_once "layout_head.php";
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="#" class="active" id="user-info">TODO: decidere cosa scrivere qui</a>
+                            Thank you for completing this experiment, now we kindly ask you to conclude this experience by filling out our questionnaire
                         </div>
-                    </div>
                 </div>
                 <div class="panel-body">
                     <div class="row">
