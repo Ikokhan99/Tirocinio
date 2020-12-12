@@ -6,7 +6,7 @@ include_once 'config/database.php';
 include_once 'objects/user.php';
 
 // page title
-$order = range(1,22);
+$order = range(0,23);
 shuffle($order);
 
 $page_title = "Survey";
@@ -43,27 +43,115 @@ if(debug) {
 ?>
 <div style="text-align: center;">
 <form action="Q3.php" method="post">
-<p style= "font-weight: 1000;">
+
+
+    <p style= "font-weight: 1000;">
 Below is a series of statements concerning men and women and their
 relationships in contemporary society. Please indicate the degree to
 which you agree or disagree with each statement using the following
 scale: 0 = disagree strongly; 1 = disagree somewhat; 2 = disagree
 slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
 </p>
+
 <table class="center">
     <tr>
         <td> </td>
         <td style= "font-weight: 1000;">disagree strongly</td>
         <td style= "font-weight: 1000;">disagree somewhat</td>
         <td style= "font-weight: 1000;">disagree slightly</td>
-        <td style= "font-weight: 1000;">agree slightly</td>>
+        <td style= "font-weight: 1000;">agree slightly</td>
         <td style= "font-weight: 1000;">agree somewhat</td>
         <td style= "font-weight: 1000;">agree strongly</td>
     </tr>
 <?php
 foreach ($order as $num )
 {
-    switch ($num) {case 1:default:
+    switch ($num) {
+        case 0:{
+            echo '<tr>
+    <td> Feminists are not seeking the answer to this question, which is four </td>
+        <td style= "text-align: center">
+            <input type="radio" name="control1" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="control1" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="control1" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="control1" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="control1" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="control1" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>';
+            break;
+        }
+        case 23:{
+            echo '<tr>
+    <td> No matter how accomplished a man is, the answer to this question is zero</td>
+        <td style= "text-align: center">
+            <input type="radio" name="control1" value="0" id = "zero">
+            <label  for="zero"> 
+                0
+            </label>
+        </td>
+        <td style="text-align: center">
+            <input type="radio" name="control1" value="1" id = "one">
+            <label  for="one"> 
+                1
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="control1" value="2" id = "two">
+            <label for="two"> 
+                2
+            </label> 
+        </td>
+        <td style="text-align: center"> 
+        <input type="radio" name="control1" value="3" id = "three">
+            <label for="three"> 
+                3
+            </label>
+        </td>
+        <td style="text-align: center">  
+        <input type="radio" name="control1" value="4" id = "four">
+            <label for="four"> 
+                4
+            </label>
+        </td>
+        <td style="text-align: center">
+        <input type="radio" name="control1" value="5" id = "five">
+            <label for="five"> 
+                5
+            </label>
+        </td>
+    </tr>';
+            break;
+        }
+        case 1:default:
 
     echo '<tr>
     <td> No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>

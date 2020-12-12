@@ -165,7 +165,10 @@ echo "
                     <h1 class=\"display-4\">Experiment</h1>
                     <p class=\"lead\">Todo: modificare le scritte e la grafica</p>
                     <hr class=\"my-4\">
-                    
+                     <p class=\"lead\">
+                    Before starting we inform you that <strong >you will not be allowed </strong> to reload the web page, 
+                    close the browser or start the experiment and finish it after some time.  
+                    </p>
                     <p class=\"lead\">
                         <a class=\"btn btn-primary btn-lg\" href=\"SceltaAvatar.php\" role=\"button\">Let's go!</a>
                     </p>

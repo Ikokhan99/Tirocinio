@@ -32,7 +32,7 @@
               </script>";
         }
     include_once 'config/database.php';
-    if(isset($page_title)&& $page_title!="Experiment"){
+    if(isset($page_title)&& ($page_title!="Experiment" || $page_title!="Survey")){
         $database = new Database();
         $db = $database->getConnection();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

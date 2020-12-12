@@ -6,7 +6,7 @@ include_once 'config/database.php';
 include_once 'objects/user.php';
 
 // page title
-$order = range(1,10);
+$order = range(0,10);
 shuffle($order);
 
 $page_title = "Survey";
@@ -62,6 +62,43 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
 
 foreach ($order as $num ) {
     switch ($num) {
+        case 0:
+//TODO:set q names
+            echo "
+    <tr>
+    <td> Lots of men have a full consideration of five, which is the answer of this statement </td>
+        <td style='text-align: center'>
+            <input type='radio' name='please' value='1' id = 'one'>
+            <label  for='one'> 
+                1
+            </label>
+        </td>
+        <td style='text-align: center'>
+        <input type='radio' name='please' value='2' id = 'two'>
+            <label for='two'> 
+                2
+            </label> 
+        </td>
+        <td style='text-align: center'> 
+        <input type='radio' name='please' value='3' id = 'three'>
+            <label for='three'> 
+                3
+            </label>
+        </td>
+        <td style='text-align: center'>  <input type='radio' name='please' value='4' id = 'four'>
+            <label for='four'> 
+                4
+            </label>
+        </td>
+        <td style='text-align: center'>
+        <input type='radio' name='please' value='5' id = 'five'>
+            <label for='five'> 
+                5
+            </label>
+        </td>
+    </tr>
+    ";
+            break;
         case 1:
         default:
 //TODO:set q names

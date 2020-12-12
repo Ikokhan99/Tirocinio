@@ -18,7 +18,6 @@ if (!empty($_POST)) {
         else
             $q2->q_order = 1;
         if (!$q2->create()) {
-            $q2->showError();
             die();
         }
     }
@@ -35,220 +34,352 @@ if(debug) {
 //TODO: tipologia, realismo di ambientazione?, realismo grafico?, livello violenza?
 
 ?>
-
+    <form action='Q2.php' method='post'>
     <!-- fixed order for this one -->
-    <div>
-        <form action='Q2.php' method='post'>
-            <div class='center'>
-                <div >
-                    <b>Time dedicated to videogames (smartphone, PC, console) on average in a day:</b><br><br><br>
+    <div class="wrap">
+        <div class='main-container'>
+                <div class="Q1" >
+                    <strong>
+                    Time dedicated to videogames (smartphone, PC, console) on average in a day:
+                    </strong>
+                </div>
+                <div style="column-count: 2;grid-row: 2 ;padding: 5px;">
                     <label>
                         <input type='radio' name='playtime' value='never'>
-                    </label> Never <br>
-                    <br>
+                    </label> Never
                     <label>
                         <input type='radio' name='playtime' value='low'>
-                    </label> Less than 1 hour <br><br>
+                    </label> Less than 1 hour
                     <label>
                         <input type='radio' name='playtime' value='mid'>
-                    </label> Between 1 and 2 hours <br><br>
+                    </label> Between 1 and 2 hours
                     <label>
                         <input type='radio' name='playtime' value='high'>
-                    </label> Between 2 and 4 hours <br><br>
+                    </label> Between 2 and 4 hours
                     <label>
                         <input type='radio' name='playtime' value='veryhigh' required>
-                    </label> More than 4 hours <br><br>
+                    </label> More than 4 hours
                 </div>
 
                 <!-- Todo: parte grafica-->
-                <div>
+                <div class="Q2">
                     <strong>
                     Enter the type of videogames you prefer (you can enter a maximum of three preferences)</strong>
-                    <br><br>
+                </div>
+                <div class="ans2 options">
 
-                    <label class="type-label">
+                    <label style="grid-column: 1; grid-row: 1">
                         <input type='checkbox' name='type' value='Platform'>
                         Platform
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 1">
                         <input type='checkbox' name='type' value='FPS'>
                         FPS(First Person Shooter)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row:1">
                         <input type='checkbox' name='type' value='TPS'>
                         TPS(Third Person Shooter)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 4; grid-row: 1">
                         <input type='checkbox' name='type' value='Danmaku'>
                         Bullet hell
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 5; grid-row: 1">
                         <input type='checkbox' name='type' value='BattleRoyale'>
                         Battle Royale
-                    </label><br>
+                    </label>
 
 
-                    <label class="type-label">
+                    <label style="grid-column: 1; grid-row: 2">
                         <input type='checkbox' name='type' value='Fighting'>
                         Fighting games
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 2">
                         <input type='checkbox' name='type' value='Brawlers'>
                         Beat'em up (Brawlers)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row: 2">
                         <input type='checkbox' name='type' value='Stealth'>
                         Stealth
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 4; grid-row: 2">
                         <input type='checkbox' name='type' value='Survival'>
                         Survival
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 5; grid-row: 2">
                         <input type='checkbox' name='type' value='SurvivalHorror'>
                         Survival horror
-                    </label><br>
+                    </label>
 
 
-                    <label class="type-label">
+
+                    <label style="grid-column: 1; grid-row: 3">
                         <input type='checkbox' name='type' value='Metroidvania'>
                         Metroidvania
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 3">
                         <input type='checkbox' name='type' value='TextAdv'>
                         Text adventure
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row: 3">
                         <input type='checkbox' name='type' value='GraphicAdv'>
                         Graphic adventure
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 4; grid-row: 3">
                         <input type='checkbox' name='type' value='VisualNovel'>
                         Visual Novel
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 5; grid-row: 3">
                         <input type='checkbox' name='type' value='InteractiveMovie'>
                         Interactive movie
-                    </label><br>
+                    </label>
 
 
-                    <label class="type-label">
+                    <label style="grid-column: 1; grid-row: 4">
                         <input type='checkbox' name='type' value='RealTime3DAdventure'>
                         Real Time 3D adventure
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 4">
                         <input type='checkbox' name='type' value='Roguelike'>
                         Roguelike
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row: 4">
                         <input type='checkbox' name='type' value='MMO'>
                         MMO(Massively Multiplayer Online)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 4; grid-row: 4">
                         <input type='checkbox' name='type' value='MMORPG'>
                         MMORPG(Massively Multiplayer Online role-playing games)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 5; grid-row: 4">
                         <input type='checkbox' name='type' value='ActionRPG'>
                         Action RPG
-                    </label><br>
+                    </label>
 
 
-                    <label class="type-label">
+                    <label style="grid-column: 1; grid-row: 5">
                         <input type='checkbox' name='type' value='TacticalRPG'>
                         Tactical RPG
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 5">
                         <input type='checkbox' name='type' value='JRPG'>
                         JRPG(Japanese RPG)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row: 5">
                         <input type='checkbox' name='type' value='FPPBRPG'>
                         FPPBRPG(First-person Party-based RPG)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 4; grid-row: 5">
                         <input type='checkbox' name='type' value='MonsterTamer'>
                         Monster tamer (like Pokemon)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 5; grid-row: 5">
                         <input type='checkbox' name='type' value='SandboxRPG'>
                         Sandbox RPG
-                    </label><br>
+                    </label>
 
 
-                    <label class="type-label">
+
+                    <label style="grid-column: 1; grid-row: 6">
                         <input type='checkbox' name='type' value='Sandbox'>
                         Sandbox
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 6">
                         <input type='checkbox' name='type' value='OpenWorld'>
                         Open world
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row: 6">
                         <input type='checkbox' name='type' value='ConstructionSim'>
                         Construction and management simulation
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 4; grid-row: 6">
                         <input type='checkbox' name='type' value='LifeSim'>
                         Life simulation
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 5; grid-row: 6">
                         <input type='checkbox' name='type' value='VehicleSim'>
                         Vehicle simulation
-                    </label><br>
+                    </label>
 
 
-                    <label class="type-label">
+                    <label style="grid-column: 1; grid-row: 7">
                         <input type='checkbox' name='type' value='DatingSim'>
                         Dating simulation
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 2; grid-row: 7">
                         <input type='checkbox' name='type' value='Eroge'>
                         Eroge(Japanese style Erotic games)
-                    </label><br>
-                    <label class="type-label">
+                    </label>
+                    <label style="grid-column: 3; grid-row: 7">
                         <input type='checkbox' name='type' value='Eroge'>
                         Eroge(Japanese style Erotic games)
-                    </label><br>
+                    </label>
+                    <label style="grid-column: 4; grid-row: 7">
+                        <input type='checkbox' name='type' value='4x'>
+                        4X( eXplore, eXpand, eXploit, and eXterminate)
+                    </label>
+                    <label style="grid-column: 5; grid-row: 7">
+                        <input type='checkbox' name='type' value='Artillery'>
+                        Artillery
+                    </label>
 
+                    <label style="grid-column: 1; grid-row: 8">
+                        <input type='checkbox' name='type' value='AutoBattler'>
+                        Auto Battler
+                    </label>
+                    <label style="grid-column: 2; grid-row: 8">
+                        <input type='checkbox' name='type' value='MOBA'>
+                        MOBA (Multiplayer Online Battle Arena)
+                    </label>
+                    <label style="grid-column: 3; grid-row: 8">
+                        <input type='checkbox' name='type' value='RTS'>
+                        RTS(Real Time Strategy)
+                    </label>
+                    <label style="grid-column: 4; grid-row: 8">
+                        <input type='checkbox' name='type' value='RTT'>
+                        RTT(Real Time Tactics)
+                    </label>
+                    <label style="grid-column: 5; grid-row: 8">
+                        <input type='checkbox' name='type' value='TBS'>
+                        TBS(Turn-based Strategy)
+                    </label>
 
-                    <!--whicht is the level of violence you perceive in this game? (insert a number from 0 to 5 where 0 correspond to "no perceived violence" and 5 correspond to "much perceived violence")
-                       how realistic do you think this game is? (from a graphical point of view). Enter a number from 1 to 5 where 1 correspond to "not very real" and 5 correspond to "very real")
-                        how realistic do you think this game is? (in terms of game mechanics). Enter a number from 1 to 5 where 1 corresponds to "not very real" and 5 corresponds to "very real"
+                    <label style="grid-column: 1; grid-row: 9">
+                        <input type='checkbox' name='type' value='TBT'>
+                        TBT(Turn-based Tactics)
+                    </label>
+                    <label style="grid-column: 2; grid-row: 9">
+                        <input type='checkbox' name='type' value='TowerDefense'>
+                        Tower defense
+                    </label>
+                    <label style="grid-column: 3; grid-row: 9">
+                        <input type='checkbox' name='type' value='Sport'>
+                        Sport
+                    </label>
+                    <label style="grid-column: 4; grid-row: 9">
+                        <input type='checkbox' name='type' value='Card'>
+                        Card game
+                    </label>
+                    <label style="grid-column: 5; grid-row: 9">
+                        <input type='checkbox' name='type' value='Horror'>
+                        Horror game
+                    </label>
 
-                    -->
-
-
+                    <label style="grid-column: 1; grid-row: 10">
+                        <input type='checkbox' name='type' value='Party'>
+                        Party game
+                    </label>
+                    <label style="grid-column: 2; grid-row: 10">
+                        <input type='checkbox' name='type' value='Typing'>
+                        Typing Game
+                    </label>
+                    <label style="grid-column: 3; grid-row: 10">
+                        <input type='checkbox' name='type' value='Logic'>
+                        Logic game
+                    </label>
+                    <label style="grid-column: 4; grid-row: 10">
+                        <input type='checkbox' name='type' value='Multi'>
+                        Multi-Genre
+                    </label>
+                    <label style="grid-column: 5; grid-row: 10">
+                        <input type='checkbox' name='type' value='Other'>
+                        Other
+                    </label>
                 </div>
-                <div >
-                    <b>Enter one or two of your current favorite video games (if you have any) and indicate for each one the degree of perceived sexism (from 0 to 5):</b><br>
-                    <br>
-                    1. <label>
+                <div style="grid-row: 6">
+                    <b>Enter one or two of your current favorite video games and indicate for each one the degree of the perceived characteristics (from 0 to 5):</b>
+                </div>
+            <div style="grid-row: 7">
+                <div class="games">
+                     <label style="grid-row: 1;grid-column: 1">
+                        Game 1:
                         <input type='text' name='game1'>
                     </label>
-
-                    Absent sexism <label>
-                        <input type='range' name='sexism1' min=1 max=5>
+                    <label style="grid-row: 1;grid-column: 2 ;">
+                        Gender disparities
                     </label>
-                    Very present sexism
+                     <label style="grid-row: 1; grid-column: 3">
+                         Absent (0)
+                         <input type='range' name='sexism1' min=0 max=5>
+                         (5) Very present
+                     </label>
 
+                    <label style="grid-row: 2;grid-column: 2 ;">
+                        Violence
+                    </label>
+                    <label style="grid-row: 2; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='violence1' min=0 max=5>
+                        (5) Very present
+                    </label>
 
-                    2. <label>
+                    <label style="grid-row: 3;grid-column: 2 ;">
+                        Game graphics realism
+                    </label>
+                    <label style="grid-row: 3; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='realism11' min=0 max=5>
+                        (5) Very realistic
+                    </label>
+
+                    <label style="grid-row: 4;grid-column: 2 ;">
+                        Game mechanics realism
+                    </label>
+                    <label style="grid-row: 4; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='realism12' min=0 max=5>
+                        (5) Very realistic
+                    </label>
+
+                </div>
+
+            </div>
+            <div style="grid-row: 8">
+                <div class="games">
+                    <label style="grid-row: 1;grid-column: 1">
+                        Game 2:
                         <input type='text' name='game2'>
                     </label>
-
-                    Absent sexism <label>
-                        <input type='range' name='sexism2' min=1 max=5>
+                    <label style="grid-row: 1;grid-column: 2 ;">
+                        Gender disparities
                     </label>
-                    Very present sexism
-                </div><br><br>
+                    <label style="grid-row: 1; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='sexism2' min=0 max=5>
+                        (5) Very present
+                    </label>
 
-                <div style='text-align: center;'>
-                    <input type='submit' name='action' Value='Continue'>
+                    <label style="grid-row: 2;grid-column: 2 ;">
+                        Violence
+                    </label>
+                    <label style="grid-row: 2; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='violence2' min=0 max=5>
+                        (5) Very present
+                    </label>
+
+                    <label style="grid-row: 3;grid-column: 2 ;">
+                        Game graphics realism
+                    </label>
+                    <label style="grid-row: 3; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='realism21' min=0 max=5>
+                        (5) Very realistic
+                    </label>
+
+                    <label style="grid-row: 4;grid-column: 2 ;">
+                        Game mechanics realism
+                    </label>
+                    <label style="grid-row: 4; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='realism22' min=0 max=5>
+                        (5) Very realistic
+                    </label>
                 </div>
             </div>
-        </form>
+
     </div>
+    </form>
     <style>
 
 /*
@@ -272,16 +403,81 @@ if(debug) {
         }
 */
 /*TODO:css */
-.container {
+
+    .wrap {
+        max-width: 100%;
+        text-align: left;
+        margin: 0 auto;
+    }
+    .main-container {
+        margin: 0;
+        padding: 1em;
+        /* display: flex;*/
+        /*align-items: center;*/
+        display: grid;
+        grid-gap: 2px;
+        grid-auto-rows: 66px;
+        grid-template-columns: 100%;
+        grid-template-rows: 2.5% 2.5% 20px 2.5% 500px 20px 24% 24% 2% ;
+        grid-auto-flow: row;
+
+    }
+    .options{
+        margin: 0;
+        padding: 1em;
+        /* display: flex;*/
+        /*align-items: center;*/
+        align-content: stretch;
+        display: grid;
+        grid-gap: 2px;
+        grid-auto-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-auto-flow: row;
+    }
+.games{
+    margin: 0;
+    padding: 1em;
+    align-content: stretch;
     display: grid;
-    grid-template-columns: 50px 50px 50px 50px 50px;
-    grid-template-rows: auto;
-    grid-template-areas:
-    "header header header header header"
-    "main main main main main"
-    "main main main main main"
-    "main main main main main"
-    "main main main main main";
+    grid-gap: 2px;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 0.7fr 4fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr ;
+    grid-auto-flow: row;
+}
+
+.Q1{
+    grid-column: 1 / 1;
+    grid-row: 1 ;
+    justify-self: stretch;
+}
+.Q2{
+    grid-column: 1 / 1;
+    grid-row: 4;
+    justify-self: stretch;
+}
+
+.Q4{
+    grid-column: 1 / 1;
+    grid-row: 8;
+    justify-self: stretch;
+}
+.ans1{
+
+    grid-column: 1 / 1;
+    grid-row: 2;
+    justify-self: stretch;
+}
+.ans2{
+    grid-column: 1 / 1;
+    grid-row: 5;
+    justify-self: stretch;
+}
+.footer{
+    grid-column: 1 / 1;
+    grid-row: 9;
+    text-align: center;
 }
 
 
