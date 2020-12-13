@@ -76,3 +76,45 @@ if(debug) {
 
 // footer HTML and JavaScript codes
 include_once "layout_foot.php";
+
+
+/*
+We are interested in how people think about their bodies. The questions below identify 10 different body
+attributes. We would like you to rank order these body attributes from that which has the greatest impact
+
+on your physical self-concept (rank this a "9"), to that which has the least impact on your physical self-
+concept (rank this a "0").
+
+Note: It does not matter how you describe yourself in terms of each attribute. For example, fitness level
+can have a great impact on your physical self-concept regardless of whether you consider yourself to be
+physically fit, not physically fit, or any level in between.
+Please first consider all attributes simultaneously, and record your rank ordering by writing the ranks in
+the rightmost column.
+IMPORTANT: Do Not Assign The Same Rank To More Than One Attribute
+
+
+9 = greatest impact
+8 = next greatest impact
+1 = next to least impact
+0 = least impact
+
+
+When considering your physical self-concept...
+1.what rank do you assign to physical coordination ?
+2.what rank do you assign to health?
+3.what rank do you assign to weight?
+4.what rank do you assign to strength ?
+5.what rank do you assign to sex appeal?
+6.what rank do you assign to physical attractiveness ?
+7.what rank do you assign to energy level (e.g., stamina)?
+8.what rank do you assign to fimffsculpted muscles ?
+9.what rank do you assign to physical fitness level?
+10.what rank do you assign to measurements (e.g., chest, waist, hips)? 
+*/
+
+
+
+
+
+
+
