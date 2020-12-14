@@ -4,21 +4,32 @@ include_once 'config/core.php';
 //include_once 'config/database.php';
 include_once 'objects/q2.php';
 include_once 'config/Foes.php';
-
+if(debug){
+    var_dump($_POST);
+}
 if (!empty($_POST)) {
     if(!fast_debug) {
-        //TODO
-        $q2 = new Q2($_SESSION['db'],$_SESSION['uid']);
-        $q2->playtime = $_POST['playtime'];
-        $q2->sexor = $_POST['user-sexor'];
-        $q2->sex = $_POST['user-sex'];
-        $q2->age = $_POST['user-age'];
-        if ($_SESSION['Q_ORDERED'])
-            $q2->q_order = 0;
-        else
-            $q2->q_order = 1;
+        include_once 'config/database.php';
+        $database = new Database();
+        $db = $database->getConnection();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+       // $user = new User($db);
+        $q2 = new Q2($db,$_SESSION['user-id']);
+
+        $q2->game1 = test_input($_POST["game1"]);
+        $q2->game2 = test_input($_POST["game2"]);
+        $q2->violence1 = check_int($_POST["violence1"],0,5);
+        $q2->violence2 = check_int($_POST["violence2"],0,5);
+        $q2->gens = $_POST["type"];
+        $q2->realism11 = check_int($_POST["realism11"],0,5);
+        $q2->realism12 = check_int($_POST["realism12"],0,5);
+        $q2->realism21 = check_int($_POST["realism21"],0,5);
+        $q2->realism22 = check_int($_POST["realism22"],0,5);
+        $q2->sexism1 = check_int($_POST["sexism1"],0,5);
+        $q2->sexism2 = check_int($_POST["sexism2"],0,5);
+        $q2->playtime = check_int($_POST["playtime"],0,4);
         if (!$q2->create()) {
-            die();
+            die("Errore del server");
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
@@ -31,7 +42,7 @@ if(debug) {
     print_r($_SESSION['Q'][$_SESSION['at']]);
     echo "</p>";
 }
-//TODO: tipologia, realismo di ambientazione?, realismo grafico?, livello violenza?
+include_once "layout_head.php";
 
 ?>
     <form action='Q2.php' method='post'>
@@ -45,19 +56,19 @@ if(debug) {
                 </div>
                 <div style="column-count: 2;grid-row: 2 ;padding: 5px;">
                     <label>
-                        <input type='radio' name='playtime' value='never'>
+                        <input type='radio' name='playtime' value='0'>
                     </label> Never
                     <label>
-                        <input type='radio' name='playtime' value='low'>
+                        <input type='radio' name='playtime' value='1'>
                     </label> Less than 1 hour
                     <label>
-                        <input type='radio' name='playtime' value='mid'>
+                        <input type='radio' name='playtime' value='2'>
                     </label> Between 1 and 2 hours
                     <label>
-                        <input type='radio' name='playtime' value='high'>
+                        <input type='radio' name='playtime' value='3'>
                     </label> Between 2 and 4 hours
                     <label>
-                        <input type='radio' name='playtime' value='veryhigh' required>
+                        <input type='radio' name='playtime' value='4' required>
                     </label> More than 4 hours
                 </div>
 
@@ -69,220 +80,220 @@ if(debug) {
                 <div class="ans2 options">
 
                     <label style="grid-column: 1; grid-row: 1">
-                        <input type='checkbox' name='type' value='Platform'>
+                        <input type='checkbox' name='type[]' value='Platform'>
                         Platform
                     </label>
                     <label style="grid-column: 2; grid-row: 1">
-                        <input type='checkbox' name='type' value='FPS'>
+                        <input type='checkbox' name='type[]' value='FPS'>
                         FPS(First Person Shooter)
                     </label>
                     <label style="grid-column: 3; grid-row:1">
-                        <input type='checkbox' name='type' value='TPS'>
+                        <input type='checkbox' name='type[]' value='TPS'>
                         TPS(Third Person Shooter)
                     </label>
                     <label style="grid-column: 4; grid-row: 1">
-                        <input type='checkbox' name='type' value='Danmaku'>
+                        <input type='checkbox' name='type[]' value='Danmaku'>
                         Bullet hell
                     </label>
                     <label style="grid-column: 5; grid-row: 1">
-                        <input type='checkbox' name='type' value='BattleRoyale'>
+                        <input type='checkbox' name='type[]' value='BattleRoyale'>
                         Battle Royale
                     </label>
 
 
                     <label style="grid-column: 1; grid-row: 2">
-                        <input type='checkbox' name='type' value='Fighting'>
+                        <input type='checkbox' name='type[]' value='Fighting'>
                         Fighting games
                     </label>
                     <label style="grid-column: 2; grid-row: 2">
-                        <input type='checkbox' name='type' value='Brawlers'>
+                        <input type='checkbox' name='type[]' value='Brawlers'>
                         Beat'em up (Brawlers)
                     </label>
                     <label style="grid-column: 3; grid-row: 2">
-                        <input type='checkbox' name='type' value='Stealth'>
+                        <input type='checkbox' name='type[]' value='Stealth'>
                         Stealth
                     </label>
                     <label style="grid-column: 4; grid-row: 2">
-                        <input type='checkbox' name='type' value='Survival'>
+                        <input type='checkbox' name='type[]' value='Survival'>
                         Survival
                     </label>
                     <label style="grid-column: 5; grid-row: 2">
-                        <input type='checkbox' name='type' value='SurvivalHorror'>
+                        <input type='checkbox' name='type[]' value='SurvivalHorror'>
                         Survival horror
                     </label>
 
 
 
                     <label style="grid-column: 1; grid-row: 3">
-                        <input type='checkbox' name='type' value='Metroidvania'>
+                        <input type='checkbox' name='type[]' value='Metroidvania'>
                         Metroidvania
                     </label>
                     <label style="grid-column: 2; grid-row: 3">
-                        <input type='checkbox' name='type' value='TextAdv'>
+                        <input type='checkbox' name='type[]' value='TextAdv'>
                         Text adventure
                     </label>
                     <label style="grid-column: 3; grid-row: 3">
-                        <input type='checkbox' name='type' value='GraphicAdv'>
+                        <input type='checkbox' name='type[]' value='GraphicAdv'>
                         Graphic adventure
                     </label>
                     <label style="grid-column: 4; grid-row: 3">
-                        <input type='checkbox' name='type' value='VisualNovel'>
+                        <input type='checkbox' name='type[]' value='VisualNovel'>
                         Visual Novel
                     </label>
                     <label style="grid-column: 5; grid-row: 3">
-                        <input type='checkbox' name='type' value='InteractiveMovie'>
+                        <input type='checkbox' name='type[]' value='InteractiveMovie'>
                         Interactive movie
                     </label>
 
 
                     <label style="grid-column: 1; grid-row: 4">
-                        <input type='checkbox' name='type' value='RealTime3DAdventure'>
+                        <input type='checkbox' name='type[]' value='RealTime3DAdventure'>
                         Real Time 3D adventure
                     </label>
                     <label style="grid-column: 2; grid-row: 4">
-                        <input type='checkbox' name='type' value='Roguelike'>
+                        <input type='checkbox' name='type[]' value='Roguelike'>
                         Roguelike
                     </label>
                     <label style="grid-column: 3; grid-row: 4">
-                        <input type='checkbox' name='type' value='MMO'>
+                        <input type='checkbox' name='type[]' value='MMO'>
                         MMO(Massively Multiplayer Online)
                     </label>
                     <label style="grid-column: 4; grid-row: 4">
-                        <input type='checkbox' name='type' value='MMORPG'>
+                        <input type='checkbox' name='type[]' value='MMORPG'>
                         MMORPG(Massively Multiplayer Online role-playing games)
                     </label>
                     <label style="grid-column: 5; grid-row: 4">
-                        <input type='checkbox' name='type' value='ActionRPG'>
+                        <input type='checkbox' name='type[]' value='ActionRPG'>
                         Action RPG
                     </label>
 
 
                     <label style="grid-column: 1; grid-row: 5">
-                        <input type='checkbox' name='type' value='TacticalRPG'>
+                        <input type='checkbox' name='type[]' value='TacticalRPG'>
                         Tactical RPG
                     </label>
                     <label style="grid-column: 2; grid-row: 5">
-                        <input type='checkbox' name='type' value='JRPG'>
+                        <input type='checkbox' name='type[]' value='JRPG'>
                         JRPG(Japanese RPG)
                     </label>
                     <label style="grid-column: 3; grid-row: 5">
-                        <input type='checkbox' name='type' value='FPPBRPG'>
+                        <input type='checkbox' name='type[]' value='FPPBRPG'>
                         FPPBRPG(First-person Party-based RPG)
                     </label>
                     <label style="grid-column: 4; grid-row: 5">
-                        <input type='checkbox' name='type' value='MonsterTamer'>
+                        <input type='checkbox' name='type[]' value='MonsterTamer'>
                         Monster tamer (like Pokemon)
                     </label>
                     <label style="grid-column: 5; grid-row: 5">
-                        <input type='checkbox' name='type' value='SandboxRPG'>
+                        <input type='checkbox' name='type[]' value='SandboxRPG'>
                         Sandbox RPG
                     </label>
 
 
 
                     <label style="grid-column: 1; grid-row: 6">
-                        <input type='checkbox' name='type' value='Sandbox'>
+                        <input type='checkbox' name='type[]' value='Sandbox'>
                         Sandbox
                     </label>
                     <label style="grid-column: 2; grid-row: 6">
-                        <input type='checkbox' name='type' value='OpenWorld'>
+                        <input type='checkbox' name='type[]' value='OpenWorld'>
                         Open world
                     </label>
                     <label style="grid-column: 3; grid-row: 6">
-                        <input type='checkbox' name='type' value='ConstructionSim'>
+                        <input type='checkbox' name='type[]' value='ConstructionSim'>
                         Construction and management simulation
                     </label>
                     <label style="grid-column: 4; grid-row: 6">
-                        <input type='checkbox' name='type' value='LifeSim'>
+                        <input type='checkbox' name='type[]' value='LifeSim'>
                         Life simulation
                     </label>
                     <label style="grid-column: 5; grid-row: 6">
-                        <input type='checkbox' name='type' value='VehicleSim'>
+                        <input type='checkbox' name='type[]' value='VehicleSim'>
                         Vehicle simulation
                     </label>
 
 
                     <label style="grid-column: 1; grid-row: 7">
-                        <input type='checkbox' name='type' value='DatingSim'>
+                        <input type='checkbox' name='type[]' value='DatingSim'>
                         Dating simulation
                     </label>
                     <label style="grid-column: 2; grid-row: 7">
-                        <input type='checkbox' name='type' value='Eroge'>
+                        <input type='checkbox' name='type[]' value='Eroge'>
                         Eroge(Japanese style Erotic games)
                     </label>
                     <label style="grid-column: 3; grid-row: 7">
-                        <input type='checkbox' name='type' value='Eroge'>
+                        <input type='checkbox' name='type[]' value='Eroge'>
                         Eroge(Japanese style Erotic games)
                     </label>
                     <label style="grid-column: 4; grid-row: 7">
-                        <input type='checkbox' name='type' value='4x'>
+                        <input type='checkbox' name='type[]' value='4x'>
                         4X( eXplore, eXpand, eXploit, and eXterminate)
                     </label>
                     <label style="grid-column: 5; grid-row: 7">
-                        <input type='checkbox' name='type' value='Artillery'>
+                        <input type='checkbox' name='type[]' value='Artillery'>
                         Artillery
                     </label>
 
                     <label style="grid-column: 1; grid-row: 8">
-                        <input type='checkbox' name='type' value='AutoBattler'>
+                        <input type='checkbox' name='type[]' value='AutoBattler'>
                         Auto Battler
                     </label>
                     <label style="grid-column: 2; grid-row: 8">
-                        <input type='checkbox' name='type' value='MOBA'>
+                        <input type='checkbox' name='type[]' value='MOBA'>
                         MOBA (Multiplayer Online Battle Arena)
                     </label>
                     <label style="grid-column: 3; grid-row: 8">
-                        <input type='checkbox' name='type' value='RTS'>
+                        <input type='checkbox' name='type[]' value='RTS'>
                         RTS(Real Time Strategy)
                     </label>
                     <label style="grid-column: 4; grid-row: 8">
-                        <input type='checkbox' name='type' value='RTT'>
+                        <input type='checkbox' name='type[]' value='RTT'>
                         RTT(Real Time Tactics)
                     </label>
                     <label style="grid-column: 5; grid-row: 8">
-                        <input type='checkbox' name='type' value='TBS'>
+                        <input type='checkbox' name='type[]' value='TBS'>
                         TBS(Turn-based Strategy)
                     </label>
 
                     <label style="grid-column: 1; grid-row: 9">
-                        <input type='checkbox' name='type' value='TBT'>
+                        <input type='checkbox' name='type[]' value='TBT'>
                         TBT(Turn-based Tactics)
                     </label>
                     <label style="grid-column: 2; grid-row: 9">
-                        <input type='checkbox' name='type' value='TowerDefense'>
+                        <input type='checkbox' name='type[]' value='TowerDefense'>
                         Tower defense
                     </label>
                     <label style="grid-column: 3; grid-row: 9">
-                        <input type='checkbox' name='type' value='Sport'>
+                        <input type='checkbox' name='type[]' value='Sport'>
                         Sport
                     </label>
                     <label style="grid-column: 4; grid-row: 9">
-                        <input type='checkbox' name='type' value='Card'>
+                        <input type='checkbox' name='type[]' value='Card'>
                         Card game
                     </label>
                     <label style="grid-column: 5; grid-row: 9">
-                        <input type='checkbox' name='type' value='Horror'>
+                        <input type='checkbox' name='type[]' value='Horror'>
                         Horror game
                     </label>
 
                     <label style="grid-column: 1; grid-row: 10">
-                        <input type='checkbox' name='type' value='Party'>
+                        <input type='checkbox' name='type[]' value='Party'>
                         Party game
                     </label>
                     <label style="grid-column: 2; grid-row: 10">
-                        <input type='checkbox' name='type' value='Typing'>
+                        <input type='checkbox' name='type[]' value='Typing'>
                         Typing Game
                     </label>
                     <label style="grid-column: 3; grid-row: 10">
-                        <input type='checkbox' name='type' value='Logic'>
+                        <input type='checkbox' name='type[]' value='Logic'>
                         Logic game
                     </label>
                     <label style="grid-column: 4; grid-row: 10">
-                        <input type='checkbox' name='type' value='Multi'>
+                        <input type='checkbox' name='type[]' value='Multi'>
                         Multi-Genre
                     </label>
                     <label style="grid-column: 5; grid-row: 10">
-                        <input type='checkbox' name='type' value='Other'>
+                        <input type='checkbox' name='type[]' value='Other'>
                         Other
                     </label>
                 </div>
@@ -293,14 +304,14 @@ if(debug) {
                 <div class="games">
                      <label style="grid-row: 1;grid-column: 1">
                         Game 1:
-                        <input type='text' name='game1'>
+                        <input type='text' name='game1' required>
                     </label>
                     <label style="grid-row: 1;grid-column: 2 ;">
                         Gender disparities
                     </label>
                      <label style="grid-row: 1; grid-column: 3">
                          Absent (0)
-                         <input type='range' name='sexism1' min=0 max=5>
+                         <input type='range' name='sexism1' min=0 max=5 required>
                          (5) Very present
                      </label>
 
@@ -309,7 +320,7 @@ if(debug) {
                     </label>
                     <label style="grid-row: 2; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='violence1' min=0 max=5>
+                        <input type='range' name='violence1' min=0 max=5 required>
                         (5) Very present
                     </label>
 
@@ -318,7 +329,7 @@ if(debug) {
                     </label>
                     <label style="grid-row: 3; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='realism11' min=0 max=5>
+                        <input type='range' name='realism11' min=0 max=5 required>
                         (5) Very realistic
                     </label>
 
@@ -327,7 +338,7 @@ if(debug) {
                     </label>
                     <label style="grid-row: 4; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='realism12' min=0 max=5>
+                        <input type='range' name='realism12' min=0 max=5 required>
                         (5) Very realistic
                     </label>
 
@@ -338,14 +349,14 @@ if(debug) {
                 <div class="games">
                     <label style="grid-row: 1;grid-column: 1">
                         Game 2:
-                        <input type='text' name='game2'>
+                        <input type='text' name='game2' required>
                     </label>
                     <label style="grid-row: 1;grid-column: 2 ;">
                         Gender disparities
                     </label>
                     <label style="grid-row: 1; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='sexism2' min=0 max=5>
+                        <input type='range' name='sexism2' min=0 max=5 required>
                         (5) Very present
                     </label>
 
@@ -354,7 +365,7 @@ if(debug) {
                     </label>
                     <label style="grid-row: 2; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='violence2' min=0 max=5>
+                        <input type='range' name='violence2' min=0 max=5 required>
                         (5) Very present
                     </label>
 
@@ -363,7 +374,7 @@ if(debug) {
                     </label>
                     <label style="grid-row: 3; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='realism21' min=0 max=5>
+                        <input type='range' name='realism21' min=0 max=5 required>
                         (5) Very realistic
                     </label>
 
@@ -372,14 +383,25 @@ if(debug) {
                     </label>
                     <label style="grid-row: 4; grid-column: 3">
                         Absent (0)
-                        <input type='range' name='realism22' min=0 max=5>
+                        <input type='range' name='realism22' min=0 max=5 required>
                         (5) Very realistic
                     </label>
                 </div>
             </div>
-
+            <div style="grid-row: 9; justify-items: center">
+                <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn" value="Continue">
+            </div>
     </div>
     </form>
+
+<script>
+    $('.options :checkbox').change(function () {
+        let $cs = $(this).closest('.options').find(':checkbox:checked');
+        if ($cs.length > 3) {
+            this.checked = false;
+        }
+    });
+</script>
     <style>
 
 /*
@@ -410,7 +432,7 @@ if(debug) {
         margin: 0 auto;
     }
     .main-container {
-        margin: 0;
+        margin: 0 auto;
         padding: 1em;
         /* display: flex;*/
         /*align-items: center;*/

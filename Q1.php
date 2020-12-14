@@ -7,6 +7,7 @@ include_once 'config/Foes.php';
 
 if (!empty($_POST)) {
     if(!fast_debug) {
+        $_SESSION['token'] = $_SESSION['user-id'];
         include_once 'config/database.php';
         $database = new Database();
         $db = $database->getConnection();

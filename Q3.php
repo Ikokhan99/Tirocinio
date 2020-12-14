@@ -4,29 +4,51 @@ include_once "config/core.php";
 
 include_once 'config/database.php';
 include_once 'objects/user.php';
+include_once 'objects/q3.php';
 
 // page title
 $order = range(0,23);
 shuffle($order);
 
 $page_title = "Survey";
-include_once "layout_head.php";
 
+include_once 'config/database.php';
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //TODO
 if (!empty($_POST)) {
     if(!fast_debug) {
         //TODO
-        $q2 = new Q2($_SESSION['db'],$_SESSION['uid']);
-        $q2->playtime = $_POST['playtime'];
-        $q2->sexor = $_POST['user-sexor'];
-        $q2->sex = $_POST['user-sex'];
-        $q2->age = $_POST['user-age'];
-        if ($_SESSION['Q_ORDERED'])
-            $q2->q_order = 0;
-        else
-            $q2->q_order = 1;
-        if (!$q2->create()) {
-            $q2->showError();
+        $q3 = new Q3($db,$_SESSION['user-id']);
+        $q3->control_questions = array(check_int($_POST["control1"],0,5),check_int($_POST["control2"],0,5));
+        $q3->questions = array(check_int($_POST["Q1"],0,5),
+            check_int($_POST["Q2"],0,5),
+            check_int($_POST["Q3"],0,5),
+            check_int($_POST["Q4"],0,5),
+            check_int($_POST["Q5"],0,5),
+            check_int($_POST["Q6"],0,5),
+            check_int($_POST["Q7"],0,5),
+            check_int($_POST["Q8"],0,5),
+            check_int($_POST["Q9"],0,5),
+            check_int($_POST["Q10"],0,5),
+            check_int($_POST["Q11"],0,5),
+            check_int($_POST["Q12"],0,5),
+            check_int($_POST["Q13"],0,5),
+            check_int($_POST["Q14"],0,5),
+            check_int($_POST["Q15"],0,5),
+            check_int($_POST["Q16"],0,5),
+            check_int($_POST["Q17"],0,5),
+            check_int($_POST["Q18"],0,5),
+            check_int($_POST["Q19"],0,5),
+            check_int($_POST["Q20"],0,5),
+            check_int($_POST["Q21"],0,5),
+            check_int($_POST["Q22"],0,5)
+        );
+        if(debug)
+            var_dump($q3);
+        
+        if (!$q3->create()) {
             die();
         }
     }
@@ -40,6 +62,7 @@ if(debug) {
     print_r($_SESSION['Q'][$_SESSION['at']]);
     echo "</p>";
 }
+include_once "layout_head.php";
 ?>
 <div style="text-align: center;">
 <form action="Q3.php" method="post">
@@ -113,37 +136,37 @@ foreach ($order as $num )
             echo '<tr>
     <td> No matter how accomplished a man is, the answer to this question is zero</td>
         <td style= "text-align: center">
-            <input type="radio" name="control1" value="0" id = "zero">
+            <input type="radio" name="control2" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="control1" value="1" id = "one">
+            <input type="radio" name="control2" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="control1" value="2" id = "two">
+        <input type="radio" name="control2" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="control1" value="3" id = "three">
+        <input type="radio" name="control2" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="control1" value="4" id = "four">
+        <input type="radio" name="control2" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="control1" value="5" id = "five">
+        <input type="radio" name="control2" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -156,37 +179,37 @@ foreach ($order as $num )
     echo '<tr>
     <td> No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>
         <td style= "text-align: center">
-            <input type="radio" name="accomplished" value="0" id = "zero">
+            <input type="radio" name= "Q1" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="accomplished" value="1" id = "one">
+            <input type="radio" name= "Q1" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="accomplished" value="2" id = "two">
+        <input type="radio" name= "Q1" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="accomplished" value="3" id = "three">
+        <input type="radio" name= "Q1" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="accomplished" value="4" id = "four">
+        <input type="radio" name= "Q1" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="accomplished" value="5" id = "five">
+        <input type="radio" name= "Q1" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -196,37 +219,37 @@ foreach ($order as $num )
     echo '<tr>
     <td> Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
         <td style="text-align: center">
-            <input type="radio" name="special_favors" value="0" id = "zero">
+            <input type="radio" name= "Q2" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="special_favors" value="1" id = "one">
+            <input type="radio" name= "Q2" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="special_favors" value="2" id = "two">
+        <input type="radio" name= "Q2" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="special_favors" value="3" id = "three">
+        <input type="radio" name= "Q2" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="special_favors" value="4" id = "four">
+        <input type="radio" name= "Q2" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="special_favors" value="5" id = "five">
+        <input type="radio" name= "Q2" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -236,37 +259,37 @@ foreach ($order as $num )
     echo '<tr>
     <td> In a disaster, women ought not necessarily to be rescued before men. </td>
         <td style="text-align: center">
-            <input type="radio" name="disaster" value="0" id = "zero">
+            <input type="radio" name= "Q3" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="disaster" value="1" id = "one">
+            <input type="radio" name= "Q3" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="disaster" value="2" id = "two">
+        <input type="radio" name= "Q3" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="disaster" value="3" id = "three">
+        <input type="radio" name= "Q3" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="disaster" value="4" id = "four">
+        <input type="radio" name= "Q3" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="disaster" value="5" id = "five">
+        <input type="radio" name= "Q3" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -276,37 +299,37 @@ foreach ($order as $num )
     echo '<tr>
     <td> Most women interpret innocent remarks or acts as being sexist. </td>
         <td style="text-align: center">
-            <input type="radio" name="innocent" value="0" id = "zero">
+            <input type="radio" name= "Q4" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="innocent" value="1" id = "one">
+            <input type="radio" name= "Q4" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="innocent" value="2" id = "two">
+        <input type="radio" name= "Q4" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="innocent" value="3" id = "three">
+        <input type="radio" name= "Q4" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="innocent" value="4" id = "four">
+        <input type="radio" name= "Q4" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="innocent" value="5" id = "five">
+        <input type="radio" name= "Q4" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -316,37 +339,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women are too easily offended. </td>
         <td style="text-align: center">
-            <input type="radio" name="offended" value="0" id = "zero">
+            <input type="radio" name= "Q5" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="offended" value="1" id = "one">
+            <input type="radio" name= "Q5" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="offended" value="2" id = "two">
+        <input type="radio" name= "Q5" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="offended" value="3" id = "three">
+        <input type="radio" name= "Q5" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="offended" value="4" id = "four">
+        <input type="radio" name= "Q5" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="offended" value="5" id = "five">
+        <input type="radio" name= "Q5" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -356,37 +379,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> People are often truly happy in life without being romantically involved with a member of the other sex.</td>
         <td style="text-align: center">
-            <input type="radio" name="romantically_involved" value="0" id = "zero">
+            <input type="radio" name= "Q6" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="romantically_involved" value="1" id = "one">
+            <input type="radio" name= "Q6" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="romantically_involved" value="2" id = "two">
+        <input type="radio" name= "Q6" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="romantically_involved" value="3" id = "three">
+        <input type="radio" name= "Q6" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="romantically_involved" value="4" id = "four">
+        <input type="radio" name= "Q6" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="romantically_involved" value="5" id = "five">
+        <input type="radio" name= "Q6" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -396,37 +419,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Feminists are not seeking for women to have more power than men.</td>
         <td style="text-align: center">
-            <input type="radio" name="power" value="0" id = "zero">
+            <input type="radio" name= "Q7" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="power" value="1" id = "one">
+            <input type="radio" name= "Q7" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="power" value="2" id = "two">
+        <input type="radio" name= "Q7" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="power" value="3" id = "three">
+        <input type="radio" name= "Q7" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="power" value="4" id = "four">
+        <input type="radio" name= "Q7" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="power" value="5" id = "five">
+        <input type="radio" name= "Q7" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -436,37 +459,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Many women have a quality of purity that few men possess.</td>
         <td style="text-align: center">
-            <input type="radio" name="purity" value="0" id = "zero">
+            <input type="radio" name= "Q8" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="purity" value="1" id = "one">
+            <input type="radio" name= "Q8" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="purity" value="2" id = "two">
+        <input type="radio" name= "Q8" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="purity" value="3" id = "three">
+        <input type="radio" name= "Q8" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="purity" value="4" id = "four">
+        <input type="radio" name= "Q8" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="purity" value="5" id = "five">
+        <input type="radio" name= "Q8" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -476,37 +499,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women should be cherished and protected by men.</td>
         <td style="text-align: center">
-            <input type="radio" name="cherished" value="0" id = "zero">
+            <input type="radio" name= "Q9" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="cherished" value="1" id = "one">
+            <input type="radio" name= "Q9" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="cherished" value="2" id = "two">
+        <input type="radio" name= "Q9" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="cherished" value="3" id = "three">
+        <input type="radio" name= "Q9" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="cherished" value="4" id = "four">
+        <input type="radio" name= "Q9" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="cherished" value="5" id = "five">
+        <input type="radio" name= "Q9" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -516,37 +539,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Most women fail to appreciate fully all that men do for them.</td>
         <td style="text-align: center">
-            <input type="radio" name="appreciate" value="0" id = "zero">
+            <input type="radio" name= "Q10" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="appreciate" value="1" id = "one">
+            <input type="radio" name= "Q10" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="appreciate" value="2" id = "two">
+        <input type="radio" name= "Q10" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="appreciate" value="3" id = "three">
+        <input type="radio" name= "Q10" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="appreciate" value="4" id = "four">
+        <input type="radio" name= "Q10" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="appreciate" value="5" id = "five">
+        <input type="radio" name= "Q10" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -556,37 +579,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women seek to gain power by getting control over men.</td>
         <td style="text-align: center">
-            <input type="radio" name="seek" value="0" id = "zero">
+            <input type="radio" name= "Q11" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="seek" value="1" id = "one">
+            <input type="radio" name= "Q11" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="seek" value="2" id = "two">
+        <input type="radio" name= "Q11" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="seek" value="3" id = "three">
+        <input type="radio" name= "Q11" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="seek" value="4" id = "four">
+        <input type="radio" name= "Q11" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="seek" value="5" id = "five">
+        <input type="radio" name= "Q11" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -596,37 +619,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Every man ought to have a woman whom he adores.</td>
         <td style="text-align: center">
-            <input type="radio" name="adores" value="0" id = "zero">
+            <input type="radio" name= "Q12" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="adores" value="1" id = "one">
+            <input type="radio" name= "Q12" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="adores" value="2" id = "two">
+        <input type="radio" name= "Q12" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="adores" value="3" id = "three">
+        <input type="radio" name= "Q12" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="adores" value="4" id = "four">
+        <input type="radio" name= "Q12" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="adores" value="5" id = "five">
+        <input type="radio" name= "Q12" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -636,37 +659,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Men are complete without women.</td>
         <td style="text-align: center">
-            <input type="radio" name="complete" value="0" id = "zero">
+            <input type="radio" name= "Q13" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="complete" value="1" id = "one">
+            <input type="radio" name= "Q13" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="complete" value="2" id = "two">
+        <input type="radio" name= "Q13" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="complete" value="3" id = "three">
+        <input type="radio" name= "Q13" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="complete" value="4" id = "four">
+        <input type="radio" name= "Q13" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="complete" value="5" id = "five">
+        <input type="radio" name= "Q13" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -676,37 +699,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women exaggerate problems they have at work.</td>
         <td style="text-align: center">
-            <input type="radio" name="exaggerate" value="0" id = "zero">
+            <input type="radio" name= "Q14" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="exaggerate" value="1" id = "one">
+            <input type="radio" name= "Q14" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="exaggerate" value="2" id = "two">
+        <input type="radio" name= "Q14" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="exaggerate" value="3" id = "three">
+        <input type="radio" name= "Q14" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="exaggerate" value="4" id = "four">
+        <input type="radio" name= "Q14" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="exaggerate" value="5" id = "five">
+        <input type="radio" name= "Q14" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -716,37 +739,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.</td>
         <td style="text-align: center">
-            <input type="radio" name="leash" value="0" id = "zero">
+            <input type="radio" name= "Q15" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="leash" value="1" id = "one">
+            <input type="radio" name= "Q15" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="leash" value="2" id = "two">
+        <input type="radio" name= "Q15" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="leash" value="3" id = "three">
+        <input type="radio" name= "Q15" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="leash" value="4" id = "four">
+        <input type="radio" name= "Q15" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="leash" value="5" id = "five">
+        <input type="radio" name= "Q15" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -756,37 +779,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> When women lose to men in a fair competition, they typically complain about being discriminated against.</td>
         <td style="text-align: center">
-            <input type="radio" name="discriminated" value="0" id = "zero">
+            <input type="radio" name= "Q16" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="discriminated" value="1" id = "one">
+            <input type="radio" name= "Q16" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="discriminated" value="2" id = "two">
+        <input type="radio" name= "Q16" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="discriminated" value="3" id = "three">
+        <input type="radio" name= "Q16" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="discriminated" value="4" id = "four">
+        <input type="radio" name= "Q16" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="discriminated" value="5" id = "five">
+        <input type="radio" name= "Q16" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -796,37 +819,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> A good woman should be set on a pedestal by her man</td>
         <td style="text-align: center">
-            <input type="radio" name="pedestal" value="0" id = "zero">
+            <input type="radio" name= "Q17" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="pedestal" value="1" id = "one">
+            <input type="radio" name= "Q17" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="pedestal" value="2" id = "two">
+        <input type="radio" name= "Q17" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="pedestal" value="3" id = "three">
+        <input type="radio" name= "Q17" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="pedestal" value="4" id = "four">
+        <input type="radio" name= "Q17" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="pedestal" value="5" id = "five">
+        <input type="radio" name= "Q17" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -836,37 +859,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. </td>
         <td style="text-align: center">
-            <input type="radio" name="teasing_men" value="0" id = "zero">
+            <input type="radio" name= "Q18" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="teasing_men" value="1" id = "one">
+            <input type="radio" name= "Q18" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="teasing_men" value="2" id = "two">
+        <input type="radio" name= "Q18" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="teasing_men" value="3" id = "three">
+        <input type="radio" name= "Q18" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="teasing_men" value="4" id = "four">
+        <input type="radio" name= "Q18" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="teasing_men" value="5" id = "five">
+        <input type="radio" name= "Q18" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -876,37 +899,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women, compared to men, tend to have a superior moral sensibility. </td>
         <td style="text-align: center">
-            <input type="radio" name="sensibility" value="0" id = "zero">
+            <input type="radio" name= "Q19" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="sensibility" value="1" id = "one">
+            <input type="radio" name= "Q19" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="sensibility" value="2" id = "two">
+        <input type="radio" name= "Q19" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="sensibility" value="3" id = "three">
+        <input type="radio" name= "Q19" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="sensibility" value="4" id = "four">
+        <input type="radio" name= "Q19" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="sensibility" value="5" id = "five">
+        <input type="radio" name= "Q19" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -916,37 +939,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives. </td>
         <td style="text-align: center">
-            <input type="radio" name="financially" value="0" id = "zero">
+            <input type="radio" name= "Q20" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="financially" value="1" id = "one">
+            <input type="radio" name= "Q20" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="financially" value="2" id = "two">
+        <input type="radio" name= "Q20" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="financially" value="3" id = "three">
+        <input type="radio" name= "Q20" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="financially" value="4" id = "four">
+        <input type="radio" name= "Q20" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="financially" value="5" id = "five">
+        <input type="radio" name= "Q20" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -956,37 +979,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Feminists are making entirely reasonable demands of men.</td>
         <td style="text-align: center">
-            <input type="radio" name="demands" value="0" id = "zero">
+            <input type="radio" name= "Q21" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="demands" value="1" id = "one">
+            <input type="radio" name= "Q21" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="demands" value="2" id = "two">
+        <input type="radio" name= "Q21" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="demands" value="3" id = "three">
+        <input type="radio" name= "Q21" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="demands" value="4" id = "four">
+        <input type="radio" name= "Q21" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="demands" value="5" id = "five">
+        <input type="radio" name= "Q21" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -996,37 +1019,37 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women, as compared to men, tend to have a more refined sense of culture and good taste.</td>
         <td style="text-align: center">
-            <input type="radio" name="good_taste" value="0" id = "zero">
+            <input type="radio" name= "Q22" value="0" id = "zero">
             <label  for="zero"> 
                 0
             </label>
         </td>
         <td style="text-align: center">
-            <input type="radio" name="good_taste" value="1" id = "one">
+            <input type="radio" name= "Q22" value="1" id = "one">
             <label  for="one"> 
                 1
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="good_taste" value="2" id = "two">
+        <input type="radio" name= "Q22" value="2" id = "two">
             <label for="two"> 
                 2
             </label> 
         </td>
         <td style="text-align: center"> 
-        <input type="radio" name="good_taste" value="3" id = "three">
+        <input type="radio" name= "Q22" value="3" id = "three">
             <label for="three"> 
                 3
             </label>
         </td>
         <td style="text-align: center">  
-        <input type="radio" name="good_taste" value="4" id = "four">
+        <input type="radio" name= "Q22" value="4" id = "four">
             <label for="four"> 
                 4
             </label>
         </td>
         <td style="text-align: center">
-        <input type="radio" name="good_taste" value="5" id = "five">
+        <input type="radio" name= "Q22" value="5" id = "five">
             <label for="five"> 
                 5
             </label>
@@ -1038,7 +1061,7 @@ foreach ($order as $num )
 </table>
 <p></p>
 <p></p>
-    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Continue">
+    <input type="submit" name="action" id="action-q3" tabindex="4" class="form-control btn btn-register" value="Continue">
 </div>
 <style>
 table {

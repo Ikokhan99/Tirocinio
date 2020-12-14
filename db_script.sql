@@ -43,10 +43,17 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- first questionnaire, the one with the two games
 CREATE TABLE IF NOT EXISTS `Q2` (
   `PLAYTIME` INT(5) NOT NULL COMMENT '0=never, ...', --  0=Never, 1=Less than 1 hour, 2=Between 1 and 2 hours, 3=Between 2 and 4 hours, 4=More than 4 hours
+  `FAV_GENS` VARCHAR(100) not null,
   `GAME1` VARCHAR(100) NOT NULL,
   `GAME2` VARCHAR(100) NOT NULL,  /*Title of the second game   --Title of the first game*/
   `SEXISM1` INT NOT NULL, /*- --Should be between 1 and 5*/
   `SEXISM2` INT NOT NULL, /*- --Should be between 1 and 5*/
+  `VIOLENCE1` INT NOT NULL,
+  `VIOLENCE2` int not null,
+  `REALISM11` int not null,
+  `REALISM12` int not null,
+  `REALISM21` int not null,
+  `REALISM22` int not null,
   `USER_ID` VARCHAR(100) NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
   
   PRIMARY KEY (`USER_ID`),
@@ -118,16 +125,16 @@ CREATE TABLE IF NOT EXISTS `Q4` (
 )ENGINE = 'InnoDB';
 
 CREATE TABLE IF NOT EXISTS `Q5` (
-        `CONTROL_QUESTION` INT DEFAULT 10,
-        `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT '', /*---Should be between 1 and 5   -   When approaching a woman, most men think more about what that women can do to please him than what he can do to please her*/
-        `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT '', 		 /*--Should be between 1 and 5   -   Most men tend to approach a woman only when they want to have sex with her.*/
-        `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT '', /*---Should be between 1 and 5   -   Most men are interested in women’s feelings because they want to be close to women.*/
-        `QUESTION4`INT NOT NULL DEFAULT 0 COMMENT '',  		 /*---Should be between 1 and 5   -   When a man flatters a woman, it is because he wants to have sex with her.*/
-        `QUESTION5`INT NOT NULL DEFAULT 0 COMMENT '', 	 /*--Should be between 1 and 5   -   A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite.*/
-        `QUESTION6`INT NOT NULL DEFAULT 0 COMMENT '',  	 /*---Should be between 1 and 5   -   Most men consider women sexual objects.*/
-        `QUESTION7`INT NOT NULL DEFAULT 0 COMMENT '',/*---Should be between 1 and 5   -   Most relationships between a man and a woman are based on closeness and affection.*/
-        `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT '',  		 /*---Should be between 1 and 5   -   When his sexual desire weakens, a man will likely lose interest in a woman.*/
-        `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT '',  		/*- --Should be between 1 and 5   -   When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs.*/
+        `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION4`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION5`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION6`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION7`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT '',
+        `QUESTION10`INT NOT NULL DEFAULT 0 COMMENT '',
         `USER_ID` VARCHAR(100) NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
 
         PRIMARY KEY (`USER_ID`),

@@ -9,14 +9,17 @@ function array_push_assoc($array, $key, $value)
 	return $array;
 }
 
-function equal_array($arr)
+function equal_array($arr): array
 {
 	$ArrayObject = new ArrayObject($arr);
 	return $ArrayObject->getArrayCopy();  
 }
 
-function test_input($string)
+function test_input($string): string
 {
+    $string = strval($string);
+    if(strlen($string) >100)
+        return "User bad input";
     // ----- remove HTML TAGs -----
     $string = preg_replace ('/<[^>]*>/', ' ', $string);
 
@@ -30,7 +33,7 @@ function test_input($string)
 
     return $string;
 }
-function check_int(int $val, int $min,int $max)
+function check_int(int $val, int $min,int $max): int
 {
     if($val < $min || $val > $max)
     {

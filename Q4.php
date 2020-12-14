@@ -4,28 +4,39 @@ include_once "config/core.php";
 
 include_once 'config/database.php';
 include_once 'objects/user.php';
+include_once 'objects/q4.php';
 
 // page title
 $order = range(0,10);
 shuffle($order);
 
 $page_title = "Survey";
-include_once "layout_head.php";
+
+include_once 'config/database.php';
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if(debug)
+    var_dump($_POST);
 
 if (!empty($_POST)) {
     if(!fast_debug) {
-        //TODO
-        $q2 = new Q4($_SESSION['db'],$_SESSION['uid']);
-        $q2->playtime = $_POST['playtime'];
-        $q2->sexor = $_POST['user-sexor'];
-        $q2->sex = $_POST['user-sex'];
-        $q2->age = $_POST['user-age'];
-        if ($_SESSION['Q_ORDERED'])
-            $q2->q_order = 0;
-        else
-            $q2->q_order = 1;
-        if (!$q2->create()) {
-            $q2->showError();
+        $q4 = new Q4($db,$_SESSION['user-id']);
+        $q4->control_questions = array(check_int($_POST["control1"],1,5));
+        $q4->questions = array(check_int($_POST["Q1"],1,5),
+            check_int($_POST["Q2"],1,5),
+            check_int($_POST["Q3"],1,5),
+            check_int($_POST["Q4"],1,5),
+            check_int($_POST["Q5"],1,5),
+            check_int($_POST["Q6"],1,5),
+            check_int($_POST["Q7"],1,5),
+            check_int($_POST["Q8"],1,5),
+            check_int($_POST["Q9"],1,5),
+            check_int($_POST["Q10"],1,5)
+        );
+
+        if (!$q4->create()) {
             die();
         }
     }
@@ -41,6 +52,7 @@ if(debug)
     print_r($_SESSION['Q'][$_SESSION['at']]);
     echo "</p>";
 }
+include_once "layout_head.php";
 ?>
 <!-- TODO: fix css e capire da dove spunta il > -->
 <div style='text-align: center;'>
@@ -68,30 +80,30 @@ foreach ($order as $num ) {
     <tr>
     <td> Lots of men have a full consideration of five, which is the answer of this statement </td>
         <td style='text-align: center'>
-            <input type='radio' name='please' value='1' id = 'one'>
+            <input type='radio' name='control1' value='1' id = 'one'>
             <label  for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='please' value='2' id = 'two'>
+        <input type='radio' name='control1' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='please' value='3' id = 'three'>
+        <input type='radio' name='control1' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
-        <td style='text-align: center'>  <input type='radio' name='please' value='4' id = 'four'>
+        <td style='text-align: center'>  <input type='radio' name='control1' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='please' value='5' id = 'five'>
+        <input type='radio' name='control1' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -107,30 +119,30 @@ foreach ($order as $num ) {
     <td> When approaching a woman, most men think more about what that
     women can do to please him than what he can do to please her. </td>
         <td style='text-align: center'>
-            <input type='radio' name='please' value='1' id = 'one'>
+            <input type='radio' name='Q1' value='1' id = 'one'>
             <label  for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='please' value='2' id = 'two'>
+        <input type='radio' name='Q1' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='please' value='3' id = 'three'>
+        <input type='radio' name='Q1' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
-        <td style='text-align: center'>  <input type='radio' name='please' value='4' id = 'four'>
+        <td style='text-align: center'>  <input type='radio' name='Q1' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='please' value='5' id = 'five'>
+        <input type='radio' name='Q1' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -143,31 +155,31 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men tend to approach a woman only when they want to have sex with her. </td>
         <td style='text-align: center'>
-            <input type='radio' name='approach' value='1' id = 'one'>
+            <input type='radio' name='Q2' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='approach' value='2' id = 'two'>
+        <input type='radio' name='Q2' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='approach' value='3' id = 'three'>
+        <input type='radio' name='Q2' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-            <input type='radio' name='approach' value='4' id = 'four'>
+            <input type='radio' name='Q2' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='approach' value='5' id = 'five'>
+        <input type='radio' name='Q2' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -179,31 +191,31 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men are interested in women’s feelings because they want to  be close to women.</td>
         <td style='text-align: center'>
-            <input type='radio' name='interested' value='1' id = 'one'>
+            <input type='radio' name='Q3' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='interested' value='2' id = 'two'>
+        <input type='radio' name='Q3' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='interested' value='3' id = 'three'>
+        <input type='radio' name='Q3' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='interested' value='4' id = 'four'>
+        <input type='radio' name='Q3' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='interested' value='5' id = 'five'>
+        <input type='radio' name='Q3' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -215,31 +227,31 @@ foreach ($order as $num ) {
     <tr>
     <td> When a man flatters a woman, it is because he wants to have sex with her. </td>
         <td style='text-align: center'>
-            <input type='radio' name='flatters' value='1' id = 'one'>
+            <input type='radio' name='Q4' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='flatters' value='2' id = 'two'>
+        <input type='radio' name='Q4' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='flatters' value='3' id = 'three'>
+        <input type='radio' name='Q4' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='flatters' value='4' id = 'four'>
+        <input type='radio' name='Q4' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='flatters' value='5' id = 'five'>
+        <input type='radio' name='Q4' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -251,31 +263,31 @@ foreach ($order as $num ) {
     <tr>
     <td> A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite. </td>
         <td style='text-align: center'>
-            <input type='radio' name='appetite' value='1' id = 'one'>
+            <input type='radio' name='Q5' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='appetite' value='2' id = 'two'>
+        <input type='radio' name='Q5' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='appetite' value='3' id = 'three'>
+        <input type='radio' name='Q5' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='appetite' value='4' id = 'four'>
+        <input type='radio' name='Q5' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='appetite' value='5' id = 'five'>
+        <input type='radio' name='Q5' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -287,31 +299,31 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men consider women sexual objects. </td>
         <td style='text-align: center'>
-            <input type='radio' name='objects' value='1' id = 'one'>
+            <input type='radio' name='Q6' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='objects' value='2' id = 'two'>
+        <input type='radio' name='Q6' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='objects' value='3' id = 'three'>
+        <input type='radio' name='Q6' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='objects' value='4' id = 'four'>
+        <input type='radio' name='Q6' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='objects' value='5' id = 'five'>
+        <input type='radio' name='Q6' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -323,31 +335,31 @@ foreach ($order as $num ) {
     <tr>
     <td>Most relationships between a man and a woman are based on closeness and affection. </td>
         <td style='text-align: center'>
-            <input type='radio' name='relationships' value='1' id = 'one'>
+            <input type='radio' name='Q7' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='relationships' value='2' id = 'two'>
+        <input type='radio' name='Q7' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='relationships' value='3' id = 'three'>
+        <input type='radio' name='Q7' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='relationships' value='4' id = 'four'>
+        <input type='radio' name='Q7' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='relationships' value='5' id = 'five'>
+        <input type='radio' name='Q7' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -359,31 +371,31 @@ foreach ($order as $num ) {
     <tr>
     <td> When his sexual desire weakens, a man will likely lose interest in a woman. </td>
         <td style='text-align: center'>
-            <input type='radio' name='weakens' value='1' id = 'one'>
+            <input type='radio' name='Q8' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='weakens' value='2' id = 'two'>
+        <input type='radio' name='Q8' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='weakens' value='3' id = 'three'>
+        <input type='radio' name='Q8' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='weakens' value='4' id = 'four'>
+        <input type='radio' name='Q8' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='weakens' value='5' id = 'five'>
+        <input type='radio' name='Q8' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -395,31 +407,31 @@ foreach ($order as $num ) {
     <tr>
     <td> When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs. </td>
         <td style='text-align: center'>
-            <input type='radio' name='sex' value='1' id = 'one'>
+            <input type='radio' name='Q9' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='sex' value='2' id = 'two'>
+        <input type='radio' name='Q9' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='sex' value='3' id = 'three'>
+        <input type='radio' name='Q9' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='sex' value='4' id = 'four'>
+        <input type='radio' name='Q9' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='sex' value='5' id = 'five'>
+        <input type='radio' name='Q9' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>
@@ -431,31 +443,31 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men have a full consideration of women as persons. </td>
         <td style='text-align: center'>
-            <input type='radio' name='consideration' value='1' id = 'one'>
+            <input type='radio' name='Q10' value='1' id = 'one'>
             <label for='one'> 
                 1
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='consideration' value='2' id = 'two'>
+        <input type='radio' name='Q10' value='2' id = 'two'>
             <label for='two'> 
                 2
             </label> 
         </td>
         <td style='text-align: center'> 
-        <input type='radio' name='consideration' value='3' id = 'three'>
+        <input type='radio' name='Q10' value='3' id = 'three'>
             <label for='three'> 
                 3
             </label>
         </td>
         <td style='text-align: center'>  
-        <input type='radio' name='consideration' value='4' id = 'four'>
+        <input type='radio' name='Q10' value='4' id = 'four'>
             <label for='four'> 
                 4
             </label>
         </td>
         <td style='text-align: center'>
-        <input type='radio' name='consideration' value='5' id = 'five'>
+        <input type='radio' name='Q10' value='5' id = 'five'>
             <label for='five'> 
                 5
             </label>

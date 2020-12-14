@@ -1,18 +1,13 @@
 <?php
-
-//TODO:test, update una volta avuta la struttura finale del questionario
-
 include_once "./config/Foes.php";
 include_once "Q.php";
 
-class Q4 extends Q
+class q5 extends Q
 {
-    // costruttore
     public function __construct($db,$user_id)
     {
-        $this->control_questions=array(3);
         $this->conn = $db;
-        $this->questions = array(3,3,3,3,3, 3,3,3,3,3); //3 is the default value, the questionnaire has 10 items
+        $this->questions = array(1,2,3,4,5,6,7,8,9,10); //the questionnaire has 10 items
         $this->user_id = $user_id;
     }
 
@@ -22,7 +17,7 @@ class Q4 extends Q
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $q = "INSERT INTO Q4 VALUES(:control1,
+        $q = "INSERT INTO Q5 VALUES(
                       :Q1,
                       :Q2,
                       :Q3,
@@ -38,7 +33,6 @@ class Q4 extends Q
         // var_dump($q);
         $stmt = $this->conn->prepare($q);
 
-        $stmt->bindParam(':control1',$this->control_questions[0]);
         $stmt->bindParam(':Q1', $this->questions[0]);
         $stmt->bindParam(':Q2', $this->questions[1]);
         $stmt->bindParam(':Q3', $this->questions[2]);
@@ -49,6 +43,9 @@ class Q4 extends Q
         $stmt->bindParam(':Q8', $this->questions[7]);
         $stmt->bindParam(':Q9', $this->questions[8]);
         $stmt->bindParam(':Q10', $this->questions[9]);
+
+        // var_dump($q);
+
 
         if($stmt->execute())
         {

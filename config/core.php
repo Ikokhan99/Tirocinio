@@ -18,7 +18,7 @@ const n_experiment = 3; //number of experiment cases, in our case we have  male,
 
 const debug = true; //outputs the various thing that you as a debugger would like to see
 const fast_debug = false; //fast debug skips all db interactions, set it at true if you want to see just the structure
-const skip_experiment = false;
+const skip_experiment = true;
 const user_error = false;
 
 
