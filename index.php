@@ -7,8 +7,19 @@ $page_title="Start";
 include_once 'layout_head.php';
 
 
-//Here we're going to set the order of everything, it should be faster than making lots of db queries
-//NB: everything should be taken in one session, as the PM request
+//Here we're going to set the order of everything, it should be faster than making lots of db queries. And this is totally not one on the previous author.
+//NB: everything should be taken in one session, as the PM request. Also, the user must not change page inside the experiment (e.g. The user is in Q2 and goes to Q3
+$_SESSION["visited_pages"] = array('index'=>true,
+    'Scelta1'=>false,
+    'Scelta2'=>false,
+    'Scelta3'=>false,
+    'q1'=>false,
+    'q2'=>false,
+    'q3'=>false,
+    'q4'=>false,
+    'q5'=>false,
+    'error'=>false);
+$_SESSION["time"] = time();
 
 //experiment order
 $exp_order = range(1,2); // 1 = male, 2 = female
@@ -16,9 +27,10 @@ shuffle($exp_order);
 $_SESSION['exp'] = $exp_order; //saving in session
 array_push($_SESSION['exp'],3); //the mix should always be last
 
-$q_order = range(2,5);
+$q_order = range(3,5);
 
 shuffle($q_order);
+array_push($q_order,2) ;
 $_SESSION['Q'] = $q_order;
 //male order
 $_SESSION['p_male'] = array();
@@ -163,14 +175,17 @@ echo "
             <div class='row'>
                 <div class=\"jumbotron\">
                     <h1 class=\"display-4\">Experiment</h1>
-                    <p class=\"lead\">Todo: modificare le scritte e la grafica</p>
+                    <p class=\"lead\">		In this experiment, we ask you to choose between two images. We ask you not to be in haste to complete the experiment and to pay attention to which image you choose (take it easy and be concentrated). After this task, you will take a survey. </p>
                     <hr class=\"my-4\">
                      <p class=\"lead\">
                     Before starting we inform you that <strong >you will not be allowed </strong> to reload the web page, 
                     close the browser or start the experiment and finish it after some time.  
                     </p>
                     <p class=\"lead\">
-                        <a class=\"btn btn-primary btn-lg\" href=\"SceltaAvatar.php\" role=\"button\">Let's go!</a>
+                    <form action='SceltaAvatar.php' method='post'>
+                        <input type='submit' class='btn btn-primary btn-lg' name='submit' id='submit' value=\"Let's go!\">
+                        <input type='hidden' name='navigation' id='navigation' value='safe'>
+                    </form>   
                     </p>
                 </div>
             </div>
@@ -184,9 +199,8 @@ echo "
 }
 else{
     echo "<pre>
-    Spiacenti, si è verificato un errore
+    An error have occurred. Don't worry, it's our fault, your Prolific reputation won't be inficiated.
    </pre>";
-    $user->showError();
 }
 
 // footer HTML and JavaScript codes

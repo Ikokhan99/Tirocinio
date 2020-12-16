@@ -9,7 +9,7 @@ include_once 'objects/q3.php';
 // page title
 $order = range(0,23);
 shuffle($order);
-
+$page_index = 'q3';
 $page_title = "Survey";
 
 include_once 'config/database.php';
@@ -54,15 +54,8 @@ if (!empty($_POST)) {
     }
     header("Location: ".home_url."Q1.php?action=goto");
 }
-if(debug) {
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['at']);
-    echo "</p>";
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['Q'][$_SESSION['at']]);
-    echo "</p>";
-}
-include_once "layout_head.php";
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q3'] = true;
 ?>
 <div style="text-align: center;">
 <form action="Q3.php" method="post">
@@ -92,9 +85,9 @@ foreach ($order as $num )
     switch ($num) {
         case 0:{
             echo '<tr>
-    <td> Feminists are not seeking the answer to this question, which is four </td>
+    <td> Its important that you pay attention to this study. Please, tick 5  </td>
         <td style= "text-align: center">
-            <input type="radio" name="control1" value="0" id = "zero">
+            <input type="radio" name="control1" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -134,9 +127,9 @@ foreach ($order as $num )
         }
         case 23:{
             echo '<tr>
-    <td> No matter how accomplished a man is, the answer to this question is zero</td>
+    <td> Its important that you pay attention to this study. Please, tick 0</td>
         <td style= "text-align: center">
-            <input type="radio" name="control2" value="0" id = "zero">
+            <input type="radio" name="control2" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -179,7 +172,7 @@ foreach ($order as $num )
     echo '<tr>
     <td> No matter how accomplished is, a man is not truly complete as a person unless he has the love of a woman. </td>
         <td style= "text-align: center">
-            <input type="radio" name= "Q1" value="0" id = "zero">
+            <input type="radio" name= "Q1" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -219,7 +212,7 @@ foreach ($order as $num )
     echo '<tr>
     <td> Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q2" value="0" id = "zero">
+            <input type="radio" name= "Q2" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -259,7 +252,7 @@ foreach ($order as $num )
     echo '<tr>
     <td> In a disaster, women ought not necessarily to be rescued before men. </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q3" value="0" id = "zero">
+            <input type="radio" name= "Q3" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -299,7 +292,7 @@ foreach ($order as $num )
     echo '<tr>
     <td> Most women interpret innocent remarks or acts as being sexist. </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q4" value="0" id = "zero">
+            <input type="radio" name= "Q4" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -339,7 +332,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women are too easily offended. </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q5" value="0" id = "zero">
+            <input type="radio" name= "Q5" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -379,7 +372,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> People are often truly happy in life without being romantically involved with a member of the other sex.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q6" value="0" id = "zero">
+            <input type="radio" name= "Q6" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -419,7 +412,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Feminists are not seeking for women to have more power than men.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q7" value="0" id = "zero">
+            <input type="radio" name= "Q7" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -459,7 +452,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Many women have a quality of purity that few men possess.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q8" value="0" id = "zero">
+            <input type="radio" name= "Q8" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -499,7 +492,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women should be cherished and protected by men.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q9" value="0" id = "zero">
+            <input type="radio" name= "Q9" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -539,7 +532,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Most women fail to appreciate fully all that men do for them.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q10" value="0" id = "zero">
+            <input type="radio" name= "Q10" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -579,7 +572,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women seek to gain power by getting control over men.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q11" value="0" id = "zero">
+            <input type="radio" name= "Q11" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -619,7 +612,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Every man ought to have a woman whom he adores.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q12" value="0" id = "zero">
+            <input type="radio" name= "Q12" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -659,7 +652,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Men are complete without women.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q13" value="0" id = "zero">
+            <input type="radio" name= "Q13" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -699,7 +692,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women exaggerate problems they have at work.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q14" value="0" id = "zero">
+            <input type="radio" name= "Q14" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -739,7 +732,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q15" value="0" id = "zero">
+            <input type="radio" name= "Q15" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -779,7 +772,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> When women lose to men in a fair competition, they typically complain about being discriminated against.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q16" value="0" id = "zero">
+            <input type="radio" name= "Q16" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -819,7 +812,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> A good woman should be set on a pedestal by her man</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q17" value="0" id = "zero">
+            <input type="radio" name= "Q17" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -859,7 +852,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q18" value="0" id = "zero">
+            <input type="radio" name= "Q18" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -899,7 +892,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women, compared to men, tend to have a superior moral sensibility. </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q19" value="0" id = "zero">
+            <input type="radio" name= "Q19" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -939,7 +932,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives. </td>
         <td style="text-align: center">
-            <input type="radio" name= "Q20" value="0" id = "zero">
+            <input type="radio" name= "Q20" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -979,7 +972,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Feminists are making entirely reasonable demands of men.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q21" value="0" id = "zero">
+            <input type="radio" name= "Q21" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>
@@ -1019,7 +1012,7 @@ foreach ($order as $num )
     echo '<tr>
         <td> Women, as compared to men, tend to have a more refined sense of culture and good taste.</td>
         <td style="text-align: center">
-            <input type="radio" name= "Q22" value="0" id = "zero">
+            <input type="radio" name= "Q22" value="0" id = "zero" required >
             <label  for="zero"> 
                 0
             </label>

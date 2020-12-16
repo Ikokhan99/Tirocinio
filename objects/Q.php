@@ -1,7 +1,7 @@
 <?php
+include_once "Interfaces.php";
 
-
-abstract class Q
+abstract class Q implements Interfaces
 {
     // database connection and table name
     public $conn;

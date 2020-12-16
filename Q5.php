@@ -9,7 +9,7 @@ include_once 'objects/q5.php';
 // page title
 $order = range(1,10);
 shuffle($order);
-
+$page_index = 'q5';
 
 
 $page_title = "Survey";
@@ -40,16 +40,8 @@ if (!empty($_POST)) {
     header("Location: ".home_url."Q1.php?action=goto");
 
 }
-if(debug)
-{
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['at']);
-    echo "</p>";
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['Q'][$_SESSION['at']]);
-    echo "</p>";
-}
-include_once "layout_head.php";
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q5'] = true;
 ?>
 <!-- TODO: fix css e capire da dove spunta il > -->
 <div style='text-align: center;'>

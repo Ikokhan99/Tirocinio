@@ -1,12 +1,14 @@
 <?php
 // core configuration
 include_once 'config/core.php';
-//include_once 'config/database.php';
+
 include_once 'objects/q2.php';
 include_once 'config/Foes.php';
 if(debug){
     var_dump($_POST);
 }
+$page_index = 'q2';
+
 if (!empty($_POST)) {
     if(!fast_debug) {
         include_once 'config/database.php';
@@ -15,35 +17,39 @@ if (!empty($_POST)) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        // $user = new User($db);
         $q2 = new Q2($db,$_SESSION['user-id']);
-
-        $q2->game1 = test_input($_POST["game1"]);
-        $q2->game2 = test_input($_POST["game2"]);
-        $q2->violence1 = check_int($_POST["violence1"],0,5);
-        $q2->violence2 = check_int($_POST["violence2"],0,5);
+        $q2->game1->title = test_input($_POST["game1"]);
+        $q2->game1->violence = check_int($_POST["violence1"],0,5);
         $q2->gens = $_POST["type"];
-        $q2->realism11 = check_int($_POST["realism11"],0,5);
-        $q2->realism12 = check_int($_POST["realism12"],0,5);
-        $q2->realism21 = check_int($_POST["realism21"],0,5);
-        $q2->realism22 = check_int($_POST["realism22"],0,5);
-        $q2->sexism1 = check_int($_POST["sexism1"],0,5);
-        $q2->sexism2 = check_int($_POST["sexism2"],0,5);
+        $q2->game1->realism1 = check_int($_POST["realism11"],0,5);
+        $q2->game1->realism2 = check_int($_POST["realism12"],0,5);
+        $q2->game1->sexism = check_int($_POST["sexism1"],0,5);
         $q2->playtime = check_int($_POST["playtime"],0,4);
+        if($_POST["game2"] == '')
+        {
+            $q2->game2 = null;
+        }
+        else
+        {
+            $q2->game2->title = test_input($_POST["game2"]);
+            $q2->game2->violence = check_int($_POST["violence2"],0,5);
+            $q2->game2->realism1 = check_int($_POST["realism21"],0,5);
+            $q2->game2->realism2 = check_int($_POST["realism22"],0,5);
+            $q2->game2->sexism = check_int($_POST["sexism2"],0,5);
+        }
+        if(debug)
+        {
+            echo "<p>";
+            var_dump($q2);
+            echo "</p>";
+        }
         if (!$q2->create()) {
             die("Errore del server");
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
 }
-if(debug) {
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['at']);
-    echo "</p>";
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['Q'][$_SESSION['at']]);
-    echo "</p>";
-}
-include_once "layout_head.php";
-
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q2'] = true;
 ?>
     <form action='Q2.php' method='post'>
     <!-- fixed order for this one -->
@@ -75,7 +81,7 @@ include_once "layout_head.php";
                 <!-- Todo: parte grafica-->
                 <div class="Q2">
                     <strong>
-                    Enter the type of videogames you prefer (you can enter a maximum of three preferences)</strong>
+                    Enter the type of videogames you prefer (you can enter a maximum of 10 preferences)</strong>
                 </div>
                 <div class="ans2 options">
 
@@ -221,10 +227,6 @@ include_once "layout_head.php";
                         <input type='checkbox' name='type[]' value='Eroge'>
                         Eroge(Japanese style Erotic games)
                     </label>
-                    <label style="grid-column: 3; grid-row: 7">
-                        <input type='checkbox' name='type[]' value='Eroge'>
-                        Eroge(Japanese style Erotic games)
-                    </label>
                     <label style="grid-column: 4; grid-row: 7">
                         <input type='checkbox' name='type[]' value='4x'>
                         4X( eXplore, eXpand, eXploit, and eXterminate)
@@ -289,8 +291,8 @@ include_once "layout_head.php";
                         Logic game
                     </label>
                     <label style="grid-column: 4; grid-row: 10">
-                        <input type='checkbox' name='type[]' value='Multi'>
-                        Multi-Genre
+                        <input type='checkbox' name='type[]' value='Puzzle'>
+                        Puzzle game
                     </label>
                     <label style="grid-column: 5; grid-row: 10">
                         <input type='checkbox' name='type[]' value='Other'>
@@ -312,7 +314,7 @@ include_once "layout_head.php";
                      <label style="grid-row: 1; grid-column: 3">
                          Absent (0)
                          <input type='range' name='sexism1' min=0 max=5 required>
-                         (5) Very present
+                         (5) Very much present
                      </label>
 
                     <label style="grid-row: 2;grid-column: 2 ;">
@@ -321,16 +323,16 @@ include_once "layout_head.php";
                     <label style="grid-row: 2; grid-column: 3">
                         Absent (0)
                         <input type='range' name='violence1' min=0 max=5 required>
-                        (5) Very present
+                        (5) Very much present
                     </label>
 
                     <label style="grid-row: 3;grid-column: 2 ;">
                         Game graphics realism
                     </label>
                     <label style="grid-row: 3; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='realism11' min=0 max=5 required>
-                        (5) Very realistic
+                        5
                     </label>
 
                     <label style="grid-row: 4;grid-column: 2 ;">
@@ -349,7 +351,7 @@ include_once "layout_head.php";
                 <div class="games">
                     <label style="grid-row: 1;grid-column: 1">
                         Game 2:
-                        <input type='text' name='game2' required>
+                        <input type='text' name='game2'>
                     </label>
                     <label style="grid-row: 1;grid-column: 2 ;">
                         Gender disparities
@@ -357,8 +359,16 @@ include_once "layout_head.php";
                     <label style="grid-row: 1; grid-column: 3">
                         Absent (0)
                         <input type='range' name='sexism2' min=0 max=5 required>
-                        (5) Very present
+                        (5) Very much present
                     </label>
+                 <!--   <label style="grid-row: 1;grid-column: 2 ;">
+                        Sexualization of characters
+                    </label>
+                    <label style="grid-row: 1; grid-column: 3">
+                        Absent (0)
+                        <input type='range' name='sexism2' min=0 max=5 required>
+                        (5) Very much present
+                    </label>  -->
 
                     <label style="grid-row: 2;grid-column: 2 ;">
                         Violence
@@ -366,7 +376,7 @@ include_once "layout_head.php";
                     <label style="grid-row: 2; grid-column: 3">
                         Absent (0)
                         <input type='range' name='violence2' min=0 max=5 required>
-                        (5) Very present
+                        (5) Very much present
                     </label>
 
                     <label style="grid-row: 3;grid-column: 2 ;">
@@ -397,7 +407,7 @@ include_once "layout_head.php";
 <script>
     $('.options :checkbox').change(function () {
         let $cs = $(this).closest('.options').find(':checkbox:checked');
-        if ($cs.length > 3) {
+        if ($cs.length > 10) {
             this.checked = false;
         }
     });

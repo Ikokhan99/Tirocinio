@@ -13,6 +13,7 @@ class Experiment
     public string $uid; //user id
     public int $a1; //left avatar id
     public int $a2; //right avatar id
+    public int $key;
 
     public function __construct($db,$user_id)
     {
@@ -24,6 +25,7 @@ class Experiment
         $this->chosen = 0;
         $this->a1 = 0;
         $this->a2 = 0;
+        $this->key = 0;
     }
 
     function create()
@@ -32,7 +34,7 @@ class Experiment
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $q = "INSERT INTO choice VALUES(:entry,:type,:time,:chosen,:uid,:a1,:a2);";
+        $q = "INSERT INTO choice VALUES(null,:entry,:type,:time,:chosen,".$this->key.",:uid,:a1,:a2);";
 
 
         // var_dump($q);
@@ -42,6 +44,7 @@ class Experiment
         $stmt->bindParam(':type', $this->type);
         $stmt->bindParam(':time', $this->time);
         $stmt->bindParam(':chosen', $this->chosen);
+        //$stmt->bindParam(':key', $this->key);
         $stmt->bindParam(':uid', $this->uid);
         $stmt->bindParam(':a1', $this->a1);
         $stmt->bindParam(':a2', $this->a2);

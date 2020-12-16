@@ -11,6 +11,7 @@ $order = range(0,10);
 shuffle($order);
 
 $page_title = "Survey";
+$page_index = 'q4';
 
 include_once 'config/database.php';
 $database = new Database();
@@ -43,18 +44,10 @@ if (!empty($_POST)) {
     header("Location: ".home_url."Q1.php?action=goto");
 
 }
-if(debug)
-{
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['at']);
-    echo "</p>";
-    echo "<p> DEBUG: ";
-    print_r($_SESSION['Q'][$_SESSION['at']]);
-    echo "</p>";
-}
-include_once "layout_head.php";
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q4'] = true;
 ?>
-<!-- TODO: fix css e capire da dove spunta il > -->
+<!-- TODO: fix css -->
 <div style='text-align: center;'>
 <form action='Q4.php' method='post'>
 <p style= 'font-weight: 1000;'>
@@ -66,7 +59,7 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
         <td> </td>
         <td style= 'font-weight: 1000;'>Disagree strongly</td>
         <td>Disagree </td>
-        <td>Agree to some extent </td>
+        <td>Neither agree nor disagree </td>
         <td>Agree </td>
         <td style= 'font-weight: 1000;'>Agree strongly</td>
     </tr>
@@ -78,9 +71,10 @@ foreach ($order as $num ) {
 //TODO:set q names
             echo "
     <tr>
-    <td> Lots of men have a full consideration of five, which is the answer of this statement </td>
+   <!-- <td> Lots of men have a full consideration of five, which is the answer of this statement </td> -->
+   <td> It's important that you pay attention to this study. Please, tick '4' </td>
         <td style='text-align: center'>
-            <input type='radio' name='control1' value='1' id = 'one'>
+            <input type='radio' name='control1' value='1' id = 'one' required >
             <label  for='one'> 
                 1
             </label>
@@ -119,7 +113,7 @@ foreach ($order as $num ) {
     <td> When approaching a woman, most men think more about what that
     women can do to please him than what he can do to please her. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q1' value='1' id = 'one'>
+            <input type='radio' name='Q1' value='1' id = 'one' required >
             <label  for='one'> 
                 1
             </label>
@@ -155,7 +149,7 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men tend to approach a woman only when they want to have sex with her. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q2' value='1' id = 'one'>
+            <input type='radio' name='Q2' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -191,7 +185,7 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men are interested in women’s feelings because they want to  be close to women.</td>
         <td style='text-align: center'>
-            <input type='radio' name='Q3' value='1' id = 'one'>
+            <input type='radio' name='Q3' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -227,7 +221,7 @@ foreach ($order as $num ) {
     <tr>
     <td> When a man flatters a woman, it is because he wants to have sex with her. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q4' value='1' id = 'one'>
+            <input type='radio' name='Q4' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -263,7 +257,7 @@ foreach ($order as $num ) {
     <tr>
     <td> A man is likely to be interested in a woman to the extent to which she can satisfy his sexual appetite. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q5' value='1' id = 'one'>
+            <input type='radio' name='Q5' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -299,7 +293,7 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men consider women sexual objects. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q6' value='1' id = 'one'>
+            <input type='radio' name='Q6' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -335,7 +329,7 @@ foreach ($order as $num ) {
     <tr>
     <td>Most relationships between a man and a woman are based on closeness and affection. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q7' value='1' id = 'one'>
+            <input type='radio' name='Q7' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -371,7 +365,7 @@ foreach ($order as $num ) {
     <tr>
     <td> When his sexual desire weakens, a man will likely lose interest in a woman. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q8' value='1' id = 'one'>
+            <input type='radio' name='Q8' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -407,7 +401,7 @@ foreach ($order as $num ) {
     <tr>
     <td> When it comes to sex, for most men a woman equals another as long as she satisfies his sexual needs. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q9' value='1' id = 'one'>
+            <input type='radio' name='Q9' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>
@@ -443,7 +437,7 @@ foreach ($order as $num ) {
     <tr>
     <td> Most men have a full consideration of women as persons. </td>
         <td style='text-align: center'>
-            <input type='radio' name='Q10' value='1' id = 'one'>
+            <input type='radio' name='Q10' value='1' id = 'one' required >
             <label for='one'> 
                 1
             </label>

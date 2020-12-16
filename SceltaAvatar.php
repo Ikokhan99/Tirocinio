@@ -1,10 +1,22 @@
 <?php
-
 include_once "config/core.php";
+if(!empty($_POST) && (!isset($_POST['navigation']) || $_POST['navigation'] !== 'safe')){
+    if($_SESSION['visited_pages']['error']) {
+        header("Location: ".home_url."user_error.php");
+    }
+}
+
 $action = '';
 $page_title="Start";
-include_once 'layout_head.php';
 
+include_once 'config/Foes.php';
+
+include_once 'config/database.php';
+if(isset($page_title)&& ($page_title!="Experiment" || $page_title!="Survey")){
+    $database = new Database();
+    $db = $database->getConnection();
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
 
 if(isset($_SESSION['at']))
 {
@@ -27,10 +39,13 @@ if(isset($_SESSION['at']))
             $user = new User($db);
             $user->create();
         }
+        $page_index = 'Scelta1';
 
-
-
-    } elseif ($_SESSION['at'] == 2){
+    } elseif ($_SESSION['at'] == 1){
+        $page_index = 'Scelta2';
+    }
+    elseif ($_SESSION['at'] == 2){
+        $page_index = 'Scelta3';
         //mix case
         if(!fast_debug) {
             //getting most chosen avatars
@@ -67,6 +82,7 @@ if(isset($_SESSION['at']))
             }
             $result = array_merge($result, $result2 );
 
+
             if(debug){
                 print_r($q);
                 //var_dump($db);
@@ -76,7 +92,7 @@ if(isset($_SESSION['at']))
             }
 
             //probabilmente è più comodo farlo a mano
-            $_SESSION['p_mix'] = array(
+           /* $_SESSION['p_mix'] = array(
             0=>array(0=>$result[0],1=>$result[5]),
                 1=>array(0=>$result[0],1=>$result[6]),
                 2=>array(0=>$result[0],1=>$result[7]),
@@ -103,10 +119,9 @@ if(isset($_SESSION['at']))
                 24=>array(0=>$result[4],1=>$result[8]),
                 25=>array(0=>$result[4],1=>$result[9])
             );
-            shuffle($_SESSION['p_mix']);
+            shuffle($_SESSION['p_mix']);*/
+            //shuffle order
 
-
-            /*
             //permutazioni?
             include_once "config/permutations.php";
             $_SESSION['p_mix'] = array();
@@ -118,19 +133,37 @@ if(isset($_SESSION['at']))
                 print_r($_SESSION['p_mix']);
             }
 
-            //TODO: delete delle coppie same sex?
+            //delete delle coppie same sex
             foreach ($_SESSION['p_mix'] as $key => $couple){
                 if($couple[0][strlen($couple[0])-1] === $couple[1][strlen($couple[1])-1]){
                     unset($_SESSION['p_mix'][$key]);
                 }
+            }
+            //safe indexing
+            $safe_array=array();
+            $i = 0;
+            foreach ($_SESSION['p_mix'] as $couple)
+            {
+
+                $safe_array[$i] = $couple;
+                $i++;
+            }
+            $_SESSION['p_mix'] = equal_array($safe_array);
+            unset($safe_array);
+
+            foreach ($_SESSION['p_mix'] as $key => $couple){
+                if(debug)
+                {
+                    echo "<script>console.log(\"Shuffling ".implode("-",$couple)."\")</script>";
+                }
+                shuffle($couple);
+                $_SESSION['p_mix'][$key] = $couple;
             }
             if(debug)
             {
                 echo "<p>Mix after same sex delete:  </p>";
                 print_r($_SESSION['p_mix']);
             }
-
-           // $_SESSION['p_mix'] = $result;*/
 
         }
         else{
@@ -139,6 +172,16 @@ if(isset($_SESSION['at']))
    </pre>";
         }
     }
+
+
+    include_once 'layout_head.php';
+    switch($_SESSION['at']){
+        case 0:default:
+        {$_SESSION['visited_pages']['Scelta1'] = true;break;}
+        case 1:{$_SESSION['visited_pages']['Scelta2'] = true;break;}
+        case 2:{$_SESSION['visited_pages']['Scelta3'] = true;break;}
+    }
+
     echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
     echo "<h1>" .$title. "</h1><br>";
     echo $text. "Take the time you need and when you are ready ".$f." click the button \"Start\" placed at the bottom.";
@@ -157,7 +200,7 @@ if(isset($_SESSION['at']))
 
 } else {
     echo "<pre>
-    Spiacenti, si è verificato un errore
+    An error have occurred. Don't worry, it's our fault, your Prolific reputation won't be inficiated.
    </pre>";
 }
 

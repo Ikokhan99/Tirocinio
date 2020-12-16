@@ -3,21 +3,15 @@ include_once "./config/Foes.php";
 include_once "Q.php";
 //TODO:test
 
+
 class Q2 extends Q
 {
 
+
     // object properties
     public int $playtime;
-    public string $game1;
-    public string $game2;
-    public int $sexism1;  // Should be between 0 and 5
-    public int $sexism2;
-    public int $violence1;  // Should be between 0 and 5
-    public int $violence2;
-    public int $realism11;  // Should be between 0 and 5
-    public int $realism12;
-    public int $realism21;  // Should be between 0 and 5
-    public int $realism22;
+    public ?GAME $game1;
+    public ?GAME $game2;
     public array $gens;
 
     public function __construct($db,$user_id)
@@ -25,16 +19,8 @@ class Q2 extends Q
         $this->conn = $db;
         $this->user_id = $user_id;
         $this->playtime = 0;
-        $this->game1 = "";
-        $this->game2 = "";
-        $this->sexism1 = 0;
-        $this->sexism2 = 0;
-        $this->violence1 = 0;
-        $this->violence2 = 0;
-        $this->realism11 = 0;
-        $this->realism12 = 0;
-        $this-> realism21 = 0;
-        $this->realism22 = 0;
+        $this->game1 = new GAME($this->conn);
+        $this->game2 = new GAME($this->conn);
         $this->gens = [];
 
     }
@@ -44,35 +30,29 @@ class Q2 extends Q
 
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $gens = $this->gens[0].$this->gens[1].$this->gens[2];
 
-        $q = "INSERT INTO Q2 VALUES(:playtime,
+        $this->game1->create();
+        if($this->game2 != null)
+            $this->game2->create();
+
+        $gens = "";
+        foreach ($this->gens as $key => $gen)
+        {
+            if($key != 0)
+                $gens .= ",";
+            $gens.=$gen;
+        }
+
+        $q = "INSERT INTO Q2 VALUES(
+                        :playtime,
                       '$gens',
-                      '$this->game1',
-                      '$this->game2',
-                      :sexism1,
-                      :sexism2,
-                      :violence1,
-                      :violence2,
-                      :realism11,
-                      :realism12,
-                      :realism21,
-                      :realism22,
+                      ".$this->game1->id.",
+                      ".($this->game2 != null ? $this->game2->id:-1).",
                       '$this->user_id');";
-
-//I can't get where it's wrong
 
         $stmt = $this->conn->prepare($q);
 
         $stmt->bindParam(':playtime', $this->playtime);
-        $stmt->bindParam(':sexism1', $this->sexism1);
-        $stmt->bindParam(':sexism2', $this->sexism2);
-        $stmt->bindParam(':violence1', $this->violence1);
-        $stmt->bindParam(':violence2', $this->violence2);
-        $stmt->bindParam(':realism11', $this->realism11);
-        $stmt->bindParam(':realism12', $this->realism12);
-        $stmt->bindParam(':realism21', $this->realism21);
-        $stmt->bindParam(':realism22', $this->realism22);
 
         if(debug){
             var_dump($stmt);
@@ -87,6 +67,74 @@ class Q2 extends Q
             $this->showError($stmt);
             return false;
         }
+    }
+}
+
+class GAME implements Interfaces {
+    public $conn;
+
+    public int $id;
+    public string $title;
+    public int $sexism;  // Should be between 0 and 5
+    public int $violence;  // Should be between 0 and 5
+    public int $realism1;  // Should be between 0 and 5
+    public int $realism2;
+
+    public function __construct($db)
+    {
+        $this->conn = $db;
+        $this->title = "";
+        $this->sexism = 0;
+        $this->violence = 0;
+        $this->realism1 = 0;
+        $this->realism2 = 0;
+    }
+
+    function create(): bool
+    {
+
+        // var_dump($this);
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $q = "INSERT INTO GAME VALUES(
+                      NULL,
+                      :title,
+                      :sexism,
+                      :violence,
+                      :realism1,
+                      :realism2);";
+
+        $stmt = $this->conn->prepare($q);
+
+        $stmt->bindParam(':title', $this->title);
+        $stmt->bindParam(':sexism', $this->sexism);
+        $stmt->bindParam(':violence', $this->violence);
+        $stmt->bindParam(':realism1', $this->realism1);
+        $stmt->bindParam(':realism2', $this->realism2);
+
+        if(debug){
+            var_dump($stmt);
+        }
+
+        if($stmt->execute())
+        {
+            $this->id=$this->conn->lastInsertId();
+            return true;
+        }
+        else
+        {
+            $this->showError($stmt);
+            return false;
+        }
+    }
+
+
+
+    public function showError($stmt)
+    {
+        echo "<pre>";
+        print_r($stmt->errorInfo());
+        echo "</pre>";
     }
 
 }

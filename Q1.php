@@ -3,6 +3,7 @@
 include_once "config/core.php";
 include_once 'objects/user.php';
 include_once 'config/Foes.php';
+$page_index = 'q1';
 
 
 if (!empty($_POST)) {
@@ -27,33 +28,33 @@ if (!empty($_POST)) {
 }
 
 //TODO: redirect in ordine
-if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET) && $_GET['action']=='goto'))
+if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET)&& isset($_GET['action']) && $_GET['action']=='goto') )
 {
 
     switch ($_SESSION['Q'][$_SESSION['at']]){
         case 2:{
         $_SESSION['at'] += 1;
-            header("Location: ".home_url."Q2.php");
+            header("Location: ".home_url."Q2.php?s=0");
             break;
         }
         case 3:{
             $_SESSION['at'] += 1;
-            header("Location: ".home_url."Q3.php");
+            header("Location: ".home_url."Q3.php?s=0");
             break;
         }
         case 4:{
             $_SESSION['at'] += 1;
-            header("Location: ".home_url."Q4.php");
+            header("Location: ".home_url."Q4.php?s=0");
             break;
         }
         case 5:{
             $_SESSION['at'] += 1;
-            header("Location: ".home_url."Q5.php");
+            header("Location: ".home_url."Q5.php?s=0");
             break;
         }
         case 6:default:{
             $_SESSION['at'] += 1;
-            header("Location: ".home_url."last.php");
+            header("Location: ".home_url."last.php?s=0");
             break;
         }
     }
@@ -87,7 +88,13 @@ if(debug)
 // page title
 $page_title = "Survey";
 include_once "layout_head.php";
-
+$_SESSION['visited_pages']['q1'] = true;
+//chech for non-guided navigation
+if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
+    if(user_error) {
+        header("Location: ".home_url."user_error.php");
+    }
+}
 ?>
 <div class="container">
     <div class="row">
@@ -96,7 +103,7 @@ include_once "layout_head.php";
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12">
-                            Thank you for completing this experiment, now we kindly ask you to conclude this experience by filling out our questionnaire
+                            Thank you for completing this experiment, now we kindly ask you to conclude this experience by filling out our survey
                         </div>
                 </div>
                 <div class="panel-body">
@@ -105,10 +112,10 @@ include_once "layout_head.php";
                             <form name="user-form" method="post" action="Q1.php" id="user-form" role="form" style="display: block;">
                                 <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
                                 <div class="form-group">
-                                    <label for="prolific">Prolific Id</label><input id="prolific" size="25" name="user-id"  required="required" tabindex="1" class="form-control">
+                                    <label for="prolific">Prolific Id</label><input id="prolific" size="30" name="user-id"  required="required" tabindex="1" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="21" required="required" tabindex="3" class="form-control">
+                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <div style="overflow-x:auto; align-items: flex-start">

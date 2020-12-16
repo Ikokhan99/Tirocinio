@@ -33,8 +33,9 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 CREATE TABLE IF NOT EXISTS `user` (
     `ID` VARCHAR(100) NOT NULL,  /*--- PRIMARY KEY  TODO:check the lenght of the prolific id -*/
     `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- biological sex
-    `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age TODO:not yet set in stone*/
-    `SEXOR` INT(2) NOT NULL DEFAULT 0,  -- sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other 	probably we're going to add more
+    `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age */
+    `SEXOR` INT(2) NOT NULL DEFAULT 0,  /* sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other*/
+    `TIME` INT NOT NULL DEFAULT 0,/*in seconds*/
   PRIMARY KEY (`ID`)
 ) ENGINE = 'InnoDB';
 
@@ -43,17 +44,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- first questionnaire, the one with the two games
 CREATE TABLE IF NOT EXISTS `Q2` (
   `PLAYTIME` INT(5) NOT NULL COMMENT '0=never, ...', --  0=Never, 1=Less than 1 hour, 2=Between 1 and 2 hours, 3=Between 2 and 4 hours, 4=More than 4 hours
-  `FAV_GENS` VARCHAR(100) not null,
-  `GAME1` VARCHAR(100) NOT NULL,
-  `GAME2` VARCHAR(100) NOT NULL,  /*Title of the second game   --Title of the first game*/
-  `SEXISM1` INT NOT NULL, /*- --Should be between 1 and 5*/
-  `SEXISM2` INT NOT NULL, /*- --Should be between 1 and 5*/
-  `VIOLENCE1` INT NOT NULL,
-  `VIOLENCE2` int not null,
-  `REALISM11` int not null,
-  `REALISM12` int not null,
-  `REALISM21` int not null,
-  `REALISM22` int not null,
+  `FAV_GENS` VARCHAR(300) not null,
+  `GAME1` INT NOT NULL,
+  `GAME2` INT NOT NULL,  /*Title of the second game   --Title of the first game*/
   `USER_ID` VARCHAR(100) NOT NULL,  /*--- The id of the user of course		primary and FOREIGN KEY	*/
   
   PRIMARY KEY (`USER_ID`),
@@ -61,9 +54,30 @@ CREATE TABLE IF NOT EXISTS `Q2` (
 		FOREIGN KEY (`USER_ID`)
 		REFERENCES `USER`(`ID`)
 		ON DELETE CASCADE
-		ON UPDATE CASCADE
+		ON UPDATE CASCADE,
+  CONSTRAINT `fk_GAME1`
+      FOREIGN KEY (`GAME1`)
+          REFERENCES `GAME`(`ID`)
+          ON DELETE CASCADE
+          ON UPDATE CASCADE,
+  CONSTRAINT `fk_GAME2`
+      FOREIGN KEY (`GAME2`)
+          REFERENCES `GAME`(`ID`)
+          ON DELETE CASCADE
+          ON UPDATE CASCADE
 ) ENGINE = 'InnoDB';
 
+CREATE TABLE IF NOT EXISTS `GAME`(
+    `ID` INT AUTO_INCREMENT NOT NULL,
+    `TITLE` VARCHAR(50) NOT NULL,
+    `SEXISM` INT NOT NULL, /*- --Should be between 1 and 5*/
+    `VIOLENCE` INT NOT NULL,
+    `REALISM1` int not null,
+    `REALISM2` int not null,
+
+    PRIMARY KEY (`ID`)
+
+) ENGINE = 'InnoDB';
 
 -- TODO: aggiungere domande di controllo
 CREATE TABLE IF NOT EXISTS `Q3` (
@@ -151,19 +165,20 @@ CREATE TABLE IF NOT EXISTS `Q5` (
 --
 
 -- We use this one to store which combinations were already selected from the user and their order
+-- TODO: add press type
 
 CREATE TABLE IF NOT EXISTS `choice` (
+  `ID` INT AUTO_INCREMENT NOT NULL,
   `ENTRY` INT NOT NULL COMMENT '1= first entry for user',/*-  -- NUMBER OF THE ENTRY FOR THE CURRENT USER, E.G.  1 -> FIRST ENTRY FOR THIS USER*/
   `TYPE` INT NOT NULL COMMENT '0=male, 1=female, 3=mix', /*- -- Type of choice, same sex or different sex*/
-  `TIME` FLOAT NOT NULL COMMENT 'response time',/*- -- response time of each choice*/
+  `TIME` INT NOT NULL COMMENT 'response time',/*- -- response time of each choice in milliseconds*/
   `CHOSEN` varchar(3) NOT NULL COMMENT 'id of avatar chosen',
+  `KEY` BIT NOT NULL COMMENT '0=LEFT, 1=RIGHT',
   `USER_ID` VARCHAR(100) NOT NULL, /*- -- The id of the user of course		FOREIGN KEY	*/
   `AVATAR1_ID` INT NOT NULL COMMENT 'left',/*-  -- The avatar presented on the left    FOREIGN KEY*/
   `AVATAR2_ID` INT NOT NULL COMMENT 'right',/*-  -- The avatar presented on the right  FOREIGN KEY*/
-  
-  
-  
-  PRIMARY KEY (`ENTRY`,`USER_ID`,`TYPE`),
+
+  PRIMARY KEY (`ID`),
   CONSTRAINT `fk_AVATAR1`
 		FOREIGN KEY (`AVATAR1_ID`)
 		REFERENCES `VaesDB`.`AVATAR`(`ID`)
@@ -179,7 +194,6 @@ CREATE TABLE IF NOT EXISTS `choice` (
 		REFERENCES `VaesDB`.`USER`(`ID`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
-	
 )ENGINE = 'InnoDB' ;
 -- InnoDB for savepoints
 
