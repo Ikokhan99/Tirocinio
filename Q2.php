@@ -436,11 +436,7 @@ $_SESSION['visited_pages']['q2'] = true;
 */
 /*TODO:css */
 
-    .wrap {
-        max-width: 100%;
-        text-align: left;
-        margin: 0 auto;
-    }
+
     .main-container {
         margin: 0 auto;
         padding: 1em;
