@@ -21,8 +21,8 @@ if(isset($page_title)&& ($page_title!="Experiment" || $page_title!="Survey")){
 if(isset($_SESSION['at']))
 {
     $_SESSION['permutation'] = 0;
-    $text = "Imagine that you have just started a new video game and find yourself having to choose your personal avatar.<br>
-		<br>You will be faced with various pairs of avatars; for each couple choose your favorite avatar by pressing the <b>right arrow</b> (&#8594) or <b>left</b> (&#8592) from the keyboard to select the corresponding avatar. <br><br>(<b>right arrow = right avatar </b> & <b> left arrow = left avatar</b>).<br><br><br>";
+    $text = "<div class='t1'>You will be presented with various pairs of avatars that you might use in a video game.</div>
+		<div class='t2'>For each couple, we ask you to choose your favourite avatar by pressing the <b>right</b> (&#8594) or <b>left</b> (&#8592) from the keyboard to select the avatar you prefer. </div><div class='t3'> (<b>right arrow = right avatar </b> & <b> left arrow = left avatar</b>).</div>";
     $title="Continue Test";
     $f="to continue";
     if($_SESSION['at'] == 0)
@@ -91,37 +91,6 @@ if(isset($_SESSION['at']))
 
             }
 
-            //probabilmente è più comodo farlo a mano
-           /* $_SESSION['p_mix'] = array(
-            0=>array(0=>$result[0],1=>$result[5]),
-                1=>array(0=>$result[0],1=>$result[6]),
-                2=>array(0=>$result[0],1=>$result[7]),
-                3=>array(0=>$result[0],1=>$result[8]),
-                4=>array(0=>$result[0],1=>$result[9]),
-            6=>array(0=>$result[1],1=>$result[5]),
-                7=>array(0=>$result[1],1=>$result[6]),
-                8=>array(0=>$result[1],1=>$result[7]),
-                9=>array(0=>$result[1],1=>$result[8]),
-                10=>array(0=>$result[1],1=>$result[9]),
-            11=>array(0=>$result[2],1=>$result[5]),
-                12=>array(0=>$result[2],1=>$result[6]),
-                13=>array(0=>$result[2],1=>$result[7]),
-                14=>array(0=>$result[2],1=>$result[8]),
-                15=>array(0=>$result[2],1=>$result[9]),
-            16=>array(0=>$result[3],1=>$result[5]),
-                17=>array(0=>$result[3],1=>$result[6]),
-                18=>array(0=>$result[3],1=>$result[7]),
-                19=>array(0=>$result[3],1=>$result[8]),
-                20=>array(0=>$result[3],1=>$result[9]),
-            21=>array(0=>$result[4],1=>$result[5]),
-                22=>array(0=>$result[4],1=>$result[6]),
-                23=>array(0=>$result[4],1=>$result[7]),
-                24=>array(0=>$result[4],1=>$result[8]),
-                25=>array(0=>$result[4],1=>$result[9])
-            );
-            shuffle($_SESSION['p_mix']);*/
-            //shuffle order
-
             //permutazioni?
             include_once "config/permutations.php";
             $_SESSION['p_mix'] = array();
@@ -182,11 +151,14 @@ if(isset($_SESSION['at']))
         case 2:{$_SESSION['visited_pages']['Scelta3'] = true;break;}
     }
 
-    echo "<table class='center'><tr><td><table class='table80-3'><tr><td>";
-    echo "<h1>" .$title. "</h1><br>";
-    echo $text. "Take the time you need and when you are ready ".$f." click the button \"Start\" placed at the bottom.";
-    echo "<br><br><br>";
-    echo "<a href='choice.php' class='btn btn-primary'>Start</a>";
+    echo "<div class='wrap'>
+            <div class='main-container'>";
+            echo "<div class='title-section'><div class='title'> " .$title. "</div></div>";
+            echo "<div class='text-section'> ".$text. "<div class='t4'>Take all the time you need and when you are ready ".$f." click the button \"Start\" placed at the bottom.</div>";
+            echo "</div>";
+            echo "<div class='button-section'> <a href='choice.php' class='btn btn-primary'>Start</a></div>
+            </div>
+          </div>";
 
     if(debug){
         print_r($_SESSION["at"]);
@@ -200,7 +172,291 @@ if(isset($_SESSION['at']))
 
 } else {
     echo "<pre>
-    An error have occurred. Don't worry, it's our fault, your Prolific reputation won't be inficiated.
+    An error has occurred. Don't worry, it's our fault, your Prolific reputation won't be affected.
    </pre>";
 }
 
+?>
+
+<style>
+    @media only screen and ( max-width: 360px ) {
+
+        .main-container {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 100%;
+            font-size: x-small;
+            text-align: center;
+
+        }
+
+        .button-section{
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 1fr 2fr 1fr;
+        }
+        .text-section {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: auto auto auto;
+
+
+        }
+
+        .title-section {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 100%;
+            align-content: center;
+            align-items: center;
+            vertical-align: center;
+            text-align: center;
+        }
+        .title{
+            font-size: large;
+        }
+
+    }
+
+    @media only screen and ( min-width: 360px ) {
+
+        .main-container {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 100%;
+            font-size: x-small;
+
+        }
+
+        .button-section{
+            margin: 0 auto;
+            padding: 0;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 1fr 2fr 1fr;
+        }
+        .text-section {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: auto auto auto;
+
+
+        }
+
+        .title-section {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 100%;
+            align-content: center;
+            align-items: center;
+            vertical-align: center;
+            text-align: center;
+        }
+        .title{
+            font-size: large;
+        }
+    }
+
+
+    @media only screen and (min-width: 480px) {
+
+        .main-container {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 30px 400px 30px;
+            font-size: small;
+
+        }
+
+        .button-section{
+            margin: 0 auto;
+            padding: 0;
+            grid-column: 2;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 1fr 2fr 1fr;
+
+        }
+        .text-section {
+            margin: 0 auto;
+            padding: 1em;
+            grid-column: 2;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 100%;
+
+
+        }
+
+        .btn{
+            width: fit-content;
+        }
+
+        .title-section {
+            margin: 0 auto;
+            padding: 1em;
+            grid-column: 2;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 100%;
+        }
+        .title{
+            font-size: x-large;
+        }
+
+    }
+    @media only screen and (min-width: 760px) {
+
+        .main-container {
+            margin: 0 auto;
+            padding: 1em;
+            display: grid;
+            grid-gap: 2px;
+            grid-template-columns: 1fr 2fr 1fr;
+            font-size: large;
+
+        }
+
+
+        .btn{
+            width: 170px;
+        }
+
+
+        .title{
+            font-size: xxx-large;
+        }
+
+    }
+
+
+    @media only screen and (min-height: 360px) {
+        .main-container {
+            grid-template-rows: 60px 170px 60px ;
+        }
+        .button-section{
+            grid-row: 3;
+            grid-template-rows: 100%;
+        }
+        .text-section {
+            grid-row: 2;
+            grid-template-rows: 1fr 1fr 1fr 1fr ;
+        }
+        .title-section {
+            grid-row: 1;
+            grid-template-rows: 100%;
+        }
+        .btn{
+            height: fit-content;
+            font-size: large;
+            grid-row: 1;
+            grid-column: 2;
+        }
+
+    }
+    @media only screen and (min-height: 560px) {
+        .main-container {
+            grid-template-rows: 120px 270px 100px ;
+        }
+        .button-section{
+            grid-row: 3;
+            grid-template-rows: 100%;
+        }
+        .text-section {
+            grid-row: 2;
+            grid-template-rows: 1fr 1fr 1fr 1fr ;
+        }
+        .title-section {
+            grid-row: 1;
+            grid-template-rows: 100%;
+        }
+        .btn{
+            height: fit-content;
+            font-size: xx-large;
+            grid-row: 1;
+            grid-column: 2;
+        }
+
+    }
+
+
+
+    @media only screen and (min-height: 640px) {
+        .main-container {
+            grid-template-rows: 140px 350px 110px ;
+        }
+
+    }
+
+    @media only screen and (min-height: 650px) {
+        .main-container {
+            grid-template-rows: 150px 350px 110px ;
+
+        }
+
+    }
+
+    @media only screen and (min-height: 720px) {
+        .main-container {
+            grid-template-rows: 145px 400px 120px ;
+
+        }
+
+    }
+
+    @media only screen and (min-height: 850px) {
+        .main-container {
+            grid-template-rows: 200px 400px 200px ;
+            text-align: center;
+        }
+    }
+
+    @media only screen and (min-height: 1080px) {
+        .main-container {
+            grid-template-rows: 251px 552px 251px ;
+            font-size: x-large;
+
+        }
+    }
+    @media only screen and (min-height: 1300px) {
+        .main-container {
+            grid-template-rows: 251px 752px 251px ;
+            font-size: x-large;
+
+        }
+    }
+
+    .t1{
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .t2{
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .t3{
+        grid-column: 1;
+        grid-row: 3;
+    }
+    .t4{
+        grid-column: 1;
+        grid-row: 4;
+    }
+
+</style>

@@ -174,17 +174,17 @@ if ((isset($error) && $error === false) || fast_debug) {
                 </img>
                 <div class='mid-section' style='grid-row: 2 ;  grid-column: 1;'>
                      <div style='grid-column: 2;'>
-                        <div class='t1'> In this experiment, we ask you to choose between two images. <br></div>
-                        <div class='t2'>We ask you not to be in haste to complete the experiment and to pay attention to which image you choose <br></div>
-                        <div class='t3'>(take it easy and be concentrated). <br></div>
-                        <div class='t4'>After this task, you will take a survey.<br></div>
+                        <div class='t1'> In this experiment, we will present you with two images of avatars that you might use in a video game. Each time we will ask you to choose which avatar you prefer. <br></div>
+                        <div class='t2'>You can take as much time as you want to make your choice.<br></div>
+                        <div class='t3'>It is important that you always indicate the avatar you honestly like the most. <br></div>
+                        <div class='t4'>After this task, you will be asked to respond to a survey.<br></div>
                     </div>
                 </div>
                 <div style=' grid-row: 3; grid-column: 1;'>
                     <div class='end-section'>
                          <div style='grid-row: 1 ;  grid-column: 1;' >
                          Before starting we inform you that <strong >you will not be allowed </strong> to reload the web page, 
-                        close the browser or start the experiment and finish it after some time.  
+                        close the browser or restart the experiment and finish it later.  
                         </div>
                         <div class='button-section' style='grid-row: 2 ;  grid-column: 1;'>
                             <form action='SceltaAvatar.php' method='post' style='grid-row: 1 ;  grid-column: 2;'>
@@ -555,29 +555,6 @@ if ((isset($error) && $error === false) || fast_debug) {
 
         }
 
-            
-            @media only screen and (min-height: 720px) {
-            .main-container {
-                grid-template-rows: 300px 170px 150px ;
-                font-size: medium;
-            }
-            .button-section{
-                grid-template-rows: auto auto auto ;
-                }
-            .mid-section {
-                grid-template-rows: 100% ;
-                } 
-            .end-section {
-                grid-template-rows: 70px 70px;
-                }
-
-                .btn{
-                    height:50px;
-                    font-size: medium;
-                }
-
-            }
-
         @media only screen and (min-height: 720px) {
             .main-container {
                 grid-template-rows: 300px 200px 200px ;
@@ -663,7 +640,7 @@ if ((isset($error) && $error === false) || fast_debug) {
 
 } else {
     echo "<pre>
-    An error have occurred. Don't worry, it's our fault, your Prolific reputation won't be inficiated.
+    An error has occurred. Don't worry, it's our fault, your Prolific reputation won't be affected.
    </pre>";
 }
 
