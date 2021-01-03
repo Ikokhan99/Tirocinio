@@ -170,21 +170,21 @@ $_SESSION['visited_pages']['q2'] = true;
                     </label>
                     <label style="grid-column: 5; grid-row: 4">
                         <input type='checkbox' name='type[]' value='ActionRPG'>
-                        Action RPG
+                        Action RPG (Role-Playing Game)
                     </label>
 
 
                     <label style="grid-column: 1; grid-row: 5">
                         <input type='checkbox' name='type[]' value='TacticalRPG'>
-                        Tactical RPG
+                        Tactical RPG (Role-Playing Game)
                     </label>
                     <label style="grid-column: 2; grid-row: 5">
                         <input type='checkbox' name='type[]' value='JRPG'>
-                        JRPG(Japanese RPG)
+                        JRPG(Japanese Role-Playing Game)
                     </label>
                     <label style="grid-column: 3; grid-row: 5">
                         <input type='checkbox' name='type[]' value='FPPBRPG'>
-                        FPPBRPG(First-person Party-based RPG)
+                        FPPBRPG(First-person Party-based Role-Playing Game)
                     </label>
                     <label style="grid-column: 4; grid-row: 5">
                         <input type='checkbox' name='type[]' value='MonsterTamer'>
@@ -192,7 +192,7 @@ $_SESSION['visited_pages']['q2'] = true;
                     </label>
                     <label style="grid-column: 5; grid-row: 5">
                         <input type='checkbox' name='type[]' value='SandboxRPG'>
-                        Sandbox RPG
+                        Sandbox RPG (Role-Playing Game)
                     </label>
 
 
@@ -229,7 +229,7 @@ $_SESSION['visited_pages']['q2'] = true;
                     </label>
                     <label style="grid-column: 4; grid-row: 7">
                         <input type='checkbox' name='type[]' value='4x'>
-                        4X( eXplore, eXpand, eXploit, and eXterminate)
+                        4X (eXplore, eXpand, eXploit, and eXterminate)
                     </label>
                     <label style="grid-column: 5; grid-row: 7">
                         <input type='checkbox' name='type[]' value='Artillery'>
@@ -300,7 +300,7 @@ $_SESSION['visited_pages']['q2'] = true;
                     </label>
                 </div>
                 <div style="grid-row: 6">
-                    <b>Enter one or two of your current favorite video games and indicate for each one the degree of the perceived characteristics (from 0 to 5):</b>
+                    <b>Enter one or two of your current favourite video games and indicate for each game the degree to which it contains each of the following characteristics (from 0=absent to 5=very much present):</b>
                 </div>
             <div style="grid-row: 7">
                 <div class="games">
@@ -312,18 +312,18 @@ $_SESSION['visited_pages']['q2'] = true;
                         Gender disparities
                     </label>
                      <label style="grid-row: 1; grid-column: 3">
-                         Absent (0)
+                          0
                          <input type='range' name='sexism1' min=0 max=5 required>
-                         (5) Very much present
+                         5
                      </label>
 
                     <label style="grid-row: 2;grid-column: 2 ;">
                         Violence
                     </label>
                     <label style="grid-row: 2; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='violence1' min=0 max=5 required>
-                        (5) Very much present
+                        5
                     </label>
 
                     <label style="grid-row: 3;grid-column: 2 ;">
@@ -339,9 +339,9 @@ $_SESSION['visited_pages']['q2'] = true;
                         Game mechanics realism
                     </label>
                     <label style="grid-row: 4; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='realism12' min=0 max=5 required>
-                        (5) Very realistic
+                        5
                     </label>
 
                 </div>
@@ -357,9 +357,9 @@ $_SESSION['visited_pages']['q2'] = true;
                         Gender disparities
                     </label>
                     <label style="grid-row: 1; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='sexism2' min=0 max=5 required>
-                        (5) Very much present
+                        5
                     </label>
                  <!--   <label style="grid-row: 1;grid-column: 2 ;">
                         Sexualization of characters
@@ -374,27 +374,27 @@ $_SESSION['visited_pages']['q2'] = true;
                         Violence
                     </label>
                     <label style="grid-row: 2; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='violence2' min=0 max=5 required>
-                        (5) Very much present
+                        5
                     </label>
 
                     <label style="grid-row: 3;grid-column: 2 ;">
                         Game graphics realism
                     </label>
                     <label style="grid-row: 3; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='realism21' min=0 max=5 required>
-                        (5) Very realistic
+                        5
                     </label>
 
                     <label style="grid-row: 4;grid-column: 2 ;">
                         Game mechanics realism
                     </label>
                     <label style="grid-row: 4; grid-column: 3">
-                        Absent (0)
+                        0
                         <input type='range' name='realism22' min=0 max=5 required>
-                        (5) Very realistic
+                        5
                     </label>
                 </div>
             </div>
@@ -414,26 +414,7 @@ $_SESSION['visited_pages']['q2'] = true;
 </script>
     <style>
 
-/*
-        .type-label {
-            display: block;
-            padding-left: 15px;
-            text-indent: -15px;
-            position: relative;
 
-
-        }
-        input[type=checkbox] {
-            width: 13px;
-            height: 13px;
-            padding: 0;
-            margin:0;
-            vertical-align: bottom;
-            position: relative;
-            top: -1px;
-            *overflow: hidden;
-        }
-*/
 /*TODO:css */
 
 

@@ -84,50 +84,50 @@ foreach ($order as $num )
 {
     switch ($num) {
         case 0:{
-            echo '<tr>
-    <td> Its important that you pay attention to this study. Please, tick 5  </td>
-        <td style= "text-align: center">
-            <input type="radio" name="control1" value="0" id = "zero" required >
-            <label  for="zero"> 
+            echo "<tr>
+    <td> It's important that you pay attention to this study. Please, tick 5  </td>
+        <td style= \"text-align: center\">
+            <input type=\"radio\" name=\"control1\" value=\"0\" id = \"zero\" required >
+            <label  for=\"zero\"> 
                 0
             </label>
         </td>
-        <td style="text-align: center">
-            <input type="radio" name="control1" value="1" id = "one">
-            <label  for="one"> 
+        <td style=\"text-align: center\">
+            <input type=\"radio\" name=\"control1\" value=\"1\" id = \"one\">
+            <label  for=\"one\"> 
                 1
             </label>
         </td>
-        <td style="text-align: center">
-        <input type="radio" name="control1" value="2" id = "two">
-            <label for="two"> 
+        <td style=\"text-align: center\">
+        <input type=\"radio\" name=\"control1\" value=\"2\" id = \"two\">
+            <label for=\"two\"> 
                 2
             </label> 
         </td>
-        <td style="text-align: center"> 
-        <input type="radio" name="control1" value="3" id = "three">
-            <label for="three"> 
+        <td style=\"text-align: center\"> 
+        <input type=\"radio\" name=\"control1\" value=\"3\" id = \"three\">
+            <label for=\"three\"> 
                 3
             </label>
         </td>
-        <td style="text-align: center">  
-        <input type="radio" name="control1" value="4" id = "four">
-            <label for="four"> 
+        <td style=\"text-align: center\">  
+        <input type=\"radio\" name=\"control1\" value=\"4\" id = \"four\">
+            <label for=\"four\"> 
                 4
             </label>
         </td>
-        <td style="text-align: center">
-        <input type="radio" name="control1" value="5" id = "five">
-            <label for="five"> 
+        <td style=\"text-align: center\">
+        <input type=\"radio\" name=\"control1\" value=\"5\" id = \"five\">
+            <label for=\"five\"> 
                 5
             </label>
         </td>
-    </tr>';
+    </tr>";
             break;
         }
         case 23:{
             echo '<tr>
-    <td> Its important that you pay attention to this study. Please, tick 0</td>
+    <td> It\'s important that you pay attention to this study. Please, tick 0</td>
         <td style= "text-align: center">
             <input type="radio" name="control2" value="0" id = "zero" required >
             <label  for="zero"> 
@@ -210,7 +210,7 @@ foreach ($order as $num )
     </tr>'; break;
         case 2:
     echo '<tr>
-    <td> Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality." </td>
+    <td> Many women are actually seeking special favours, such as hiring policies that favour them over men, under the guise of asking for "equality." </td>
         <td style="text-align: center">
             <input type="radio" name= "Q2" value="0" id = "zero" required >
             <label  for="zero"> 
@@ -930,7 +930,7 @@ foreach ($order as $num )
     </tr>'; break;
         case 20:
     echo '<tr>
-        <td> Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives. </td>
+        <td> Men should be willing to sacrifice their own well-being in order to provide financially for the women in their lives. </td>
         <td style="text-align: center">
             <input type="radio" name= "Q20" value="0" id = "zero" required >
             <label  for="zero"> 

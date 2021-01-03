@@ -86,7 +86,7 @@ foreach ($order as $num ) {
         case 2:
             echo "
     <tr>
-    <td> What rank do you assign to health ?</td>
+    <td> What rank do you assign to health?</td>
         <td style='text-align: center'>
             <input type='number' min='0' max='9' name='R2' value='' id = 'R2' onchange='check(this)' onblur='boi(this)' required >
         </td>
@@ -104,7 +104,7 @@ foreach ($order as $num ) {
         case 4:
             echo "
     <tr>
-    <td> What rank do you assign to strength ? </td>
+    <td> What rank do you assign to strength? </td>
         <td style='text-align: center'>
             <input type='number' min='0' max='9' name='R4' value='' id = 'R4' onchange='check(this)' onblur='boi(this)' required >
         </td>
@@ -122,7 +122,7 @@ foreach ($order as $num ) {
         case 6:
             echo "
     <tr>
-    <td> What rank do you assign to physical attractiveness ? </td>
+    <td> What rank do you assign to physical attractiveness? </td>
         <td style='text-align: center'>
             <input type='number' min='0' max='9' name='R6' value='' id = 'R6' onchange='check(this)' onblur='boi(this)' required >
         </td>
@@ -140,7 +140,7 @@ foreach ($order as $num ) {
         case 8:
             echo "
     <tr>
-    <td> What rank do you assign to sculpted muscles ? </td>
+    <td> What rank do you assign to sculpted muscles? </td>
         <td style='text-align: center'>
             <input type='number' min='0' max='9' name='R8' value='' id = 'R8' onchange='check(this)' onblur='boi(this)' required >
         </td>

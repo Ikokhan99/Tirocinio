@@ -183,7 +183,7 @@ foreach ($order as $num ) {
         case 3:
             echo "
     <tr>
-    <td> Most men are interested in women’s feelings because they want to  be close to women.</td>
+    <td> Most men are interested in women's feelings because they want to be close to women.</td>
         <td style='text-align: center'>
             <input type='radio' name='Q3' value='1' id = 'one' required >
             <label for='one'> 

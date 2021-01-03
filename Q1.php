@@ -103,7 +103,7 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-12">
-                            Thank you for completing this experiment, now we kindly ask you to conclude this experience by filling out our survey
+                            Thank you for completing this experiment, now we kindly ask you to respond to our survey
                         </div>
                 </div>
                 <div class="panel-body">
@@ -123,7 +123,7 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                                                 <thead>
                                                 <tr>
                                                     <th>
-                                                        <label for="user-sex" class="required"><span class="label-text">Biological sex:</span>
+                                                        <label for="user-sex" class="required"><span class="label-text">Gender:</span>
                                                     </th>
                                                 </tr>
                                                 </thead>
