@@ -476,24 +476,21 @@ foreach ($order as $num ) {
     <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn" value="Continue">
 </form>
 </div>
+    <script type="text/javascript">
 
-<style>
-table {
-  border-collapse: collapse;
-  background-color: #F8F8F8;
-}
+        function loadCSS(filename){
 
-table, td, th {
-  border: 1px solid black;
-  padding: 15px;
-  text-align: left;
-}
-td {
-  height: 50px;
-  vertical-align: bottom;
-}
+            let file = document.createElement("link");
+            file.setAttribute("rel", "stylesheet");
+            file.setAttribute("type", "text/css");
+            file.setAttribute("href", filename);
+            document.head.appendChild(file);
 
-</style>
+        }
+
+        loadCSS("libs/CSS/Q4.css");
+    </script>
+
 <?php
 
 // footer HTML and JavaScript codes

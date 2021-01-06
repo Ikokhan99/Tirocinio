@@ -412,86 +412,22 @@ $_SESSION['visited_pages']['q2'] = true;
         }
     });
 </script>
-    <style>
+    <script type="text/javascript">
 
+        function loadCSS(filename){
 
-/*TODO:css */
+            let file = document.createElement("link");
+            file.setAttribute("rel", "stylesheet");
+            file.setAttribute("type", "text/css");
+            file.setAttribute("href", filename);
+            document.head.appendChild(file);
 
+        }
 
-    .main-container {
-        margin: 0 auto;
-        padding: 1em;
-        /* display: flex;*/
-        /*align-items: center;*/
-        display: grid;
-        grid-gap: 2px;
-        grid-auto-rows: 66px;
-        grid-template-columns: 100%;
-        grid-template-rows: 2.5% 2.5% 20px 2.5% 500px 20px 24% 24% 2% ;
-        grid-auto-flow: row;
+        loadCSS("libs/CSS/Q2.css");
 
-    }
-    .options{
-        margin: 0;
-        padding: 1em;
-        /* display: flex;*/
-        /*align-items: center;*/
-        align-content: stretch;
-        display: grid;
-        grid-gap: 2px;
-        grid-auto-columns: 1fr;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-auto-flow: row;
-    }
-.games{
-    margin: 0;
-    padding: 1em;
-    align-content: stretch;
-    display: grid;
-    grid-gap: 2px;
-    grid-auto-columns: 1fr;
-    grid-template-columns: 1fr 0.7fr 4fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr ;
-    grid-auto-flow: row;
-}
+    </script>
 
-.Q1{
-    grid-column: 1 / 1;
-    grid-row: 1 ;
-    justify-self: stretch;
-}
-.Q2{
-    grid-column: 1 / 1;
-    grid-row: 4;
-    justify-self: stretch;
-}
-
-.Q4{
-    grid-column: 1 / 1;
-    grid-row: 8;
-    justify-self: stretch;
-}
-.ans1{
-
-    grid-column: 1 / 1;
-    grid-row: 2;
-    justify-self: stretch;
-}
-.ans2{
-    grid-column: 1 / 1;
-    grid-row: 5;
-    justify-self: stretch;
-}
-.footer{
-    grid-column: 1 / 1;
-    grid-row: 9;
-    text-align: center;
-}
-
-
-
-    </style>
 <?php
 
 // footer HTML and JavaScript codes

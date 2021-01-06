@@ -195,26 +195,21 @@ foreach ($order as $num ) {
         {document.getElementById('button').removeAttribute('disabled');}
 
     }
-    
+
+    function loadCSS(filename){
+
+            let file = document.createElement("link");
+            file.setAttribute("rel", "stylesheet");
+            file.setAttribute("type", "text/css");
+            file.setAttribute("href", filename);
+            document.head.appendChild(file);
+
+    }
+
+    loadCSS("libs/CSS/Q5.css");
+
 </script>
 
-<style>
-table {
-  border-collapse: collapse;
-  background-color: #F8F8F8;
-}
-
-table, td, th {
-  border: 1px solid black;
-  padding: 15px;
-  text-align: left;
-}
-td {
-  height: 50px;
-  vertical-align: bottom;
-}
-
-</style>
 <?php
 
 // footer HTML and JavaScript codes

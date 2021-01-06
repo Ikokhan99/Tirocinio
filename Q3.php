@@ -1056,23 +1056,23 @@ foreach ($order as $num )
 <p></p>
     <input type="submit" name="action" id="action-q3" tabindex="4" class="form-control btn btn-register" value="Continue">
 </div>
-<style>
-table {
-  border-collapse: collapse;
-  background-color: #F8F8F8;
-}
 
-table, td, th {
-  border: 1px solid black;
-  padding: 15px;
-  text-align: left;
-}
-td {
-  height: 50px;
-  vertical-align: bottom;
-}
+    <script type="text/javascript">
 
-</style>
+        function loadCSS(filename){
+
+            let file = document.createElement("link");
+            file.setAttribute("rel", "stylesheet");
+            file.setAttribute("type", "text/css");
+            file.setAttribute("href", filename);
+            document.head.appendChild(file);
+
+        }
+
+        loadCSS("libs/CSS/Q3.css");
+
+    </script>
+
 <?php
 
 // footer HTML and JavaScript codes
