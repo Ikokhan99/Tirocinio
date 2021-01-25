@@ -178,20 +178,6 @@ echo    "</button>
     </div>";
 ?>
 
-
-<style>
-    /* todo: il mouse si vede*/
-    
-    button {
-        cursor: none;
-    }
-
-    img {
-  max-width: 76%;
-  max-height: 76%;
-    }
-
-</style>
 <script type="text/javascript" >
     //TODO: controllare la cosa del tempo, forse è meglio usare php
     document.body.style.cursor = 'none';
@@ -243,6 +229,18 @@ echo    "</button>
     }
 
 window.setTimeout("click()", 1000);
+
+function loadCSS(filename){
+
+    let file = document.createElement("link");
+    file.setAttribute("rel", "stylesheet");
+    file.setAttribute("type", "text/css");
+    file.setAttribute("href", filename);
+    document.head.appendChild(file);
+
+}
+
+loadCSS("libs/CSS/choice.css");
 
 </script>
 
