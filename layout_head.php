@@ -16,6 +16,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- user custom CSS -->
   <link href="<?php echo home_url . "style.css" ?>" rel="stylesheet" />
+
+    <script>
+        screen.orientation.lock('landscape')
+    </script>
+
+
     <?php
 
     //TODO

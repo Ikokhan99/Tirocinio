@@ -473,7 +473,7 @@ foreach ($order as $num ) {
 </table>
     <p></p>
     <p></p>
-    <input type="submit" name="action" id="action-q2" tabindex="4" class="btn-register form-control btn" value="Continue">
+    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn" value="Continue">
 </form>
 </div>
     <script type="text/javascript">

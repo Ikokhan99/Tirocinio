@@ -57,26 +57,3 @@ body {
     background-color: #1CA347;
     border-color: #1CA347;
 }
-
-
-.centered-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 100% !important;
-}
-
-body {
-    text-align: center;
-}
-form {
-    display: inline-block;
-}
-
-.flex-container {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-}

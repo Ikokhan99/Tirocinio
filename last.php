@@ -1,3 +1,7 @@
+<script>
+    screen.orientation.unlock()
+</script>
+
 <?php
 
 include_once "config/core.php";
@@ -19,6 +23,7 @@ $q = "UPDATE user SET time = ".$time."where id= '".$_SESSION['user_id']."' ";
 $stmt = $db->prepare($q);
 if(debug){
     var_dump($stmt);
+    var_dump($_SESSION);
 }
 $stmt->execute();
 
