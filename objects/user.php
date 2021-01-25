@@ -32,7 +32,12 @@ class User implements Interfaces
 
 		if($id==null)
         {
+            // echo ("id is null");
             $temp_id = generateRandomID(25);
+            if(debug)
+            {
+                var_dump($temp_id);
+            }
             $_SESSION['user-id'] = $temp_id;
             $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->age,$this->sexor,default);";
             // var_dump($q);
@@ -41,7 +46,7 @@ class User implements Interfaces
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
         } else{
-
+           // echo ("id is not null");
             $q = "UPDATE user SET id= '$id',sex= $this->sex,age= $this->age,sexor= $this->sexor where id='".$_SESSION['user-id']."';";
             // var_dump($q);
             $this->stmt = $this->conn->query($q);
