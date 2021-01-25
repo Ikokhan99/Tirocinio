@@ -168,7 +168,7 @@ foreach ($order as $num ) {
 }
     ?>
 </table>
-    <input type="submit" name="action" id="button" tabindex="4" class="form-control btn" value="Continue" disabled>
+    <input type="submit" name="action" id="button" tabindex="4" class=" btn-register form-control btn" value="Continue" disabled>
 </form>
 </div>
 
