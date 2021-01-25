@@ -96,7 +96,7 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
     }
 }
 ?>
-<div class="container">
+<div class="centered-container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel">

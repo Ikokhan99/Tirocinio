@@ -77,7 +77,7 @@ $_SESSION['visited_pages']['q2'] = true;
                         <input type='radio' name='playtime' value='4' required>
                     </label> More than 4 hours
                 </div>
-
+                
                 <!-- Todo: parte grafica-->
                 <div class="Q2">
                     <strong>
@@ -299,6 +299,7 @@ $_SESSION['visited_pages']['q2'] = true;
                         Other
                     </label>
                 </div>
+                
                 <div style="grid-row: 6">
                     <b>Enter one or two of your current favourite video games and indicate for each game the degree to which it contains each of the following characteristics (from 0=absent to 5=very much present):</b>
                 </div>
@@ -399,7 +400,7 @@ $_SESSION['visited_pages']['q2'] = true;
                 </div>
             </div>
             <div style="grid-row: 9; justify-items: center">
-                <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn" value="Continue">
+                <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Continue">
             </div>
     </div>
     </form>
