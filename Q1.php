@@ -96,7 +96,7 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
     }
 }
 ?>
-<div class="centered-container">
+<div class="row centered-container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel">
@@ -219,6 +219,20 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
         </div>
     </div>
 </div>
+
+<style>
+.centered-container {
+    align-items: center;
+    justify-content: center;
+    text-align:center;
+    margin-left:auto;
+    margin-right: auto;
+  }
+  
+
+ 
+</style>
+
     <script type="text/javascript">
 
         function loadCSS(filename){
@@ -238,3 +252,5 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
 		
 // footer HTML and JavaScript codes
 include_once "layout_foot.php";
+
+
