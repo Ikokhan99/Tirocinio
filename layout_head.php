@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- user custom CSS -->
-  <link href="<?php echo home_url . "style.css" ?>" rel="stylesheet" />
+  <link href="<?php echo home_url . "libs/CSS/style.css" ?>" rel="stylesheet" />
 
     <script>
         screen.orientation.lock('landscape')
@@ -30,6 +30,7 @@
         }
 
         loadCSS("libs/CSS/style.css");
+
     </script>
 
 

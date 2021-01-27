@@ -178,9 +178,5 @@ if(isset($_SESSION['at']))
 
 ?>
 <script type="text/javascript">
-
-    //just call a function to load your CSS
-    //this path should be relative your HTML location
     loadCSS("libs/CSS/SceltaAvatar.css");
-
 </script>

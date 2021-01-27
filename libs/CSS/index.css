@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 body {
     overflow-y: hidden; 
@@ -5,6 +6,8 @@ body {
       }
 
 
+=======
+>>>>>>> parent of 3399fb8... css fix
 @media only screen and ( max-width: 360px ) {
 
     .main-container {
