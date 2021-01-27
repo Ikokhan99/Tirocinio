@@ -181,17 +181,6 @@ echo    "</button>
 
 
 <script type="text/javascript" >
-
-function loadCSS(filename){
-
-let file = document.createElement("link");
-file.setAttribute("rel", "stylesheet");
-file.setAttribute("type", "text/css");
-file.setAttribute("href", filename);
-document.head.appendChild(file);
-
-}
-
 loadCSS("libs/CSS/choice.css");
     //TODO: controllare la cosa del tempo, forse è meglio usare php
     document.body.style.cursor = 'none';

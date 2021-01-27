@@ -414,19 +414,7 @@ $_SESSION['visited_pages']['q2'] = true;
     });
 </script>
     <script type="text/javascript">
-
-        function loadCSS(filename){
-
-            let file = document.createElement("link");
-            file.setAttribute("rel", "stylesheet");
-            file.setAttribute("type", "text/css");
-            file.setAttribute("href", filename);
-            document.head.appendChild(file);
-
-        }
-
         loadCSS("libs/CSS/Q2.css");
-
     </script>
 
 <?php

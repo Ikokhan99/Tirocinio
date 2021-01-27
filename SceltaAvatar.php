@@ -179,17 +179,6 @@ if(isset($_SESSION['at']))
 ?>
 <script type="text/javascript">
 
-    function loadCSS(filename){
-
-        let file = document.createElement("link");
-        file.setAttribute("rel", "stylesheet");
-        file.setAttribute("type", "text/css");
-        file.setAttribute("href", filename);
-        document.head.appendChild(file);
-
-    }
-
-
     //just call a function to load your CSS
     //this path should be relative your HTML location
     loadCSS("libs/CSS/SceltaAvatar.css");
