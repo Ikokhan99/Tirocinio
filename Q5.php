@@ -46,23 +46,23 @@ $_SESSION['visited_pages']['q5'] = true;
 <!-- TODO: fix css e capire da dove spunta il > -->
 <div style='text-align: center;'>
 <form action='Q5.php' method='post'>
-<div style= 'font-weight: 1000;'>
+<p style= 'font-weight: 1000;'>
     We are interested in how people think about their bodies. The questions below identify 10 different body
     attributes. We would like you to rank order these body attributes from that which has the greatest impact
     on your physical self-concept (rank this a "9"), to that which has the least impact on your physical self-
-    concept (rank this a "0").<p></p>
+    concept (rank this a "0").
     Note: It does not matter how you describe yourself in terms of each attribute. For example, fitness level
     can have a great impact on your physical self-concept regardless of whether you consider yourself to be
     physically fit, not physically fit, or any level in between.
     Please first consider all attributes simultaneously, and record your rank ordering by writing the ranks in
-    the rightmost column.<p></p>
+    the rightmost column.
     IMPORTANT: Do Not Assign The Same Rank To More Than One Attribute
     9 = greatest impact
     8 = next greatest impact
     1 = next to least impact
     0 = least impact
-    <p></p>
- </div>
+
+ </p>
 <table class='center'>
     <tr>
         <td> When considering your physical self-concept... </td>
@@ -168,7 +168,6 @@ foreach ($order as $num ) {
 }
     ?>
 </table>
-    <p></p>
     <input type="submit" name="action" id="button" tabindex="4" class=" btn-register form-control btn" value="Continue" disabled>
 </form>
 </div>

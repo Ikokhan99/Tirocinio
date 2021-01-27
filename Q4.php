@@ -48,7 +48,7 @@ include_once 'q_common.php';
 $_SESSION['visited_pages']['q4'] = true;
 ?>
 <!-- TODO: fix css -->
-<div style='text-align: center;' class= 'container-fluid'>
+<div style='text-align: center;'>
 <form action='Q4.php' method='post'>
 <p style= 'font-weight: 1000;'>
 Here are some statements about the relationship between men and women in society. Please indicate your
@@ -473,7 +473,7 @@ foreach ($order as $num ) {
 </table>
     <p></p>
     <p></p>
-    <input type="submit" name="action" id="action-q2" tabindex="4" class="btn-register form-control btn" value="Continue">
+    <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn" value="Continue">
 </form>
 </div>
     <script type="text/javascript">

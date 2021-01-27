@@ -96,7 +96,11 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
     }
 }
 ?>
+<<<<<<< HEAD
 <div class="row centered-container">
+=======
+<div class="container">
+>>>>>>> parent of 3399fb8... css fix
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel">
