@@ -28,6 +28,9 @@ if(debug){
 $stmt->execute();
 
 //todo: redirect a prolific
+//You will be redirected to Prolific in 5 seconds
+
+//setTimeout(function(){ window.location = "https://app.prolific.co/submissions/complete?cc=CC4A225F"; },3000);
 
 session_destroy();
 include_once "layout_foot.php";

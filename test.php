@@ -102,4 +102,5 @@ h3 {
 }
 
 <?php
+$_SESSION['visited_pages']['error'] = true;
 include_once "layout_foot.php";
