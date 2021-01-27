@@ -1,0 +1,20 @@
+img {
+    max-width: 70%;
+    max-height: 70%;
+    cursor: none;
+    height: auto;
+      }
+  
+      body {
+    overflow-y: hidden; 
+    overflow-x: hidden; 
+    cursor: none;
+      }
+  
+    /*  .centered {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    */

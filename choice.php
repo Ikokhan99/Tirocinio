@@ -110,7 +110,7 @@ if(debug){
 }
 switch ($_SESSION['exp'][$_SESSION['at']]) {
     case 1:default:{ //male
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".strval($_SESSION['p_male'][$_SESSION['permutation']][0])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".strval($_SESSION['p_male'][$_SESSION['permutation']][0])."' style=\"border:none; background:none; padding:0; visibility:hidden\">";
         echo "<img src=\"".$_SESSION['i_male'][$_SESSION['p_male'][$_SESSION['permutation']][0]-1]."\">";
         echo "</button>";
         echo "<input type='hidden' id='key' name='key' value='' >";
@@ -118,14 +118,14 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "<input type='hidden' id='a1' name='a1' value='".strval($_SESSION['p_male'][$_SESSION['permutation']][0])."'>";
         echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_male'][$_SESSION['permutation']][1])."'>";
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".strval($_SESSION['p_male'][$_SESSION['permutation']][1])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".strval($_SESSION['p_male'][$_SESSION['permutation']][1])."' style=\"border:none; background:none; padding:0; visibility:hidden\">";
     echo "<img src=\"".$_SESSION['i_male'][$_SESSION['p_male'][$_SESSION['permutation']][1]-1]."\">";
 
 
         break;
     }
     case 2:{//female
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".strval($_SESSION['p_female'][$_SESSION['permutation']][0])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".strval($_SESSION['p_female'][$_SESSION['permutation']][0])."' style=\"border:none; background:none; padding:0; visibility:hidden\">";
         echo "<img src=\"".$_SESSION['i_female'][$_SESSION['p_female'][$_SESSION['permutation']][0]-1]."\">";
         echo "</button>";
         echo "<input type='hidden' id='key' name='key' value='' >";
@@ -133,7 +133,7 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "<input type='hidden' id='a1' name='a1' value='".strval($_SESSION['p_female'][$_SESSION['permutation']][0])."'>";
         echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_female'][$_SESSION['permutation']][1])."'>";
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".strval($_SESSION['p_female'][$_SESSION['permutation']][1])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".strval($_SESSION['p_female'][$_SESSION['permutation']][1])."' style=\"border:none; background:none; padding:0; visibility:hidden\">";
         echo "<img src=\"".$_SESSION['i_female'][$_SESSION['p_female'][$_SESSION['permutation']][1]-1]."\">";
         break;
 
@@ -144,7 +144,7 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
       echo $_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1];
         }
 
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][0]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][0]."' style=\"border:none; background:none; padding:0; visibility:hidden\">";
         //the values inside  $_SESSION['p_mix']  are like "xxs" or "xs", where x is a number and s is either "m" or "f"
         if($_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][0])-1] === "m"){
             echo "<img src=\"".$_SESSION['i_male'][ substr($_SESSION['p_mix'][$_SESSION['permutation']][0],0,-1 )]."\">";
@@ -158,7 +158,7 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "<input type='hidden' id='a1' name='a1' value='".strval($_SESSION['p_mix'][$_SESSION['permutation']][0])."'>";
         echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_mix'][$_SESSION['permutation']][1])."'>";
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][1]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][1]."' style=\"border:none; background:none; padding:0; visibility:hidden\">";
         //the values inside  $_SESSION['p_mix']  are like "xxs" or "xs", where x is a number and s is either "m" or "f"
         if($_SESSION['p_mix'][$_SESSION['permutation']][1][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1] === "m"){
             echo "<img src=\"".$_SESSION['i_male'][ substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 )]."\">";
@@ -181,18 +181,6 @@ echo    "</button>
 
 
 <script type="text/javascript" >
-
-function loadCSS(filename){
-
-let file = document.createElement("link");
-file.setAttribute("rel", "stylesheet");
-file.setAttribute("type", "text/css");
-file.setAttribute("href", filename);
-document.head.appendChild(file);
-
-}
-
-loadCSS("libs/CSS/choice.css");
     //TODO: controllare la cosa del tempo, forse è meglio usare php
     document.body.style.cursor = 'none';
     //const tempo1 = Math.round(+new Date() / 1000);
@@ -244,93 +232,21 @@ loadCSS("libs/CSS/choice.css");
 
 window.setTimeout("click()", 1000);
 
+function loadCSS(filename){
+
+let file = document.createElement("link");
+file.setAttribute("rel", "stylesheet");
+file.setAttribute("type", "text/css");
+file.setAttribute("href", filename);
+document.head.appendChild(file);
+
+}
+
+loadCSS("libs/CSS/choice.css");
+
+
 </script>
 
 <?php
     include_once 'layout_foot.php';
     ?>
-
-<style>
-img {
-  cursor: none;
-  }
-  
-body {
-  overflow-y: hidden; 
-  overflow-x: hidden; 
-  cursor: none;
-  }
- 
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -50px;
-    margin-top: -50px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-
-  }
-@media only screen and ( max-height: 415px ){
-
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -25px;
-    margin-top: -25px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
-}
-
-@media only screen and ( max-height: 321px ){
-
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -10px;
-    margin-top: -10px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
-}
-
-@media only screen and ( max-height: 281px ){
-
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -50px;
-    margin-top: -50px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
-}
-@media only screen and ( max-height: 541px ){
-
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: 5px;
-    margin-top: 5px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
-}
-
-  /*.centered {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-} */
-</style>
