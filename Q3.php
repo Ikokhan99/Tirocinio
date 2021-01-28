@@ -57,7 +57,7 @@ if (!empty($_POST)) {
 include_once 'q_common.php';
 $_SESSION['visited_pages']['q3'] = true;
 ?>
-<div style="text-align: center;">
+<div style="text-align: center;" class= 'container-fluid'>
 <form action="Q3.php" method="post">
 
 

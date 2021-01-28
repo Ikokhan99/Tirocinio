@@ -101,7 +101,7 @@ include_once 'layout_head.php';
 //----------------------------------------------------------------------------------------------------------------------------
 //TODO:resize immagini
 //TODO:fix tempo
-echo "<div style='cursor: none'>";
+echo "<div style='cursor: none' class='centered'>";
 echo "<table class='default-table'><tr>";
 echo "<form action=\"choice.php\" method=\"post\"  id=\"form\">
         <td class='half'>";
@@ -179,19 +179,7 @@ echo    "</button>
 ?>
 
 
-<style>
-    /* todo: il mouse si vede*/
-    
-    button {
-        cursor: none;
-    }
 
-    img {
-  max-width: 76%;
-  max-height: 76%;
-    }
-
-</style>
 <script type="text/javascript" >
 loadCSS("libs/CSS/choice.css");
     //TODO: controllare la cosa del tempo, forse è meglio usare php
@@ -246,7 +234,6 @@ loadCSS("libs/CSS/choice.css");
 window.setTimeout("click()", 1000);
 
 </script>
-<<<<<<< HEAD
 
 <?php
     include_once 'layout_foot.php';
@@ -328,8 +315,6 @@ body {
 
   }
 }
-=======
->>>>>>> parent of 3399fb8... css fix
 
   /*.centered {
 position: fixed;
