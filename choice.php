@@ -141,6 +141,7 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
     case 3:{//mix
         if(debug){
             print_r( $_SESSION['p_mix'][$_SESSION['permutation']]);
+            echo "<br>";
       echo $_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1];
         }
 
@@ -161,9 +162,9 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][1]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
         //the values inside  $_SESSION['p_mix']  are like "xxs" or "xs", where x is a number and s is either "m" or "f"
         if($_SESSION['p_mix'][$_SESSION['permutation']][1][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1] === "m"){
-            echo "<img src=\"".$_SESSION['i_male'][ substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 )]."\">";
+            echo "<img src=\"".$_SESSION['i_male'][ intval(substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 ))-1]."\">";
         } else {
-            echo "<img src=\"".$_SESSION['i_female'][ substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 )]."\">";
+            echo "<img src=\"".$_SESSION['i_female'][ intval(substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 ))-1]."\">";
         }
 
         echo "</button>";

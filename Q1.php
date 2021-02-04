@@ -8,7 +8,7 @@ $page_index = 'q1';
 
 if (!empty($_POST)) {
     if(!fast_debug) {
-        $_SESSION['token'] = $_SESSION['user-id'];
+
         include_once 'config/database.php';
         $database = new Database();
         $db = $database->getConnection();
@@ -18,12 +18,7 @@ if (!empty($_POST)) {
         $user->sex = check_int($_POST['user-sex'],0,1);
         $user->age = check_int($_POST['user-age'],18,70);
         //todo:controlli
-        $user->create($_POST['user-id']);
-
-        if (!$user->create()) {
-            $user->showError();
-            die();
-        }
+        $user->create($_SESSION['user-id']);
     }
 }
 
@@ -111,9 +106,6 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                         <div class="col-lg-12">
                             <form name="user-form" method="post" action="Q1.php" id="user-form" role="form" style="display: block;">
                                 <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
-                                <div class="form-group">
-                                    <label for="prolific">Prolific Id</label><input id="prolific" size="30" name="user-id"  required="required" tabindex="1" class="form-control">
-                                </div>
                                 <div class="form-group">
                                     <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control">
                                 </div>

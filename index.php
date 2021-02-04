@@ -6,6 +6,21 @@ $action = '';
 $page_title = 'Start';
 include_once 'layout_head.php';
 
+if(isset($_GET['PROLIFIC_PID']))
+    {
+        $_SESSION['prolific'] = true;
+        // $_SESSION['user-id'] = $_GET['PROLIFIC_PID'];
+        $id = $_GET['PROLIFIC_PID'];
+        if($_GET['STUDY_ID'] === 'Mavatar')
+            $_SESSION['user-sex'] = 0; // partecipanti maschi
+        else // id = 4F67FA61
+            $_SESSION['user-sex'] = 1; // partecipanti femmine
+    }
+else{
+    $id = null;
+}
+
+
 
 //Here we're going to set the order of everything, it should be faster than making lots of db queries. And this is totally not one on the previous author.
 //NB: everything should be taken in one session, as the PM request. Also, the user must not change page inside the experiment (e.g. The user is in Q2 and goes to Q3
@@ -62,7 +77,16 @@ if (!fast_debug) {
     include_once 'objects/user.php';
     /** @var  $db , declared and initialized in head */
     $user = new User($db);
-    $error = !$user->create();
+    if(isset($_SESSION['user-sex']))
+        $user->sex = $_SESSION['user-sex'];
+    else {
+        try {
+            $user->sex = random_int(0, 1);
+        } catch (Exception $e) {
+            echo "php ritardato";
+        }
+    }
+    $error = !$user->create($id);
 }
 
 

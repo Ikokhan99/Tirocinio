@@ -31,14 +31,6 @@ if(isset($_SESSION['at']))
         $title="Begin test";
         $f="to start ";
 
-        if(!fast_debug)
-        {
-           
-            include_once 'objects/user.php';
-            /** @var $db, declared in head */
-            $user = new User($db);
-            $user->create();
-        }
         $page_index = 'Scelta1';
 
     } elseif ($_SESSION['at'] == 1){

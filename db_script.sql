@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 CREATE TABLE IF NOT EXISTS `user` (
     `ID` VARCHAR(100) NOT NULL,  /*--- PRIMARY KEY  TODO:check the lenght of the prolific id -*/
     `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- biological sex
+    `SEXID` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- gen id
     `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age */
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  /* sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other*/
     `TIME` INT NOT NULL DEFAULT 0,/*in seconds*/

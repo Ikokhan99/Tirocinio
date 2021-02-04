@@ -12,6 +12,7 @@ class User implements Interfaces
     // object properties
     public int $id;
     public int $sex; //bool
+    public int $sexid;
 	public int $sexor;
 	public int $age;
 
@@ -24,33 +25,38 @@ class User implements Interfaces
         $this->sex = 0;
         $this->sexor=0;
         $this->age = 18;
+        $this->sexid = 0;
     }
 
-	function create($id=null): bool
+	function create($id): bool
     {
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		if($id==null)
+		if(is_null($id))
         {
-            // echo ("id is null");
+            echo ("id is null");
             $temp_id = generateRandomID(25);
             if(debug)
             {
                 var_dump($temp_id);
             }
             $_SESSION['user-id'] = $temp_id;
-            $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->age,$this->sexor,default);";
+            $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->sexid,$this->age,$this->sexor,default);";
             // var_dump($q);
             $this->stmt = $this->conn->query($q);
             //$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
         } else{
-           // echo ("id is not null");
-            $q = "UPDATE user SET id= '$id',sex= $this->sex,age= $this->age,sexor= $this->sexor where id='".$_SESSION['user-id']."';";
+		    echo ("id is not null");
+		    if(isset($_SESSION['user-id']))
+                $q = "UPDATE user SET sexid= $this->sex,age= $this->age,sexor= $this->sexor where id='".$_SESSION['user-id']."';";
+		    else{
+                $_SESSION['user-id'] = $id;
+                $q = "INSERT INTO user VALUES('$id',$this->sex,$this->sexid,$this->age,$this->sexor,default);";
+            }
             // var_dump($q);
             $this->stmt = $this->conn->query($q);
-            $_SESSION['user-id'] = $id;
             //$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
