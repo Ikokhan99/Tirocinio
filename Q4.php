@@ -42,10 +42,12 @@ if (!empty($_POST)) {
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
+    exit;
 
+} else {
+    include_once 'q_common.php';
+    $_SESSION['visited_pages']['q4'] = true;
 }
-include_once 'q_common.php';
-$_SESSION['visited_pages']['q4'] = true;
 ?>
 <!-- TODO: fix css -->
 <div style='text-align: center;' class= 'container-fluid'>
@@ -68,7 +70,6 @@ agreement on a scale: from 1 = disagree strongly to 5 = agree strongly.
 foreach ($order as $num ) {
     switch ($num) {
         case 0:
-//TODO:set q names
             echo "
     <tr>
    <!-- <td> Lots of men have a full consideration of five, which is the answer of this statement </td> -->

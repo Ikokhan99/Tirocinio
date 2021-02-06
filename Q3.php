@@ -19,7 +19,6 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //TODO
 if (!empty($_POST)) {
     if(!fast_debug) {
-        //TODO
         $q3 = new Q3($db,$_SESSION['user-id']);
         $q3->control_questions = array(check_int($_POST["control1"],0,5),check_int($_POST["control2"],0,5));
         $q3->questions = array(check_int($_POST["Q1"],0,5),
@@ -53,9 +52,12 @@ if (!empty($_POST)) {
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
+    exit;
 }
-include_once 'q_common.php';
-$_SESSION['visited_pages']['q3'] = true;
+else {
+    include_once 'q_common.php';
+    $_SESSION['visited_pages']['q3'] = true;
+}
 ?>
 <div style="text-align: center;" class= 'container-fluid'>
 <form action="Q3.php" method="post">

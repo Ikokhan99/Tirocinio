@@ -58,17 +58,16 @@ shuffle($_SESSION['p_female']);
 //the mix order will be made only from chosen avatar, so it will be in SceltaAvatar.php
 //Q3 questions order.  0 and 23 are the control questions
 $q_order = range(0, 23);
-
 shuffle($q_order);
 $_SESSION['Q3'] = $q_order;
+
 //Q4 questions order.  0 and 11 are the control questions
 $q_order = range(0, 11);
-
 shuffle($q_order);
 $_SESSION['Q4'] = $q_order;
-//Q5 questions order.  TODO: creare il nuovo questionario
-//TODO: $q_order = range(0,11); 
+//Q5 questions order.
 
+$q_order = range(1, 10);
 shuffle($q_order);
 $_SESSION['Q5'] = $q_order;
 

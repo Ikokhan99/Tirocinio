@@ -8,10 +8,7 @@ $page_index = 'q1';
 
 if (!empty($_POST)) {
     if(!fast_debug) {
-<<<<<<< HEAD
-=======
 
->>>>>>> 6cd35a2a195bb9db79236dbd62266b33db0ba3b4
         include_once 'config/database.php';
         $database = new Database();
         $db = $database->getConnection();
@@ -22,14 +19,7 @@ if (!empty($_POST)) {
         $user->age = check_int($_POST['user-age'],18,70);
         //todo:controlli
         $user->create($_SESSION['user-id']);
-<<<<<<< HEAD
 
-        if (!$user->create()) {
-            $user->showError();
-            die();
-        }
-=======
->>>>>>> 6cd35a2a195bb9db79236dbd62266b33db0ba3b4
     }
 }
 
@@ -41,27 +31,46 @@ if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET
         case 2:{
         $_SESSION['at'] += 1;
             header("Location: ".home_url."Q2.php?s=0");
-            break;
+            exit;
+            //break;
         }
         case 3:{
             $_SESSION['at'] += 1;
             header("Location: ".home_url."Q3.php?s=0");
-            break;
+            exit;
+            //break;
         }
         case 4:{
             $_SESSION['at'] += 1;
             header("Location: ".home_url."Q4.php?s=0");
-            break;
+            exit;
+            //break;
         }
         case 5:{
             $_SESSION['at'] += 1;
             header("Location: ".home_url."Q5.php?s=0");
-            break;
+            exit;
+            //break;
         }
         case 6:default:{
             $_SESSION['at'] += 1;
             header("Location: ".home_url."last.php?s=0");
-            break;
+            exit;
+           // break;
+        }
+    }
+}
+
+else{
+    // page title
+    $page_title = "Survey";
+    include_once "layout_head.php";
+    $_SESSION['visited_pages']['q1'] = true;
+//check for non-guided navigation
+    if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] != 0)){
+        if(user_error) {
+            header("Location: ".home_url."user_error.php?error=badQ1");
+            exit;
         }
     }
 }
@@ -91,16 +100,7 @@ if(debug)
 
 //TODO:controlli input
 
-// page title
-$page_title = "Survey";
-include_once "layout_head.php";
-$_SESSION['visited_pages']['q1'] = true;
-//chech for non-guided navigation
-if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
-    if(user_error) {
-        header("Location: ".home_url."user_error.php");
-    }
-}
+
 ?>
 <div class="centered-container">
         <div class="centered-container">
@@ -112,21 +112,13 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                 </div>
                 <div class="centered-container" >
                         <div class="centered-container">
-                            <form name="user-form" method="post" action="Q1.php" id="user-form" role="form" style="display: block;">
+                            <form name="user-form" method="post" action="Q1.php?s=0" id="user-form" role="form" style="display: block;">
                                 <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
-<<<<<<< HEAD
                                 <div class="form-group centered-container-bt">
                                     <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control ">
                                 </div>
                                 <div class="form-group chk-box-gen">
                                     <div>
-=======
-                                <div class="form-group">
-                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <div style="overflow-x:auto; align-items: flex-start">
->>>>>>> 6cd35a2a195bb9db79236dbd62266b33db0ba3b4
                                             <table>
                                                 <thead>
                                                 <tr>
@@ -226,43 +218,6 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                     </div>
     </div>
 </div>
-
-<style>
-
-body{  
-   margin-top:75px; 
-  }
-
-  *{ margin:0; padding:0; }
-
-.centered-container {  
-    max-width: 500px;
-    margin: 20px auto;
-    width: 100%;    
-    text-align:center;
-  }
-
-.centered-container-bt {  
-    max-width: 500px;
-    margin: 20px auto;
-    width: 50%;    
-    text-align:center;
-  }
-  
-.chk-box {  
-    display:inline-block;
-    vertical-align:middle;
-    margin right:10px;
-  }
-
-.chk-box-gen {  
-    display:inline-block;
-    vertical-align:middle;
-    margin right:5px;
-  } 
- 
-</style>
-
     <script type="text/javascript">
         loadCSS("libs/CSS/Q1.css");
     </script>

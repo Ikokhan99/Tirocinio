@@ -47,9 +47,11 @@ if (!empty($_POST)) {
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
+}else
+{
+    include_once 'q_common.php';
+    $_SESSION['visited_pages']['q2'] = true;
 }
-include_once 'q_common.php';
-$_SESSION['visited_pages']['q2'] = true;
 ?>
     <form action='Q2.php' method='post'>
     <!-- fixed order for this one -->

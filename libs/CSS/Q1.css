@@ -1,7 +1,34 @@
+body{
+    margin-top:75px;
+}
 
-    /*TODO: fix*/
+*{ margin:0; padding:0; }
 
+.centered-container {
+    max-width: 500px;
+    margin: 20px auto;
+    width: 100%;
+    text-align:center;
+}
 
+.centered-container-bt {
+    max-width: 500px;
+    margin: 20px auto;
+    width: 50%;
+    text-align:center;
+}
+
+.chk-box {
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:10px;
+}
+
+.chk-box-gen {
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:5px;
+}
 .btn-send {
     background-color: #1CB94E;
     outline: none;

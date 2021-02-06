@@ -38,10 +38,12 @@ if (!empty($_POST)) {
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
-
+    exit;
 }
-include_once 'q_common.php';
-$_SESSION['visited_pages']['q5'] = true;
+else {
+    include_once 'q_common.php';
+    $_SESSION['visited_pages']['q5'] = true;
+}
 ?>
 <!-- TODO: fix css e capire da dove spunta il > -->
 <div style='text-align: center;'>

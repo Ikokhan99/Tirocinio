@@ -34,7 +34,8 @@ class User implements Interfaces
 
 		if(is_null($id))
         {
-            echo ("id is null");
+            if(debug)
+                echo ("id is null");
             $temp_id = generateRandomID(25);
             if(debug)
             {

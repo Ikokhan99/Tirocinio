@@ -18,7 +18,7 @@
   <link href="<?php echo home_url . "libs/CSS/style.css" ?>" rel="stylesheet" />
 
     <script>
-        screen.orientation.lock('landscape')
+        //screen.orientation.lock('landscape')
         function loadCSS(filename){
 
             let file = document.createElement("link");
@@ -45,18 +45,18 @@
     if(user_error){
         if($_SESSION['visited_pages']['error']) {
             echo "<script>
-                    location.replace('user_error.php');
+                    location.replace('user_error.php?error=error');
               </script>";
         }
         /** @var string $page_index, defined in previous part of the page */
         if(isset($page_index) && $_SESSION['visited_pages'][$page_index]) {
             echo "<script>
-                    location.replace('user_error.php');
+                    location.replace('user_error.php?error=already_visited');
               </script>";
         }
         echo "<script>
                     if (String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"back_forward\" || String(window.performance.getEntriesByType(\"navigation\")[0].type) === \"reload\") {
-                        location.replace('user_error.php');
+                        location.replace('user_error.php?error=navigation');
                     }
               </script>";
         }

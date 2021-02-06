@@ -16,14 +16,13 @@ const TOTAL_PERMUTATIONS = 120; //nPr = n! / (n - r)!, where n=16 and r = 2   <-
 const max_avatar_choices = 2;
 const n_experiment = 3; //number of experiment cases, in our case we have  male, female and mix
 
-const debug = false; //outputs the various thing that you as a debugger would like to see
+const debug =
+        false;
+       // true; //outputs the various thing that you as a debugger would like to see
 const fast_debug = false; //fast debug skips all db interactions, set it at true if you want to see just the structure
 const skip_experiment =
     false;
     //true;
-const user_error = false;
-
-
-
-
-
+const user_error =
+        true;
+       // false;

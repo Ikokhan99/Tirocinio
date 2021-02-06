@@ -7,12 +7,14 @@ $page_title="Experiment";
 if(skip_experiment)
 {
     $_SESSION['at']=0;
-    header("Location: ".home_url."Q1.php");
+    header("Location: ".home_url."Q1.php?s=0");
+    exit;
 }
 if(fast_debug && $_SESSION['at']==2)
 {
     $_SESSION['at']=0;
     header("Location: ".home_url."Q1.php");
+    exit;
 }
 
 //prolific academic
@@ -21,8 +23,10 @@ if($_SESSION['permutation']>0)
 {
     if($_SESSION['last_chosen'] === (strval($_POST['a1']).strval($_POST['a2'])))
     {
-        if(user_error)
-            header("Location: ".home_url."user_error.php?error=refresh");
+        if(user_error) {
+            header("Location: " . home_url . "user_error.php?error=refresh");
+            exit;
+        }
     } else {
         $_SESSION['last_chosen'] = strval($_POST['a1']).strval($_POST['a2']);
     }
@@ -82,12 +86,14 @@ if($_SESSION['exp'][$_SESSION['at']]!=3){
         $_SESSION['permutation'] = 0;
         $_SESSION['at'] +=1;
         header("Location: ".home_url."SceltaAvatar.php");
+        exit;
     }
 } else {
     if ($_SESSION['permutation'] >= 25){
        unset( $_SESSION['permutation'] );
         $_SESSION['at'] =0;
         header("Location: ".home_url."Q1.php?s=0");
+        exit;
     }
 }
 //                          3
@@ -191,7 +197,8 @@ loadCSS("libs/CSS/choice.css");
     setTimeout( "document.forms[0].elements['chosenL'].style.visibility = 'visible'", 600 );
     setTimeout( "document.forms[0].elements['chosenR'].style.visibility = 'visible'", 600 );
 
-    console.log(document.forms[0]);
+    //debug
+    //console.log(document.forms[0]);
 
 
     function click()
@@ -255,14 +262,14 @@ body {
 display:inline-block;
 width: 75%;
 height: 75%;
-padding: 20px;  
+/*padding: 20px; */
 padding-top: 20px;
 }
 @media only screen and ( max-height: 635px ){
 .centered {
 width: 800px;
 height: 800px;
-padding: 20px;  /*Lets give these guy's some padding*/
+/*padding: 20px;  /*Lets give these guy's some padding*/
 padding-top: 20px;
 }
 }
@@ -270,7 +277,7 @@ padding-top: 20px;
 .centered {
 width: 600px;
 height: 600px;
-padding: 20px;  /*Lets give these guy's some padding*/
+/*padding: 20px;  /*Lets give these guy's some padding*/
 padding-top: 20px;
 }
 }
