@@ -8,7 +8,6 @@ $page_index = 'q1';
 
 if (!empty($_POST)) {
     if(!fast_debug) {
-        $_SESSION['token'] = $_SESSION['user-id'];
         include_once 'config/database.php';
         $database = new Database();
         $db = $database->getConnection();
@@ -18,7 +17,7 @@ if (!empty($_POST)) {
         $user->sex = check_int($_POST['user-sex'],0,1);
         $user->age = check_int($_POST['user-age'],18,70);
         //todo:controlli
-        $user->create($_POST['user-id']);
+        $user->create($_SESSION['user-id']);
 
         if (!$user->create()) {
             $user->showError();
@@ -96,29 +95,23 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
     }
 }
 ?>
-<div class="row centered-container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-12">
+<div class="centered-container">
+        <div class="centered-container">
+            <div class="centered-container">
+                <div class="centered-container">
+                        <div class=" centered-container">
                             Thank you for completing this experiment, now we kindly ask you to respond to our survey
                         </div>
                 </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-12">
+                <div class="centered-container" >
+                        <div class="centered-container">
                             <form name="user-form" method="post" action="Q1.php" id="user-form" role="form" style="display: block;">
                                 <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
-                                <div class="form-group">
-                                    <label for="prolific">Prolific Id</label><input id="prolific" size="30" name="user-id"  required="required" tabindex="1" class="form-control">
+                                <div class="form-group centered-container-bt">
+                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control ">
                                 </div>
-                                <div class="form-group">
-                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <div style="overflow-x:auto; align-items: flex-start">
+                                <div class="form-group chk-box-gen">
+                                    <div>
                                             <table>
                                                 <thead>
                                                 <tr>
@@ -149,8 +142,12 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                                         </div>
                                 </div>
                                 <!-- TODO:fix css -->
-                                <div class="form-group">
-                                    <div style="overflow-x:auto; align-items: flex-start">
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <div class="form-group chk-box">
+                                    <div>
                                         <table>
                                             <thead>
                                             <tr>
@@ -178,7 +175,7 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="radio"  required="required" name="user-sexor" value="2" id = "homosexual" tabindex="5">
+                                                    <input  type="radio"  required="required" name="user-sexor" value="2" id = "homosexual" tabindex="5">
                                                     <label for="homosexual">
                                                         Homosexual
                                                     </label>
@@ -204,32 +201,50 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                                         </table>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="submit" name="action" id="toQ" tabindex="6" class="form-control btn btn-send" value="Continue">
-                                        </div>
+                                <div class="form-group " >
+                                        <div class="centered-container-bt">
+                                            <input type="submit" name="action" id="toQ" tabindex="6" class="form-control btn btn-send" value="Continue">   
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 <style>
-.centered-container {
-    align-items: center;
-    justify-content: center;
+
+body{  
+   margin-top:75px; 
+  }
+
+  *{ margin:0; padding:0; }
+
+.centered-container {  
+    max-width: 500px;
+    margin: 20px auto;
+    width: 100%;    
     text-align:center;
-    margin-left:auto;
-    margin-right: auto;
+  }
+
+.centered-container-bt {  
+    max-width: 500px;
+    margin: 20px auto;
+    width: 50%;    
+    text-align:center;
   }
   
+.chk-box {  
+    display:inline-block;
+    vertical-align:middle;
+    margin right:10px;
+  }
 
+.chk-box-gen {  
+    display:inline-block;
+    vertical-align:middle;
+    margin right:5px;
+  } 
  
 </style>
 

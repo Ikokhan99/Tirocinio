@@ -1054,8 +1054,11 @@ foreach ($order as $num )
 </table>
 <p></p>
 <p></p>
-    <input type="submit" name="action" id="action-q3" tabindex="4" class="form-control btn btn-register" value="Continue">
-</div>
+    <input style="width:25%" type="submit" name="action" id="action-q3" tabindex="4" class="form-control btn btn-register" value="Continue">
+    <p></p>
+    <p></p>
+    </div>
+
 
     <script type="text/javascript">
         loadCSS("libs/CSS/Q3.css");

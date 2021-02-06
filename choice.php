@@ -251,75 +251,26 @@ body {
   }
  
 .centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -50px;
-    margin-top: -50px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-
-  }
-@media only screen and ( max-height: 415px ){
-
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -25px;
-    margin-top: -25px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
+display:inline-block;
+width: 75%;
+height: 75%;
+padding: 20px;  
+padding-top: 20px;
 }
-
-@media only screen and ( max-height: 321px ){
-
+@media only screen and ( max-height: 635px ){
 .centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -10px;
-    margin-top: -10px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
+width: 800px;
+height: 800px;
+padding: 20px;  /*Lets give these guy's some padding*/
+padding-top: 20px;
 }
-
-@media only screen and ( max-height: 281px ){
-
+}
+@media only screen and ( max-height: 445px ){
 .centered {
-    position:fixed;
-    display:flex; 
-    margin-left: -50px;
-    margin-top: -50px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
+width: 600px;
+height: 600px;
+padding: 20px;  /*Lets give these guy's some padding*/
+padding-top: 20px;
 }
-@media only screen and ( max-height: 541px ){
-
-.centered {
-    position:fixed;
-    display:flex; 
-    margin-left: 5px;
-    margin-top: 5px;
-    transform: translate(0.5%, 0.5%);
-    top: 0.5%;
-    left:0.5%;
-
-  }
 }
-
-  /*.centered {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-} */
 </style>
