@@ -8,6 +8,10 @@ $page_index = 'q1';
 
 if (!empty($_POST)) {
     if(!fast_debug) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6cd35a2a195bb9db79236dbd62266b33db0ba3b4
         include_once 'config/database.php';
         $database = new Database();
         $db = $database->getConnection();
@@ -18,11 +22,14 @@ if (!empty($_POST)) {
         $user->age = check_int($_POST['user-age'],18,70);
         //todo:controlli
         $user->create($_SESSION['user-id']);
+<<<<<<< HEAD
 
         if (!$user->create()) {
             $user->showError();
             die();
         }
+=======
+>>>>>>> 6cd35a2a195bb9db79236dbd62266b33db0ba3b4
     }
 }
 
@@ -107,11 +114,19 @@ if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== 0)){
                         <div class="centered-container">
                             <form name="user-form" method="post" action="Q1.php" id="user-form" role="form" style="display: block;">
                                 <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
+<<<<<<< HEAD
                                 <div class="form-group centered-container-bt">
                                     <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control ">
                                 </div>
                                 <div class="form-group chk-box-gen">
                                     <div>
+=======
+                                <div class="form-group">
+                                    <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <div style="overflow-x:auto; align-items: flex-start">
+>>>>>>> 6cd35a2a195bb9db79236dbd62266b33db0ba3b4
                                             <table>
                                                 <thead>
                                                 <tr>
