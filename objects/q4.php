@@ -7,6 +7,7 @@ include_once "Q.php";
 
 class Q4 extends Q
 {
+    const CONTROL_CORRECT = 4;
     // costruttore
     public function __construct($db,$user_id)
     {
@@ -52,6 +53,13 @@ class Q4 extends Q
 
         if($stmt->execute())
         {
+            if($this->control_questions[0] != self::CONTROL_CORRECT)
+            {
+                error_log("User ".$_SESSION["user-id"]." didn't read Q4 control question");
+                $q = "UPDATE user SET trusted = 1 where id='".$_SESSION['user-id']."';";
+                $stmt = $this->conn->prepare($q);
+                $stmt->execute();
+            }
             return true;
         }
         else

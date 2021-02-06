@@ -2,7 +2,7 @@
 // 'user' object
 include_once "./config/Foes.php";
 include_once "Interfaces.php";
-//include_once "./config/pbkdf2.php";
+
 class User implements Interfaces
 {
  
@@ -42,7 +42,7 @@ class User implements Interfaces
                 var_dump($temp_id);
             }
             $_SESSION['user-id'] = $temp_id;
-            $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->sexid,$this->age,$this->sexor,default);";
+            $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
             // var_dump($q);
             $this->stmt = $this->conn->query($q);
             //$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
@@ -54,7 +54,7 @@ class User implements Interfaces
                 $q = "UPDATE user SET sexid= $this->sex,age= $this->age,sexor= $this->sexor where id='".$_SESSION['user-id']."';";
 		    else{
                 $_SESSION['user-id'] = $id;
-                $q = "INSERT INTO user VALUES('$id',$this->sex,$this->sexid,$this->age,$this->sexor,default);";
+                $q = "INSERT INTO user VALUES('$id',$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
             }
             // var_dump($q);
             $this->stmt = $this->conn->query($q);

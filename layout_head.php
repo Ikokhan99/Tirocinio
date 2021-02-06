@@ -43,7 +43,7 @@
     }
 
     if(user_error){
-        if($_SESSION['visited_pages']['error']) {
+        if(isset($_SESSION['visited_pages']) && $_SESSION['visited_pages']['error']) {
             echo "<script>
                     location.replace('user_error.php?error=error');
               </script>";

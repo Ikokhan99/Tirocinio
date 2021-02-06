@@ -40,6 +40,3 @@ INSERT INTO `avatar` VALUES
 ( 32	,0	,0		,0			,0		,1,		'16_m');
 
 INSERT INTO `game` VALUES (-1," ",0,0,0,0);
-
--- dummy user 1
--- INSERT INTO `user` VALUES (0,0,18,0,0,0);

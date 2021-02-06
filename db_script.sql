@@ -32,11 +32,12 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 
 CREATE TABLE IF NOT EXISTS `user` (
     `ID` VARCHAR(100) NOT NULL,  /*--- PRIMARY KEY  TODO:check the lenght of the prolific id -*/
-    `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- biological sex
-    `SEXID` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', -- gen id
+    `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', /* biological sex*/
+    `SEXID` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', /* gen id*/
     `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age */
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  /* sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other*/
     `TIME` INT NOT NULL DEFAULT 0,/*in seconds*/
+    `TRUSTED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=yes, 1=no', /* if the user should be trusted. The user is untrustworthy if goues to the error page or fails the control questions */
   PRIMARY KEY (`ID`)
 ) ENGINE = 'InnoDB';
 
