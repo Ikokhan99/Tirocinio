@@ -62,7 +62,7 @@ if (!empty($_POST)) {
                     Time dedicated to videogames (smartphone, PC, console) on average in a day:
                     </strong>
                 </div>
-                <div style="column-count: 2;grid-row: 2 ;padding: 5px;">
+                <div style="grid-row: 2 ;padding: 5px;">
                     <label>
                         <input type='radio' name='playtime' value='0'>
                     </label> Never
@@ -260,8 +260,8 @@ if (!empty($_POST)) {
                     </label>
 
                     <label style="grid-column: 1; grid-row: 9">
-                        <input type='checkbox' name='type[]' value='TBT'>
-                        TBT(Turn-based Tactics)
+                        <input type='checkbox' name='type[]' value='Arcade'>
+                        Arcade
                     </label>
                     <label style="grid-column: 2; grid-row: 9">
                         <input type='checkbox' name='type[]' value='TowerDefense'>

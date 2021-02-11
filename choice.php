@@ -63,12 +63,21 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
         $exp->chosen = $_POST['id'];
         $exp->time = $_POST['time'];
         $exp->key = $_POST['key'] == 0?0:1;
-        if($exp->type == 3){
-            $exp->a1 = substr($_POST['a1'],0,-1);
-            $exp->a2 = substr($_POST['a2'],0,-1);
-        } else{
-            $exp->a1 = $_POST['a1'];
-            $exp->a2 = $_POST['a2'];
+
+        $a1 = $_POST['a1'];
+        $a2 = $_POST['a2'];
+
+        if ($exp->type == 0){
+            $a1 =  intval($a1) + 16;
+            $a2 = intval($a2) + 16;
+        }
+
+        if($exp->key == 0){
+            $exp->chosen = $a1;
+            $exp->other = $a2;
+        } else {
+            $exp->chosen = $a2;
+            $exp->other = $a1;
         }
 
         if(debug)
@@ -146,17 +155,20 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
     }
     case 3:{//mix
         if(debug){
+            print_r( $_SESSION['p_mix']);
             print_r( $_SESSION['p_mix'][$_SESSION['permutation']]);
+            print_r($_SESSION['i_male'][ intval($_SESSION['p_mix'][$_SESSION['permutation']][0]) -16 - 1]);
+            print_r($_SESSION['i_female'][ intval($_SESSION['p_mix'][$_SESSION['permutation']][1]) - 1]);
             echo "<br>";
       echo $_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1];
         }
 
         echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][0]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
-        //the values inside  $_SESSION['p_mix']  are like "xxs" or "xs", where x is a number and s is either "m" or "f"
-        if($_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][0])-1] === "m"){
-            echo "<img src=\"".$_SESSION['i_male'][ substr($_SESSION['p_mix'][$_SESSION['permutation']][0],0,-1 )]."\">";
+        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][0])-1 ;
+        if($n > 16){ //male case
+            echo "<img src=\"".$_SESSION['i_male'][ $n-16]."\">";
         } else {
-            echo "<img src=\"".$_SESSION['i_female'][ substr($_SESSION['p_mix'][$_SESSION['permutation']][0],0,-1 )]."\">";
+            echo "<img src=\"".$_SESSION['i_female'][ $n ]."\">";
         }
 
         echo "</button>";
@@ -166,11 +178,12 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_mix'][$_SESSION['permutation']][1])."'>";
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
         echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][1]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
-        //the values inside  $_SESSION['p_mix']  are like "xxs" or "xs", where x is a number and s is either "m" or "f"
-        if($_SESSION['p_mix'][$_SESSION['permutation']][1][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1] === "m"){
-            echo "<img src=\"".$_SESSION['i_male'][ intval(substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 ))-1]."\">";
+
+        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][1])-1 ;
+        if($n > 16){ //male case
+            echo "<img src=\"".$_SESSION['i_male'][ $n-16]."\">";
         } else {
-            echo "<img src=\"".$_SESSION['i_female'][ intval(substr($_SESSION['p_mix'][$_SESSION['permutation']][1],0,-1 ))-1]."\">";
+            echo "<img src=\"".$_SESSION['i_female'][ $n ]."\">";
         }
 
         echo "</button>";
@@ -189,7 +202,7 @@ echo    "</button>
 
 <script type="text/javascript" >
 loadCSS("libs/CSS/choice.css");
-    //TODO: controllare la cosa del tempo, forse è meglio usare php
+
     document.body.style.cursor = 'none';
     //const tempo1 = Math.round(+new Date() / 1000);
     const tempo = Date.now(); //ms

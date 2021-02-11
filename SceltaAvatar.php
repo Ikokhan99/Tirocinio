@@ -56,10 +56,10 @@ if(isset($_SESSION['at']))
             $stmt->bindParam(':type', $type);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-            for($i = 0; $i< count($result);$i++)
+            /*for($i = 0; $i< count($result);$i++)
             {
                 $result[$i] = strval($result[$i]) . "m";
-            }
+            }*/
             if(debug)
                print_r($result);
             //5 most frequent choices for females
@@ -68,10 +68,10 @@ if(isset($_SESSION['at']))
             $stmt->bindParam(':type', $type);
             $stmt->execute();
             $result2 = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-            for($i = 0; $i< count($result2);$i++)
+            /*for($i = 0; $i< count($result2);$i++)
             {
                 $result2[$i] = strval($result2[$i]) . "f";
-            }
+            }*/
             $result = array_merge($result, $result2 );
 
 
@@ -96,7 +96,9 @@ if(isset($_SESSION['at']))
 
             //delete delle coppie same sex
             foreach ($_SESSION['p_mix'] as $key => $couple){
-                if($couple[0][strlen($couple[0])-1] === $couple[1][strlen($couple[1])-1]){
+                if(($couple[0] > 16) && ( $couple[1] > 16)){
+                    unset($_SESSION['p_mix'][$key]);
+                } elseif (($couple[0] <= 16) && ( $couple[1] <= 16)){
                     unset($_SESSION['p_mix'][$key]);
                 }
             }

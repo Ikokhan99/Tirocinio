@@ -7,12 +7,11 @@ class Experiment
     public $conn;
     //object properties
     public int $entry;
-    public int $type; //0 = mix, 1= same
+    public int $type; //0 = male, 1= female, 3=mix
     public float $time; //rt
     public string $chosen; //id of chosen avatar
     public string $uid; //user id
-    public int $a1; //left avatar id
-    public int $a2; //right avatar id
+    public int $other; //other avatar id
     public int $key;
 
     public function __construct($db,$user_id)
@@ -23,8 +22,7 @@ class Experiment
         $this->uid = $user_id;
         $this->time=0;
         $this->chosen = 0;
-        $this->a1 = 0;
-        $this->a2 = 0;
+        $this->other = 0;
         $this->key = 0;
     }
 
@@ -34,7 +32,7 @@ class Experiment
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $q = "INSERT INTO choice VALUES(null,:entry,:type,:time,:chosen,".$this->key.",:uid,:a1,:a2);";
+        $q = "INSERT INTO choice VALUES(null,:entry,:type,:time,:chosen,".$this->key.",:uid,:a1);";
 
 
         // var_dump($q);
@@ -46,8 +44,8 @@ class Experiment
         $stmt->bindParam(':chosen', $this->chosen);
         //$stmt->bindParam(':key', $this->key);
         $stmt->bindParam(':uid', $this->uid);
-        $stmt->bindParam(':a1', $this->a1);
-        $stmt->bindParam(':a2', $this->a2);
+        $stmt->bindParam(':a1', $this->other);
+
 
         if($stmt->execute())
         {

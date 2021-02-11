@@ -174,20 +174,19 @@ CREATE TABLE IF NOT EXISTS `choice` (
   `ENTRY` INT NOT NULL COMMENT '1= first entry for user',/*-  -- NUMBER OF THE ENTRY FOR THE CURRENT USER, E.G.  1 -> FIRST ENTRY FOR THIS USER*/
   `TYPE` INT NOT NULL COMMENT '0=male, 1=female, 3=mix', /*- -- Type of choice, same sex or different sex*/
   `TIME` INT NOT NULL COMMENT 'response time',/*- -- response time of each choice in milliseconds*/
-  `CHOSEN` varchar(3) NOT NULL COMMENT 'id of avatar chosen',
+  `CHOSEN` INT NOT NULL COMMENT 'id of avatar chosen',
   `KEY` BIT NOT NULL COMMENT '0=LEFT, 1=RIGHT',
   `USER_ID` VARCHAR(100) NOT NULL, /*- -- The id of the user of course		FOREIGN KEY	*/
-  `AVATAR1_ID` INT NOT NULL COMMENT 'left',/*-  -- The avatar presented on the left    FOREIGN KEY*/
-  `AVATAR2_ID` INT NOT NULL COMMENT 'right',/*-  -- The avatar presented on the right  FOREIGN KEY*/
+  `OTHER` INT NOT NULL COMMENT 'other',/*-  -- The other avatar presented   FOREIGN KEY*/
 
   PRIMARY KEY (`ID`),
   CONSTRAINT `fk_AVATAR1`
-		FOREIGN KEY (`AVATAR1_ID`)
+		FOREIGN KEY (`OTHER`)
 		REFERENCES `VaesDB`.`AVATAR`(`ID`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
   CONSTRAINT `fk_AVATAR2`
-		FOREIGN KEY (`AVATAR2_ID`)
+		FOREIGN KEY (`CHOSEN`)
 		REFERENCES `VaesDB`.`AVATAR`(`ID`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,

@@ -10,7 +10,7 @@
     grid-gap: 2px;
     grid-auto-rows: 66px;
     grid-template-columns: 100%;
-    grid-template-rows: 2.5vh 2.5vh 20px 2.5vh 50vh 20px 24vh 24vh 2vh ;
+    grid-template-rows: 2.3vh 2.3vh 2.3vh 2.3vh 40vh 2.5vh 20vh 20vh 5vh ;
     grid-auto-flow: row;
 
 }
@@ -40,7 +40,7 @@
 }
 
 .Q1{
-    grid-column: 1 / 1;
+    /*grid-column: 1 / 1;*/
     grid-row: 1 ;
     justify-self: stretch;
 }
