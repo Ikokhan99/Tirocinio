@@ -301,110 +301,111 @@ if (!empty($_POST)) {
                         Other
                     </label>
                 </div>
-                
-                <div style="grid-row: 6">
-                    <b>Enter one or two of your current favourite video games and indicate for each game the degree to which it contains each of the following characteristics (from 0=absent to 5=very much present):</b>
+                <div class="part2"  style="grid-row: 6">
+                    <div style="grid-row: 1">
+                        <b>Enter one or two of your current favourite video games and indicate for each game the degree to which it contains each of the following characteristics (from 0=absent to 5=very much present):</b>
+                    </div>
+                    <div style="grid-row: 2">
+                        <div class="games">
+                         <label style="grid-row: 1;grid-column: 1">
+                            Game 1:
+                            <input type='text' name='game1' required>
+                        </label>
+                        <label style="grid-row: 1;grid-column: 2 ;">
+                            Gender disparities
+                        </label>
+                         <label style="grid-row: 1; grid-column: 3">
+                              0
+                             <input type='range' name='sexism1' min=0 max=5 required>
+                             5
+                         </label>
+
+                        <label style="grid-row: 2;grid-column: 2 ;">
+                            Violence
+                        </label>
+                        <label style="grid-row: 2; grid-column: 3">
+                            0
+                            <input type='range' name='violence1' min=0 max=5 required>
+                            5
+                        </label>
+
+                        <label style="grid-row: 3;grid-column: 2 ;">
+                            Game graphics realism
+                        </label>
+                        <label style="grid-row: 3; grid-column: 3">
+                            0
+                            <input type='range' name='realism11' min=0 max=5 required>
+                            5
+                        </label>
+
+                        <label style="grid-row: 4;grid-column: 2 ;">
+                            Game mechanics realism
+                        </label>
+                        <label style="grid-row: 4; grid-column: 3">
+                            0
+                            <input type='range' name='realism12' min=0 max=5 required>
+                            5
+                        </label>
+
+                    </div>
+
                 </div>
-            <div style="grid-row: 7">
-                <div class="games">
-                     <label style="grid-row: 1;grid-column: 1">
-                        Game 1:
-                        <input type='text' name='game1' required>
-                    </label>
-                    <label style="grid-row: 1;grid-column: 2 ;">
-                        Gender disparities
-                    </label>
-                     <label style="grid-row: 1; grid-column: 3">
-                          0
-                         <input type='range' name='sexism1' min=0 max=5 required>
-                         5
-                     </label>
+                <div style="grid-row: 3">
+                    <div class="games">
+                        <label style="grid-row: 1;grid-column: 1">
+                            Game 2:
+                            <input type='text' name='game2'>
+                        </label>
+                        <label style="grid-row: 1;grid-column: 2 ;">
+                            Gender disparities
+                        </label>
+                        <label style="grid-row: 1; grid-column: 3">
+                            0
+                            <input type='range' name='sexism2' min=0 max=5 required>
+                            5
+                        </label>
+                     <!--   <label style="grid-row: 1;grid-column: 2 ;">
+                            Sexualization of characters
+                        </label>
+                        <label style="grid-row: 1; grid-column: 3">
+                            Absent (0)
+                            <input type='range' name='sexism2' min=0 max=5 required>
+                            (5) Very much present
+                        </label>  -->
 
-                    <label style="grid-row: 2;grid-column: 2 ;">
-                        Violence
-                    </label>
-                    <label style="grid-row: 2; grid-column: 3">
-                        0
-                        <input type='range' name='violence1' min=0 max=5 required>
-                        5
-                    </label>
+                        <label style="grid-row: 2;grid-column: 2 ;">
+                            Violence
+                        </label>
+                        <label style="grid-row: 2; grid-column: 3">
+                            0
+                            <input type='range' name='violence2' min=0 max=5 required>
+                            5
+                        </label>
 
-                    <label style="grid-row: 3;grid-column: 2 ;">
-                        Game graphics realism
-                    </label>
-                    <label style="grid-row: 3; grid-column: 3">
-                        0
-                        <input type='range' name='realism11' min=0 max=5 required>
-                        5
-                    </label>
+                        <label style="grid-row: 3;grid-column: 2 ;">
+                            Game graphics realism
+                        </label>
+                        <label style="grid-row: 3; grid-column: 3">
+                            0
+                            <input type='range' name='realism21' min=0 max=5 required>
+                            5
+                        </label>
 
-                    <label style="grid-row: 4;grid-column: 2 ;">
-                        Game mechanics realism
-                    </label>
-                    <label style="grid-row: 4; grid-column: 3">
-                        0
-                        <input type='range' name='realism12' min=0 max=5 required>
-                        5
-                    </label>
-
+                        <label style="grid-row: 4;grid-column: 2 ;">
+                            Game mechanics realism
+                        </label>
+                        <label style="grid-row: 4; grid-column: 3">
+                            0
+                            <input type='range' name='realism22' min=0 max=5 required>
+                            5
+                        </label>
+                    </div>
                 </div>
-
+            <div class="footer" style="grid-row: 4; justify-items: center">
+                <input style=" grid-column: 2;" type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Continue">
             </div>
-            <div style="grid-row: 8">
-                <div class="games">
-                    <label style="grid-row: 1;grid-column: 1">
-                        Game 2:
-                        <input type='text' name='game2'>
-                    </label>
-                    <label style="grid-row: 1;grid-column: 2 ;">
-                        Gender disparities
-                    </label>
-                    <label style="grid-row: 1; grid-column: 3">
-                        0
-                        <input type='range' name='sexism2' min=0 max=5 required>
-                        5
-                    </label>
-                 <!--   <label style="grid-row: 1;grid-column: 2 ;">
-                        Sexualization of characters
-                    </label>
-                    <label style="grid-row: 1; grid-column: 3">
-                        Absent (0)
-                        <input type='range' name='sexism2' min=0 max=5 required>
-                        (5) Very much present
-                    </label>  -->
-
-                    <label style="grid-row: 2;grid-column: 2 ;">
-                        Violence
-                    </label>
-                    <label style="grid-row: 2; grid-column: 3">
-                        0
-                        <input type='range' name='violence2' min=0 max=5 required>
-                        5
-                    </label>
-
-                    <label style="grid-row: 3;grid-column: 2 ;">
-                        Game graphics realism
-                    </label>
-                    <label style="grid-row: 3; grid-column: 3">
-                        0
-                        <input type='range' name='realism21' min=0 max=5 required>
-                        5
-                    </label>
-
-                    <label style="grid-row: 4;grid-column: 2 ;">
-                        Game mechanics realism
-                    </label>
-                    <label style="grid-row: 4; grid-column: 3">
-                        0
-                        <input type='range' name='realism22' min=0 max=5 required>
-                        5
-                    </label>
-                </div>
             </div>
-            <div style="grid-row: 9; justify-items: center">
-                <input type="submit" name="action" id="action-q2" tabindex="4" class="form-control btn btn-register" value="Continue">
-            </div>
-    </div>
+        </div>
     </form>
 
 <script>

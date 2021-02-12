@@ -4,6 +4,18 @@ include_once "Q.php";
 
 class q5 extends Q
 {
+
+/*'physical coordination',
+'health',
+'weight',
+'strength',
+'sex appeal',
+'physical attractiveness'
+'energy level',
+'sculpted muscles',
+'physical fitness',
+'measurements',*/
+
     public function __construct($db,$user_id)
     {
         $this->conn = $db;
