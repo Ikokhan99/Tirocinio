@@ -45,7 +45,7 @@ else {
     $_SESSION['visited_pages']['q5'] = true;
 }
 ?>
-<!-- TODO: fix css e capire da dove spunta il > -->
+
 <div style='text-align: center;'>
 <form action='Q5.php' method='post'>
 <div style= 'font-weight: 1000;'>

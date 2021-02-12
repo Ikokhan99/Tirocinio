@@ -1,7 +1,5 @@
 <?php
 
-//TODO: da modificare
-
 class Database
 {
     private string $host = "localhost";

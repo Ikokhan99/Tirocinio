@@ -44,7 +44,7 @@ if(isset($_SESSION['at']))
             
             $mix_av = array();
 //
-//select chosen from choice where type = 0 AND user_id = 'dummyFYGkMfNP3B5CLt7YC965wjazS' group by chosen order by count(*) desc limit 5;
+            //es: select chosen from choice where type = 0 AND user_id = 'dummyFYGkMfNP3B5CLt7YC965jazzS' group by chosen order by count(*) desc limit 5;
 
             //5 most frequent choices for males
             $q = "select chosen from choice where type = :type AND user_id = '".$_SESSION['user-id']."' group by chosen order by count(*) desc limit 5;";
@@ -83,7 +83,7 @@ if(isset($_SESSION['at']))
 
             }
 
-            //permutazioni?
+            //permutations
             include_once "config/permutations.php";
             $_SESSION['p_mix'] = array();
             exec_combine(2,$result,3);
@@ -94,7 +94,7 @@ if(isset($_SESSION['at']))
                 print_r($_SESSION['p_mix']);
             }
 
-            //delete delle coppie same sex
+            //deleting same sex couple
             foreach ($_SESSION['p_mix'] as $key => $couple){
                 if(($couple[0] > 16) && ( $couple[1] > 16)){
                     unset($_SESSION['p_mix'][$key]);

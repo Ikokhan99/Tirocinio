@@ -1,10 +1,10 @@
 DROP DATABASE IF EXISTS `VaesDB`;
--- SET DI ROBA VARIA
+-- SET
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE DATABASE IF NOT EXISTS `VaesDB` DEFAULT CHARACTER SET utf8;  -- avrà questo nome finche non sarà completo  TODO: modificare
+CREATE DATABASE IF NOT EXISTS `VaesDB` DEFAULT CHARACTER SET utf8;
 USE `VaesDB`;
 
 
@@ -31,18 +31,18 @@ CREATE TABLE IF NOT EXISTS `avatar` (
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-    `ID` VARCHAR(100) NOT NULL,  /*--- PRIMARY KEY  TODO:check the lenght of the prolific id -*/
+    `ID` VARCHAR(100) NOT NULL,  /*--- PRIMARY KEY  -*/
     `SEX` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', /* biological sex*/
     `SEXID` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=m, 1=f', /* gen id*/
     `AGE` INT(2) NOT NULL DEFAULT 0, /* precise age */
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  /* sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other*/
     `TIME` INT NOT NULL DEFAULT 0,/*in seconds*/
-    `TRUSTED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=yes, 1=no', /* if the user should be trusted. The user is untrustworthy if goues to the error page or fails the control questions */
+    `TRUSTED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=yes, 1=no', /* if the user should be trusted. The user is untrustworthy if goes to the error page or fails the control questions */
   PRIMARY KEY (`ID`)
 ) ENGINE = 'InnoDB';
 
 
--- TODO: da completare
+
 -- first questionnaire, the one with the two games
 CREATE TABLE IF NOT EXISTS `Q2` (
   `PLAYTIME` INT(5) NOT NULL COMMENT '0=never, ...', --  0=Never, 1=Less than 1 hour, 2=Between 1 and 2 hours, 3=Between 2 and 4 hours, 4=More than 4 hours
@@ -81,12 +81,11 @@ CREATE TABLE IF NOT EXISTS `GAME`(
 
 ) ENGINE = 'InnoDB';
 
--- TODO: aggiungere domande di controllo
 CREATE TABLE IF NOT EXISTS `Q3` (
   `CONTROL_QUESTION1` INT NOT NULL DEFAULT 4,
   `CONTROL_QUESTION2` INT NOT NULL DEFAULT 4,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man not complete',  			/*---Should be between 0 and 5   -   No matter how accomplishable is, a man is not truly complete as a person unless he has the love of a woman.*/
-  `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'women seeking favors', 		/*---Should be between 0 and 5   -   Many women are actually seeking special favors, such as hiring policies that favor them overmen, under the guise of asking for "equality."*/
+  `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'women seeking favors', 		/*---Should be between 0 and 5   -   Many women are actually seeking special favors, such as hiring policies that favor them over men, under the guise of asking for "equality."*/
   `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT 'women not rescue', 			/*---Should be between 0 and 5   -   In a disaster, women ought not necessarily to be rescued before men.*/
   `QUESTION4`INT NOT NULL DEFAULT 0 COMMENT 'woman remarks sexy',  		/*---Should be between 0 and 5   -   Most women interpret innocent remarks or acts as being sexist.*/
   `QUESTION5`INT NOT NULL DEFAULT 0 COMMENT 'woman too offended', 		/*---Should be between 0 and 5   -   Women are too easily offended.*/
@@ -103,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `Q3` (
   `QUESTION16`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*--Should be between 0 and 5   -   When women lose to men in a fair competition, they typically complain about being discriminated against.*/
   `QUESTION17`INT NOT NULL DEFAULT 0 COMMENT 'women complain competition',/*---Should be between 0 and 5   -   A good woman should be set on a pedestal by her man*/
   `QUESTION18`INT NOT NULL DEFAULT 0 COMMENT 'women teasing',  			/*---Should be between 0 and 5   -   There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. */
-  `QUESTION19`INT NOT NULL DEFAULT 0 COMMENT 'women superiro moral',  	/*---Should be between 0 and 5   -   Women, compared to men, tend to have a superior moral sensibility*/
+  `QUESTION19`INT NOT NULL DEFAULT 0 COMMENT 'women superior moral',  	/*---Should be between 0 and 5   -   Women, compared to men, tend to have a superior moral sensibility*/
   `QUESTION20`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*---Should be between 0 and 5   -   Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives.*/
   `QUESTION21`INT NOT NULL DEFAULT 0 COMMENT 'man financial sacrifice',  	/*--Should be between 0 and 5   -   Feminists are making entirely reasonable demands of men.*/
   `QUESTION22`INT NOT NULL DEFAULT 0 COMMENT 'women more culture',  		/*--Should be between 0 and 5   -   Women, as compared to men, tend to have a more refined sense of culture and good taste.*/

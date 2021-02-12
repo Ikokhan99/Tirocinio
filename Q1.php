@@ -17,16 +17,13 @@ if (!empty($_POST)) {
         $user->sexor = check_int($_POST['user-sexor'],0,4);
         $user->sex = check_int($_POST['user-sex'],0,1);
         $user->age = check_int($_POST['user-age'],18,70);
-        //todo:controlli
+
         $user->create($_SESSION['user-id']);
 
     }
 }
-
-//TODO: redirect in ordine
 if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET)&& isset($_GET['action']) && $_GET['action']=='goto') )
 {
-
     switch ($_SESSION['Q'][$_SESSION['at']]){
         case 2:{
         $_SESSION['at'] += 1;
@@ -97,10 +94,6 @@ if(debug)
     print_r($_POST['action']);
     echo "</p>";
 }
-
-//TODO:controlli input
-
-
 ?>
 <div class="centered-container">
         <div class="centered-container">
@@ -113,7 +106,6 @@ if(debug)
                 <div class="centered-container" >
                         <div class="centered-container">
                             <form name="user-form" method="post" action="Q1.php?s=0" id="user-form" role="form" style="display: block;">
-                                <!-- TODO: Campione: età precisa, solo maggiorenni, solo etero, lasciare lo stesso le domande -->
                                 <div class="form-group centered-container-bt">
                                     <label for="age">Age</label><input type="number" id="age" size="6" name="user-age" min="6" max="99" value="" required="required" tabindex="3" class="form-control ">
                                 </div>

@@ -1,7 +1,5 @@
 <?php
 
-//TODO:test, update una volta avuta la struttura finale del questionario
-
 include_once "./config/Foes.php";
 include_once "Q.php";
 
@@ -10,7 +8,7 @@ class Q3 extends Q
     const CONTROL_1_CORRECT = 5;
     const CONTROL_2_CORRECT = 0;
  
-    // costruttore
+    // constructor
     public function __construct($db,$user_id)
 	{
 	    $this->control_questions = array(3,3); //more than 10 items, so two control questions

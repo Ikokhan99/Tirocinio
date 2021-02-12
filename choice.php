@@ -43,7 +43,7 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
         if(debug){
             var_dump($_POST);
         }
-        //insering previous result at db
+        //inserting previous result at db
         include_once 'objects/experiment.php';
         include_once 'config/database.php';
         $database = new Database();
@@ -114,8 +114,6 @@ if($_SESSION['exp'][$_SESSION['at']]!=3){
 include_once 'layout_head.php';
 
 //----------------------------------------------------------------------------------------------------------------------------
-//TODO:resize immagini
-//TODO:fix tempo
 echo "<div style='cursor: none' class='centered'>";
 echo "<table class='default-table'><tr>";
 echo "<form action=\"choice.php\" method=\"post\"  id=\"form\">
@@ -218,7 +216,7 @@ loadCSS("libs/CSS/choice.css");
     {
         document.onkeydown = function (e) //when the key is pressed down
         {
-            switch (e.key) //the logical place of the keyboard, .code for the phisical
+            switch (e.key) //the logical place of the keyboard, .code for the physical
             {
                 case 'ArrowLeft':
                 {

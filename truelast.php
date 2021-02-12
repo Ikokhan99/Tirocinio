@@ -1,7 +1,7 @@
 <?php
 include_once "config/core.php";
 if(!isset($_SESSION['prolific']))
-    exit("Esperimento di prova finito");
+    exit("Esperimento di prova terminato");
 if($_SESSION['user-sex'] === 0)
 {
     $m = true;

@@ -1,14 +1,12 @@
 <?php
 
-//TODO:test, update una volta avuta la struttura finale del questionario
-
 include_once "./config/Foes.php";
 include_once "Q.php";
 
 class Q4 extends Q
 {
     const CONTROL_CORRECT = 4;
-    // costruttore
+    // constructor
     public function __construct($db,$user_id)
     {
         $this->control_questions=array(3);

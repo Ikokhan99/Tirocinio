@@ -9,12 +9,12 @@ include_once 'layout_head.php';
 if(isset($_GET['PROLIFIC_PID']))
     {
         $_SESSION['prolific'] = true;
-        // $_SESSION['user-id'] = $_GET['PROLIFIC_PID'];
+        // $_SESSION['user-id'] = $_GET['PROLIFIC_PID'];  already set in user create
         $id = $_GET['PROLIFIC_PID'];
         if($_GET['STUDY_ID'] === 'Mavatar')
-            $_SESSION['user-sex'] = 0; // partecipanti maschi
-        else // id = 4F67FA61
-            $_SESSION['user-sex'] = 1; // partecipanti femmine
+            $_SESSION['user-sex'] = 0; // male participants
+        else
+            $_SESSION['user-sex'] = 1; // female participants
     }
 else{
     $id = null;
@@ -82,7 +82,7 @@ if (!fast_debug) {
         try {
             $user->sex = random_int(0, 1);
         } catch (Exception $e) {
-            echo "php ritardato";
+            echo "rip for php";
         }
     }
     $error = !$user->create($id);
@@ -124,38 +124,7 @@ $f_img = array('avatar/01_f' . IMG_EXT,
     'avatar/14_f' . IMG_EXT,
     'avatar/15_f' . IMG_EXT,
     'avatar/16_f' . IMG_EXT);
-/*} else {
-    include_once 'config/database.php';
-    $m_img = array();
-    $f_img = array();
 
-    $default=0;
-
-    //male
-    $q = 'SELECT pic from avatar where sex=:sex';
-    $stmt = $_SESSION['db']->prepare($q);
-    //male
-    $stmt->bindParam(':sex', $default);
-    $result = $stmt->execute();
-    for($i = 0; $m_img[$i] = mysqli_fetch_assoc($result); $i++) ;
-    // Delete last empty one
-    array_pop($array);
-    //female
-    $default=1;
-    $stmt->bindParam(':sex', $default);
-    $result = $stmt->execute();
-    for($i = 0; $f_img[$i] = mysqli_fetch_assoc($result); $i++) ;
-    // Delete last empty one
-    array_pop($array);
-    //TODO:add extension
-    if(debug)
-    {
-        echo '<p>Imagini avatar maschili  </p>';
-        print_r($m_img);
-        echo '<p>Imagini avatar femminili  </p>';
-        print_r($f_img);
-    }
-}*/
 $_SESSION['i_male'] = $m_img;
 $_SESSION['i_female'] = $f_img;
 
@@ -193,7 +162,7 @@ if ((isset($error) && $error === false) || fast_debug) {
         <div class='wrap'>
             <div class='main-container'>
             
-                <img src='img/exp-max.png' style='grid-row: 1; grid-column: 1' >
+                <img src='img/exp-max.png' style='grid-row: 1; grid-column: 1' alt='experiment-example-image'>
                 </img>
                 <div class='mid-section' style='grid-row: 2 ;  grid-column: 1;'>
                      <div style='grid-column: 2;'>

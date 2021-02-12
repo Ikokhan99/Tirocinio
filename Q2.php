@@ -43,7 +43,7 @@ if (!empty($_POST)) {
             echo "</p>";
         }
         if (!$q2->create()) {
-            die("Errore del server");
+            die("Server error");
         }
     }
     header("Location: ".home_url."Q1.php?action=goto");
@@ -79,8 +79,6 @@ if (!empty($_POST)) {
                         <input type='radio' name='playtime' value='4' required>
                     </label> More than 4 hours
                 </div>
-                
-                <!-- Todo: parte grafica-->
                 <div class="Q2">
                     <strong>
                     Enter the type of videogames you prefer (you can enter a maximum of 10 preferences)</strong>
@@ -364,15 +362,6 @@ if (!empty($_POST)) {
                             <input type='range' name='sexism2' min=0 max=5 required>
                             5
                         </label>
-                     <!--   <label style="grid-row: 1;grid-column: 2 ;">
-                            Sexualization of characters
-                        </label>
-                        <label style="grid-row: 1; grid-column: 3">
-                            Absent (0)
-                            <input type='range' name='sexism2' min=0 max=5 required>
-                            (5) Very much present
-                        </label>  -->
-
                         <label style="grid-row: 2;grid-column: 2 ;">
                             Violence
                         </label>

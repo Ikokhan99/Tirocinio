@@ -124,4 +124,4 @@ function exec_combine(int $k,$array,int $type)
     };
 
     combine($array, $k, $callback,$type);
-};
+}

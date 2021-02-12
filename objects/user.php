@@ -11,9 +11,9 @@ class User implements Interfaces
  
     // object properties
     public int $id;
-    public int $sex; //bool
-    public int $sexid;
-	public int $sexor;
+    public int $sex; //bit in mysql, biological sex
+    public int $sexid; //sexual identity (gender)
+	public int $sexor; //sexual orientation
 	public int $age;
 
     private $stmt;
@@ -77,8 +77,9 @@ class User implements Interfaces
 	{
 		echo "<pre>";
         print_r($stmt->errorInfo());
+        echo "</pre>";
         die();
-		echo "</pre>";
+
 	}
 
 	// we don't need email verification anymore

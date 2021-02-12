@@ -1,8 +1,6 @@
 <?php
 
-//TODO: da modificare
-
-//push for associative arrays TODO:controllare se serve
+//push for associative arrays, right now it's not used
 function array_push_assoc($array, $key, $value)
 {
 	$array[$key] = $value;
