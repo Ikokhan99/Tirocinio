@@ -162,11 +162,11 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         }
 
         echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][0]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
-        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][0])-1 ;
+        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][0]) ;
         if($n > 16){ //male case
-            echo "<img src=\"".$_SESSION['i_male'][ $n-16]."\">";
+            echo "<img src=\"".$_SESSION['i_male'][ $n-16 -1]."\">";
         } else {
-            echo "<img src=\"".$_SESSION['i_female'][ $n ]."\">";
+            echo "<img src=\"".$_SESSION['i_female'][ $n -1 ]."\">";
         }
 
         echo "</button>";
@@ -177,11 +177,11 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
         echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][1]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
 
-        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][1])-1 ;
+        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][1]) ;
         if($n > 16){ //male case
-            echo "<img src=\"".$_SESSION['i_male'][ $n-16]."\">";
+            echo "<img src=\"".$_SESSION['i_male'][ $n-16 -1]."\">";
         } else {
-            echo "<img src=\"".$_SESSION['i_female'][ $n ]."\">";
+            echo "<img src=\"".$_SESSION['i_female'][ $n -1 ]."\">";
         }
 
         echo "</button>";
