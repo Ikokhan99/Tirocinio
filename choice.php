@@ -236,7 +236,7 @@ loadCSS("libs/CSS/choice.css");
 
     function button_click(n){
         let button;
-        let time =  Date.now() - tempo;
+        let time =  Date.now() - tempo - 600;
         document.getElementById('time').setAttribute("value",time.toString());
         if(n===0)
         {
