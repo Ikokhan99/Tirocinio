@@ -49,7 +49,7 @@ class User implements Interfaces
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
         } else{
-		    echo ("id is not null");
+		    //echo ("id is not null");
 		    if(isset($_SESSION['user-id']))
                 $q = "UPDATE user SET sexid= $this->sex,age= $this->age,sexor= $this->sexor where id='".$_SESSION['user-id']."';";
 		    else{
@@ -57,7 +57,15 @@ class User implements Interfaces
                 $q = "INSERT INTO user VALUES('$id',$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
             }
             // var_dump($q);
-            $this->stmt = $this->conn->query($q);
+            try {
+                $this->stmt = $this->conn->query($q);
+            } catch (PDOException $e){
+                print_r("This USER has already done the experiment" );
+                die;
+            }
+
+
+
             //$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
@@ -66,8 +74,9 @@ class User implements Interfaces
 		    return true;
 		else
         {
-            $this->showError($this->stmt);
-            return false;
+            print_r("This ID has already done the experiment" );
+            die();
+
         }
 
 
@@ -76,7 +85,7 @@ class User implements Interfaces
 	public function showError($stmt)
 	{
 		echo "<pre>";
-        print_r($stmt->errorInfo());
+            print_r("This ID has already done the experiment" );
         echo "</pre>";
         die();
 

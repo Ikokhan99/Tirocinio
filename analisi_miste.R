@@ -1,5 +1,5 @@
 # Title     : Translate Data for mixed choice analysis
-# Objective : Translate data to svg from mysql
+# Objective : Translate data to csv from mysql
 # Created by: Maur
 # Created on: 17/02/2021
 #aggiungere gender partecipante e caratteristiche avatar, separare i file per sesso del partecipante + tempo di reazione medio
@@ -36,9 +36,9 @@ foo <- function (sex = 0){
   for(user in u)
   {
 
-    writeLines("USER:")
-    print(user)
-    writeLines("------------------")
+    # writeLines("USER:")
+    # print(user)
+    # writeLines("------------------")
 
     query <- paste0("select c.other
             from (user as u INNER JOIN choice as c on c.user_id = u.id)
@@ -56,7 +56,7 @@ foo <- function (sex = 0){
     #print(chosen)
     avatars <- unique(c(chosen$chosen,discarded$other))
     #print(user)
-    print(avatars)
+    # print(avatars)
 
 
     count <- array()
@@ -69,26 +69,53 @@ foo <- function (sex = 0){
       count <- c(count,co$co)
 
     }
-    writeLines("count:")
-    print(count)
-    writeLines("------------------")
+    #writeLines("count:")
+    #print(count)
+    #writeLines("------------------")
 
     temp <- cbind(avatars,count[-1])
 
-    writeLines("temp:")
-    print(temp)
-    writeLines("------------------")
+    #writeLines("temp:")
+    #print(temp)
+    #writeLines("------------------")
     av <- rbind(av,temp)
-    writeLines("AV:")
-    print(av)
-    writeLines("------------------")
+    #writeLines("AV:")
+    #print(av)
+    #writeLines("------------------")
 
   }
   total <- cbind(total,av)
+  names(total)[4] <- paste0("COUNT")
 
-  writeLines("TOTAL:")
-  print(total)
-  writeLines("------------------")
+  temp <- array(dim = 5)
+  #----------------- avatar chars ---------
+  for(avatar in total$avatars){
+    query <- paste0("select HEX(intention) as intention, HEX(power) as power, HEX(sexual) as sexualization, HEX(experience) as experience, HEX(sex) as sex
+            from avatar
+            where id = ",avatar)
+    rs <- dbSendQuery(mydb, query)
+    co <- fetch(rs, n=-1)
+    temp <- rbind(temp,co)
+  }
+
+  #writeLines("TEMP:")
+  #print(temp)
+  #writeLines("------------------")
+
+  total <- cbind(total, temp[-1,])
+
+  #-------------translate------------------
+  total$power <- ifelse(total$power == 1, "powerful", "not powerful" )
+  total$sexualization <- ifelse(total$sexualization == 1, "sexualized", "not sexualized" )
+  total$experience <- ifelse(total$experience == 1, "experienced", "unexperienced" )
+  total$intention <- ifelse(total$intention == 1, "bad", "good" )
+  total$sex <- ifelse(total$sex == 1, "female", "male" )
+
+  names(total)[9] <- paste0("AV_sex")
+
+  #writeLines("TOTAL:")
+  #print(total)
+  #writeLines("------------------")
 
   if(sex == 0){
     write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_miste_male.csv")
@@ -97,6 +124,9 @@ foo <- function (sex = 0){
   }
 
 }
+#microbenchmark(foo(), times = 200)
+
+#ptm <- proc.time()
 
 foo(0)
 foo(1)
@@ -105,4 +135,6 @@ writeLines("Closing...")
 ile <- length(dbListConnections(MySQL())  )
 lapply( dbListConnections(MySQL()), function(x) dbDisconnect(x) )
 cat(sprintf("%s connection(s) closed.\n", ile))
-#rm(list=ls())
+
+#proc.time() - ptm
+rm(list=ls())

@@ -1,6 +1,6 @@
 # Title     : Translate Data for classic analysis
-# Objective : Translate data to svg from mysql
-# Created by: Maur
+# Objective : Translate data to csv from mysql
+# Created by: DMMP
 # Created on: 11/02/2021
 
 
@@ -166,6 +166,8 @@ foo <- function (sex = 0){
     write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_classiche_female.csv")
   }
 }
+
+#microbenchmark(foo(), times = 200)
 
 foo(0)
 foo(1)

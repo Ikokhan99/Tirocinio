@@ -1,10 +1,8 @@
-# Title     : TODO
-# Objective : TODO
-# Created by: Maur
+# Title     : Conjount analysis
+# Objective : Translate experiment data to csv from mysql
+# Created by: DMMP
 # Created on: 13/02/2021
 
-
-#TODO:
 
 #install.packages("RMySQL")
 library(RMySQL)
@@ -69,6 +67,8 @@ foo <- function (total,sex = 0) {
     }
 
 }
+
+#microbenchmark(foo(total = total), times = 200)
 
 foo(total,0)
 foo(total,1)
