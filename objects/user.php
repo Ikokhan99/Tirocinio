@@ -3,7 +3,7 @@
 include_once "./config/Foes.php";
 include_once "Interfaces.php";
 
-class User implements Interfaces
+class User /*implements Interfaces*/
 {
  
     // database connection and table name

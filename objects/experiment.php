@@ -1,7 +1,7 @@
 <?php
 
-
-class Experiment
+include_once "Interfaces.php";
+class Experiment implements Interfaces
 {
     // database connection and table name
     public $conn;
@@ -26,7 +26,7 @@ class Experiment
         $this->key = 0;
     }
 
-    function create()
+    function create(): bool
     {
 
         // var_dump($this);

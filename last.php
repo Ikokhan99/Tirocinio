@@ -47,7 +47,6 @@ $stmt->execute();
 
     // Run countdown function
     countdown();
-
 </script>
 <?php
 include_once "layout_foot.php";
