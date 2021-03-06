@@ -1,33 +1,33 @@
-"","AvatarId","Intention","Power","Sexual","Experience","Sex","S1","S2"
-"1",1,"good","not powerful","sexualized","unexperienced","female",15,10
-"2",2,"bad","not powerful","sexualized","unexperienced","female",12,9
-"3",3,"good","powerful","not sexualized","unexperienced","female",8,14
-"4",4,"bad","powerful","not sexualized","unexperienced","female",4,13
-"5",5,"good","powerful","sexualized","unexperienced","female",13,10
-"6",6,"bad","powerful","sexualized","unexperienced","female",8,7
-"7",7,"good","not powerful","not sexualized","experienced","female",5,10
-"8",8,"bad","not powerful","not sexualized","experienced","female",2,4
-"9",9,"good","not powerful","sexualized","experienced","female",11,4
-"10",10,"bad","not powerful","sexualized","experienced","female",11,5
-"11",11,"good","powerful","not sexualized","experienced","female",4,9
-"12",12,"bad","powerful","not sexualized","experienced","female",1,7
-"13",13,"good","powerful","sexualized","experienced","female",12,4
-"14",14,"bad","powerful","sexualized","experienced","female",7,5
-"15",15,"good","not powerful","not sexualized","unexperienced","female",6,7
-"16",16,"bad","not powerful","not sexualized","unexperienced","female",1,2
-"17",17,"good","not powerful","sexualized","unexperienced","male",10,9
-"18",18,"bad","not powerful","sexualized","unexperienced","male",10,9
-"19",19,"good","powerful","not sexualized","unexperienced","male",8,13
-"20",20,"bad","powerful","not sexualized","unexperienced","male",5,12
-"21",21,"good","powerful","sexualized","unexperienced","male",14,9
-"22",22,"bad","powerful","sexualized","unexperienced","male",14,10
-"23",23,"good","not powerful","not sexualized","experienced","male",3,9
-"24",24,"bad","not powerful","not sexualized","experienced","male",2,9
-"25",25,"good","not powerful","sexualized","experienced","male",10,5
-"26",26,"bad","not powerful","sexualized","experienced","male",11,4
-"27",27,"good","powerful","not sexualized","experienced","male",3,7
-"28",28,"bad","powerful","not sexualized","experienced","male",5,6
-"29",29,"good","powerful","sexualized","experienced","male",10,3
-"30",30,"bad","powerful","sexualized","experienced","male",11,5
-"31",31,"good","not powerful","not sexualized","unexperienced","male",4,3
-"32",32,"bad","not powerful","not sexualized","unexperienced","male",0,7
+"","AvatarId","Intention","Power","Sexual","Experience","Sex"
+"1",1,"good","not powerful","sexualized","unexperienced","female"
+"2",2,"bad","not powerful","sexualized","unexperienced","female"
+"3",3,"good","powerful","not sexualized","unexperienced","female"
+"4",4,"bad","powerful","not sexualized","unexperienced","female"
+"5",5,"good","powerful","sexualized","unexperienced","female"
+"6",6,"bad","powerful","sexualized","unexperienced","female"
+"7",7,"good","not powerful","not sexualized","experienced","female"
+"8",8,"bad","not powerful","not sexualized","experienced","female"
+"9",9,"good","not powerful","sexualized","experienced","female"
+"10",10,"bad","not powerful","sexualized","experienced","female"
+"11",11,"good","powerful","not sexualized","experienced","female"
+"12",12,"bad","powerful","not sexualized","experienced","female"
+"13",13,"good","powerful","sexualized","experienced","female"
+"14",14,"bad","powerful","sexualized","experienced","female"
+"15",15,"good","not powerful","not sexualized","unexperienced","female"
+"16",16,"bad","not powerful","not sexualized","unexperienced","female"
+"17",17,"good","not powerful","sexualized","unexperienced","male"
+"18",18,"bad","not powerful","sexualized","unexperienced","male"
+"19",19,"good","powerful","not sexualized","unexperienced","male"
+"20",20,"bad","powerful","not sexualized","unexperienced","male"
+"21",21,"good","powerful","sexualized","unexperienced","male"
+"22",22,"bad","powerful","sexualized","unexperienced","male"
+"23",23,"good","not powerful","not sexualized","experienced","male"
+"24",24,"bad","not powerful","not sexualized","experienced","male"
+"25",25,"good","not powerful","sexualized","experienced","male"
+"26",26,"bad","not powerful","sexualized","experienced","male"
+"27",27,"good","powerful","not sexualized","experienced","male"
+"28",28,"bad","powerful","not sexualized","experienced","male"
+"29",29,"good","powerful","sexualized","experienced","male"
+"30",30,"bad","powerful","sexualized","experienced","male"
+"31",31,"good","not powerful","not sexualized","unexperienced","male"
+"32",32,"bad","not powerful","not sexualized","unexperienced","male"

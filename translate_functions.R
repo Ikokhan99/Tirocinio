@@ -1,13 +1,17 @@
-# Title     : Translate Data for classic analysis
+# Title     : Translate Data for analysis
 # Objective : Translate data to csv from mysql
 # Created by: DMMP
 # Created on: 11/02/2021
-
 
 #install.packages("RMySQL")
 library(RMySQL)
 library(DBI)
 
+MALE <- 0
+FEMALE <- 1
+
+#mydb = dbConnect(MySQL(), user='user', password='password', dbname='database_name', host='host')
+mydb <- dbConnect(MySQL(), user='root', password='', dbname='vaesdb', host='localhost')
 
 ris_gens  <- function (gens="",first=TRUE){
   ris <- data.frame(GENS = c("Platform","FPS","TPS","Danmaku","BattleRoyale", "Fighting", "Brawlers", "Stealth", "Survival", "SurvivalHorror", "Metroidvania", "TextAdv", "GraphicAdv", "VisualNovel", "InteractiveMovie", "RealTime3Dadventure", "Roguelike", "MMO", "MMORPG", "ActionRPG","TacticalRPG", "JRPG", "FPPBRPG", "MonsterTamer", "SandboxRPG", "Sandbox", "OpenWorld", "ConstructionSim", "LifeSim", "VehicleSim", "DatingSim", "Eroge", "4x", "Artillery", "AutoBattler", "MOBA", "RTS", "RTT", "TBS", "Arcade","TowerDefense", "Sport", "Card", "Horror", "Party", "Typing", "Logic", "Puzzle", "Other"), VALUES = rep(0,49))
@@ -31,12 +35,7 @@ ris_gens  <- function (gens="",first=TRUE){
   ifelse(first,return(ris),return(ris$VALUES))
 }
 
-
-
-#mydb = dbConnect(MySQL(), user='user', password='password', dbname='database_name', host='host')
-mydb <- dbConnect(MySQL(), user='root', password='', dbname='vaesdb', host='localhost')
-
-foo <- function (sex = 0){
+AnalisiClassiche <- function(sex = MALE){
   query <- paste0("select u.id as ID,HEX(u.sex) as sex, HEX(u.sexid) as sexid,u.age,u.time AS Total_Time
           from (user as u inner join choice as c on u.id = c.user_id) INNER JOIN avatar as a on c.chosen = a.id
           where u.sex = ",sex,"
@@ -100,6 +99,9 @@ foo <- function (sex = 0){
 
     }
   }
+
+
+
   ris <- ris[-1]
   gens <- ris$GENS
   values <- ris[-1]
@@ -167,12 +169,174 @@ foo <- function (sex = 0){
   }
 }
 
-#microbenchmark(foo(), times = 200)
+AnalisiMiste <- function (sex = MALE){
+  query <- paste0("select u.id as USER, u.sexid as GENDER
+            from (user as u)
+            where sex = ",sex)
+  rs <- dbSendQuery(mydb, query)
+  users <- fetch(rs, n=-1)
+  total <- users
+  u <- users$USER
 
-foo(0)
-foo(1)
+  for(i in seq_along(u)){
+    stuff <- matrix(rep(c(u[i],users$GENDER[i]),10),10,2,TRUE)
+    stuff <- data.frame(USER = stuff[,1], GENDER = stuff[,2])
+    #print(stuff)
+    #print(total)
+    total <- rbind(total,stuff)
+  }
 
-ile <- length(dbListConnections(MySQL())  )
-lapply( dbListConnections(MySQL()), function(x) dbDisconnect(x) )
-cat(sprintf("%s connection(s) closed.\n", ile))
-rm(list=ls())
+  total <- total[seq_along(u) * -1,]
+  #writeLines("TOTAL:")
+  #print(total)
+  #writeLines("------------------")
+
+  av <- data.frame()
+
+  for(user in u)
+  {
+
+    # writeLines("USER:")
+    # print(user)
+    # writeLines("------------------")
+
+    query <- paste0("select c.other
+            from (user as u INNER JOIN choice as c on c.user_id = u.id)
+            where (u.id='",user,"') AND (c.type = 3)
+            GROUP BY c.other")
+    rs <- dbSendQuery(mydb, query)
+    discarded <- fetch(rs, n=-1)
+    #print(discarded)
+    query <- paste0("select c.chosen
+            from (user as u INNER JOIN choice as c on c.user_id = u.id)
+            where (u.id='",user,"') AND (c.type = 3)
+            GROUP BY c.chosen")
+    rs <- dbSendQuery(mydb, query)
+    chosen <- fetch(rs, n=-1)
+    #print(chosen)
+    avatars <- unique(c(chosen$chosen,discarded$other))
+    #print(user)
+    # print(avatars)
+
+
+    count <- array()
+    for(avatar in avatars){
+      query <- paste0("select count(c.chosen) as co
+            from (user as u INNER JOIN choice as c on c.user_id = u.id)
+            where (sex = ",sex,") AND (u.id='",user,"') AND (c.type = 3) AND (c.chosen = ",avatar,")")
+      rs <- dbSendQuery(mydb, query)
+      co <- fetch(rs, n=-1)
+      count <- c(count,co$co)
+
+    }
+    #writeLines("count:")
+    #print(count)
+    #writeLines("------------------")
+
+    temp <- cbind(avatars,count[-1])
+
+    #writeLines("temp:")
+    #print(temp)
+    #writeLines("------------------")
+    av <- rbind(av,temp)
+    #writeLines("AV:")
+    #print(av)
+    #writeLines("------------------")
+
+  }
+  total <- cbind(total,av)
+  names(total)[4] <- paste0("COUNT")
+
+  temp <- array(dim = 5)
+  #----------------- avatar chars ---------
+  for(avatar in total$avatars){
+    query <- paste0("select HEX(intention) as intention, HEX(power) as power, HEX(sexual) as sexualization, HEX(experience) as experience, HEX(sex) as sex
+            from avatar
+            where id = ",avatar)
+    rs <- dbSendQuery(mydb, query)
+    co <- fetch(rs, n=-1)
+    temp <- rbind(temp,co)
+  }
+
+  #writeLines("TEMP:")
+  #print(temp)
+  #writeLines("------------------")
+
+  total <- cbind(total, temp[-1,])
+
+  #-------------translate------------------
+  total$power <- ifelse(total$power == 1, "powerful", "not powerful" )
+  total$sexualization <- ifelse(total$sexualization == 1, "sexualized", "not sexualized" )
+  total$experience <- ifelse(total$experience == 1, "experienced", "unexperienced" )
+  total$intention <- ifelse(total$intention == 1, "bad", "good" )
+  total$sex <- ifelse(total$sex == 1, "female", "male" )
+
+  names(total)[9] <- paste0("AV_sex")
+
+  #writeLines("TOTAL:")
+  #print(total)
+  #writeLines("------------------")
+
+  if(sex == 0){
+    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_miste_male.csv")
+  } else {
+    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_miste_female.csv")
+  }
+}
+
+ConjountAnalysis <- function (sex = MALE){
+  query <- "select a.id as AvatarId, HEX(a.intention) as Intention, HEX(a.power) as Power, HEX(a.sexual) as Sexual, HEX(a.experience) as Experience , HEX(a.sex) as Sex
+          from avatar as a"
+  rs <- dbSendQuery(mydb, query)
+  avatars <- fetch(rs, n=-1)
+  # avatars
+
+  avatars$Power <- ifelse(avatars$Power == 1, "powerful", "not powerful" )
+  avatars$Sexual <- ifelse(avatars$Sexual == 1, "sexualized", "not sexualized" )
+  avatars$Experience <- ifelse(avatars$Experience == 1, "experienced", "unexperienced" )
+  avatars$Intention <- ifelse(avatars$Intention == 1, "bad", "good" )
+  avatars$Sex <- ifelse(avatars$Sex == 1, "female", "male" )
+
+  total <- avatars
+
+  i <- 1
+
+  upt <- data.frame(total = {0} )
+
+  query <- paste0("select id
+              from user
+              where sex = ",sex)
+  rs <- dbSendQuery(mydb, query)
+  users <- fetch(rs, n=-1)
+  users <- users$id
+
+  for(id in users )
+  {
+    up <- array({0},1)
+    for(avatar in avatars$AvatarId){
+      # writeLines(paste0("DEBUG: working on user (",id,") -> avatar (",avatar,")"))
+
+      query <- paste0("select count(c.id) as total
+              from (user as u inner join choice as c on u.id = c.user_id) INNER JOIN avatar as a on a.id = c.chosen
+              where (c.type != 3) AND (u.id = \'", id, "\') AND c.chosen = ", avatar)
+      rs <- dbSendQuery(mydb, query)
+      n <- fetch(rs, n=-1)
+      up <- c(up,n$total)
+    }
+    up <- up[-1]
+    upt <- cbind(upt,up)
+  }
+
+  upt <- upt[-1]
+  #rename
+  for(i in seq_along(upt)){
+    names(upt)[i] <- paste0("S",i)
+  }
+
+  total <- cbind(total,upt)
+  if(sex == 0){
+    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\conj_analysis_male.csv")
+  } else {
+    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\conj_analysis_female.csv")
+  }
+}

@@ -9,7 +9,7 @@ class Experiment implements Interfaces
     public int $entry;
     public int $type; //0 = male, 1= female, 3=mix
     public float $time; //rt
-    public string $chosen; //id of chosen avatar
+    public int $chosen; //id of chosen avatar
     public string $uid; //user id
     public int $other; //other avatar id
     public int $key;

@@ -1,12 +1,5 @@
 <?php
 
-//push for associative arrays, right now it's not used
-function array_push_assoc($array, $key, $value)
-{
-	$array[$key] = $value;
-	return $array;
-}
-
 function equal_array($arr): array
 {
 	$ArrayObject = new ArrayObject($arr);
