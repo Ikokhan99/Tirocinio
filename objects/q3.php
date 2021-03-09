@@ -6,7 +6,7 @@ include_once "Q.php";
 class Q3 extends Q
 {
     const CONTROL_1_CORRECT = 5;
-    const CONTROL_2_CORRECT = 0;
+    const CONTROL_2_CORRECT = 1;
  
     // constructor
     public function __construct($db,$user_id)
