@@ -1,9 +1,7 @@
 <?php
 include_once "config/core.php";
-if(!empty($_POST) && (!isset($_POST['navigation']) || $_POST['navigation'] !== 'safe')){
-    if($_SESSION['visited_pages']['error']) {
-        header("Location: ".home_url."user_error.php");
-    }
+if(!empty($_POST) && (!isset($_POST['navigation']) || $_POST['navigation'] !== 'safe') && $_SESSION['visited_pages']['error']) {
+    header("Location: ".home_url."user_error.php");
 }
 
 $action = '';
@@ -12,7 +10,7 @@ $page_title="Start";
 include_once 'config/Foes.php';
 
 include_once 'config/database.php';
-if(isset($page_title)&& ($page_title!="Experiment" || $page_title!="Survey")){
+if(isset($page_title)&& ($page_title!=="Experiment" || $page_title!=="Survey")){
     $database = new Database();
     $db = $database->getConnection();
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -25,7 +23,7 @@ if(isset($_SESSION['at']))
 		<div class='t2'>For each couple, we ask you to choose your favourite avatar by pressing the <b>right</b> (&#8594) or <b>left</b> (&#8592) from the keyboard to select the avatar you prefer. </div><div class='t3'> (<b>right arrow = right avatar </b> & <b> left arrow = left avatar</b>).</div>";
     $title="Continue Test";
     $f="to continue";
-    if($_SESSION['at'] == 0)
+    if($_SESSION['at'] === 0)
     {
         //fist part
         $title="Begin test";
@@ -33,10 +31,10 @@ if(isset($_SESSION['at']))
 
         $page_index = 'Scelta1';
 
-    } elseif ($_SESSION['at'] == 1){
+    } elseif ($_SESSION['at'] === 1){
         $page_index = 'Scelta2';
     }
-    elseif ($_SESSION['at'] == 2){
+    elseif ($_SESSION['at'] === 2){
         $page_index = 'Scelta3';
         //mix case
         if(!fast_debug) {
@@ -60,8 +58,9 @@ if(isset($_SESSION['at']))
             {
                 $result[$i] = strval($result[$i]) . "m";
             }*/
-            if(debug)
-               print_r($result);
+            if(debug) {
+                print_r($result);
+            }
             //5 most frequent choices for females
             $type=1;
            // $stmt->bindParam(':id', $_SESSION['user-id']);

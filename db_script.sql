@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `Q3` (
 ) ENGINE = 'InnoDB';
 
 CREATE TABLE IF NOT EXISTS `Q4` (
-  `CONTROL_QUESTION` NOT NULL INT DEFAULT 0,
+  `CONTROL_QUESTION` INT NOT NULL DEFAULT 0,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man approach please himself', /*---Should be between 1 and 5   -   When approaching a woman, most men think more about what that women can do to please him than what he can do to please her*/
   `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'man approach have sex', 		 /*--Should be between 1 and 5   -   Most men tend to approach a woman only when they want to have sex with her.*/
   `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT 'man interest woman feelings', /*---Should be between 1 and 5   -   Most men are interested in women’s feelings because they want to be close to women.*/

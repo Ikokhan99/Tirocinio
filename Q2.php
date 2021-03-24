@@ -24,7 +24,7 @@ if (!empty($_POST)) {
         $q2->game1->realism2 = check_int($_POST["realism12"],0,5);
         $q2->game1->sexism = check_int($_POST["sexism1"],0,5);
         $q2->playtime = check_int($_POST["playtime"],0,4);
-        if($_POST["game2"] == '')
+        if($_POST["game2"] === '')
         {
             $q2->game2 = null;
         }

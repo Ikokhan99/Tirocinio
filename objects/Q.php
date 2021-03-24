@@ -13,7 +13,7 @@ abstract class Q implements Interfaces
     public array $control_questions;
     //public int $q_order; //bool
 
-    function get()
+    public function get()
     {
         $query = "SELECT * FROM".$this->table_name."WHERE user_id = ?";
         $stmt = $this->conn->prepare( $query );
@@ -21,11 +21,11 @@ abstract class Q implements Interfaces
         $stmt->execute();
         return $stmt;
     }
-    public function showError($stmt)
+    public function showError($stmt):void
     {
         echo "<pre>";
         print_r($stmt->errorInfo());
         echo "</pre>";
     }
-    public abstract function create();
+    abstract public function create();
 }

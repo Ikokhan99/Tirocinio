@@ -8,16 +8,15 @@ function equal_array($arr): array
 
 function test_input($string): string
 {
-    $string = strval($string);
-    if(strlen($string) >100)
+    $string = (string)$string;
+    if(strlen($string) >100) {
         return "User bad input";
+    }
     // ----- remove HTML TAGs -----
     $string = preg_replace ('/<[^>]*>/', ' ', $string);
 
     // ----- remove control characters -----
-    $string = str_replace("\r", '', $string);    // --- replace with empty space
-    $string = str_replace("\n", '', $string);   // --- replace with empty space
-    $string = str_replace("\t", '', $string);   // --- replace with empty space
+    $string = str_replace(array("\r", "\n", "\t"), '', $string);   // --- replace with empty space
 
     // ----- remove multiple spaces -----
     $string = trim(preg_replace('/ {2,}/', ' ', $string));
@@ -30,9 +29,8 @@ function check_int(int $val, int $min,int $max): int
     {
         return $min -1;
     }
-    else{
-        return $val;
-    }
+
+    return $val;
 }
 function generateRandomID($length = 10): string
 {
@@ -40,7 +38,10 @@ function generateRandomID($length = 10): string
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
+        try {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        } catch (Exception $e) {
+        }
     }
     return "dummy".$randomString;
 }

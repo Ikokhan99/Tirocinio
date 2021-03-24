@@ -25,21 +25,23 @@ class Q2 extends Q
 
     }
 
-    function create(): bool
+    public function create(): bool
     {
 
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $this->game1->create();
-        if($this->game2 != null)
+        if(!is_null($this->game2)) {
             $this->game2->create();
+        }
 
         $gens = "";
         foreach ($this->gens as $key => $gen)
         {
-            if($key != 0)
+            if($key !== 0) {
                 $gens .= ",";
+            }
             $gens.=$gen;
         }
 
@@ -47,7 +49,7 @@ class Q2 extends Q
                         :playtime,
                       '$gens',
                       ".$this->game1->id.",
-                      ".($this->game2 != null ? $this->game2->id:-1).",
+                      ".(!is_null($this->game2) ? $this->game2->id:-1).",
                       '$this->user_id');";
 
         $stmt = $this->conn->prepare($q);
@@ -62,11 +64,9 @@ class Q2 extends Q
         {
             return true;
         }
-        else
-        {
-            $this->showError($stmt);
-            return false;
-        }
+
+        $this->showError($stmt);
+        return false;
     }
 }
 
@@ -90,7 +90,7 @@ class GAME implements Interfaces {
         $this->realism2 = 0;
     }
 
-    function create(): bool
+    public function create(): bool
     {
 
         // var_dump($this);
@@ -121,16 +121,14 @@ class GAME implements Interfaces {
             $this->id=$this->conn->lastInsertId();
             return true;
         }
-        else
-        {
-            $this->showError($stmt);
-            return false;
-        }
+
+        $this->showError($stmt);
+        return false;
     }
 
 
 
-    public function showError($stmt)
+    public function showError($stmt) :void
     {
         echo "<pre>";
         print_r($stmt->errorInfo());

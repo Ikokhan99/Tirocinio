@@ -40,10 +40,9 @@ if (!empty($_POST)) {
     header("Location: ".home_url."Q1.php?action=goto");
     exit;
 }
-else {
-    include_once 'q_common.php';
-    $_SESSION['visited_pages']['q5'] = true;
-}
+
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q5'] = true;
 ?>
 
 <div style='text-align: center;'>
@@ -81,7 +80,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to physical coordination ? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R1' value='' id = 'R1' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R1' value='' id = 'R1' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -90,7 +89,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to health?</td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R2' value='' id = 'R2' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R2' value='' id = 'R2' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -99,7 +98,7 @@ foreach ($order as $num ) {
     <tr>
     <td> what rank do you assign to weight? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R3' value='' id = 'R3' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R3' value='' id = 'R3' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -108,7 +107,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to strength? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R4' value='' id = 'R4' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R4' value='' id = 'R4' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -117,7 +116,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to sex appeal? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R5' value='' id = 'R5' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R5' value='' id = 'R5' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -126,7 +125,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to physical attractiveness? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R6' value='' id = 'R6' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R6' value='' id = 'R6' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -135,7 +134,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to energy level (e.g., stamina)? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R7' value='' id = 'R7' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R7' value='' id = 'R7' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -144,7 +143,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to sculpted muscles? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R8' value='' id = 'R8' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R8' value='' id = 'R8' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -153,7 +152,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to physical fitness level? </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R9' value='' id = 'R9' onchange='check(this)' onblur='boi(this)' required >
+            <input type='number' min='0' max='9' name='R9' value='' id = 'R9' onchange='check(this)'  required >
         </td>
     </tr>
     ";break;
@@ -162,7 +161,7 @@ foreach ($order as $num ) {
     <tr>
     <td> What rank do you assign to measurements (e.g., chest, waist, hips)?  </td>
         <td style='text-align: center'>
-            <input type='number' min='0' max='9' name='R10' value='' id = 'R10' onchange='check(this)' onblur='boi(this)'  required >
+            <input type='number' min='0' max='9' name='R10' value='' id = 'R10' onchange='check(this)' required >
         </td>
     </tr>
     ";break;
@@ -182,22 +181,31 @@ foreach ($order as $num ) {
     const max = 9;
     const min = 0;
     let ans = [err,err,err,err,err, err,err,err,err,err];
-    function boi(element){
+
+    //force focus
+    /*function boi(element){
         if(element.value === ''){
             document.getElementById(element.id).focus();
         }
-    }
+    }*/
+
     function check(element) {
         let n = parseInt(element.id.substring(1)) -1;
         ans[n] =err;
         if(ans.includes(element.value) || element.value > max || element.value < min)
         {
-           document.getElementById(element.id).value = '';
+            //auto delete number
+           //document.getElementById(element.id).value = '';
+
+            ans[n] =err;
+            document.getElementById('button').disabled = true;
         } else {
             ans[n] = element.value;
         }
         if(!ans.includes(err))
-        {document.getElementById('button').removeAttribute('disabled');}
+        {
+            document.getElementById('button').disabled = false;
+        }
 
     }
 

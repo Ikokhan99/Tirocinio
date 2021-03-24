@@ -18,7 +18,12 @@ AnalisiClassiche(FEMALE)
 #AnalisiMiste(MALE)
 AnalisiMiste(FEMALE)
 
-
+query <- "select time
+          from user
+          where time != 0"
+rs <- dbSendQuery(mydb, query)
+tempi <- fetch(rs, n=-1)
+boxplot(tempi/60)
 #microbenchmark(foo(), times = 200)
 
 ile <- length(dbListConnections(MySQL())  )

@@ -28,14 +28,15 @@ class User /*implements Interfaces*/
         $this->sexid = 0;
     }
 
-	function create($id): bool
+	public function create($id): bool
     {
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		if(is_null($id))
         {
-            if(debug)
-                echo ("id is null");
+            if(debug) {
+                echo("id is null");
+            }
             $temp_id = generateRandomID(25);
             if(debug)
             {
@@ -50,8 +51,9 @@ class User /*implements Interfaces*/
             //we are going to use the prolific id
         } else{
 		    //echo ("id is not null");
-		    if(isset($_SESSION['user-id']))
-                $q = "UPDATE user SET sexid= $this->sex,age= $this->age,sexor= $this->sexor where id='".$_SESSION['user-id']."';";
+		    if(isset($_SESSION['user-id'])) {
+                $q = "UPDATE user SET sexid= $this->sex,age= $this->age,sexor= $this->sexor where id='" . $_SESSION['user-id'] . "';";
+            }
 		    else{
                 $_SESSION['user-id'] = $id;
                 $q = "INSERT INTO user VALUES('$id',$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
@@ -70,20 +72,17 @@ class User /*implements Interfaces*/
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
         }
-		if($this->stmt)
-		    return true;
-		else
-        {
-            print_r("This ID has already done the experiment" );
-            die();
-
+		if($this->stmt) {
+            return true;
         }
 
+        print_r("This ID has already done the experiment" );
+        die();
 
- 
-	}
-	public function showError($stmt)
-	{
+
+    }
+	public function showError($stmt): void
+    {
 		echo "<pre>";
             print_r("This ID has already done the experiment" );
         echo "</pre>";

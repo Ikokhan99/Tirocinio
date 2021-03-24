@@ -23,7 +23,7 @@ class q5 extends Q
         $this->user_id = $user_id;
     }
 
-    function create(): bool
+    public function create(): bool
     {
 
         // var_dump($this);
@@ -63,11 +63,9 @@ class q5 extends Q
         {
             return true;
         }
-        else
-        {
-            $this->showError($stmt);
-            return false;
-        }
+
+        $this->showError($stmt);
+        return false;
 
     }
 }

@@ -18,8 +18,9 @@ $database = new Database();
 $db = $database->getConnection();
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if(debug)
+if(debug) {
     var_dump($_POST);
+}
 
 if (!empty($_POST)) {
     if(!fast_debug) {
@@ -44,10 +45,10 @@ if (!empty($_POST)) {
     header("Location: ".home_url."Q1.php?action=goto");
     exit;
 
-} else {
-    include_once 'q_common.php';
-    $_SESSION['visited_pages']['q4'] = true;
 }
+
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q4'] = true;
 ?>
 <!-- TODO: fix css -->
 <div style='text-align: center;' class= 'container-fluid'>

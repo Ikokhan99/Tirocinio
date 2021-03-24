@@ -44,8 +44,9 @@ if (!empty($_POST)) {
             check_int($_POST["Q21"],1,6),
             check_int($_POST["Q22"],1,6)
         );
-        if(debug)
+        if(debug) {
             var_dump($q3);
+        }
         
         if (!$q3->create()) {
             die();
@@ -54,10 +55,9 @@ if (!empty($_POST)) {
     header("Location: ".home_url."Q1.php?action=goto");
     exit;
 }
-else {
-    include_once 'q_common.php';
-    $_SESSION['visited_pages']['q3'] = true;
-}
+
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q3'] = true;
 ?>
 <div style="text-align: center;" class= 'container-fluid'>
 <form action="Q3.php" method="post">

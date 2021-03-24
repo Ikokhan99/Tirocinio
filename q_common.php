@@ -11,7 +11,7 @@ if(debug)
 }
 include_once "layout_head.php";
 if(user_error) {
-    if (empty($_GET) || (!isset($_GET['s']) || $_GET['s'] != 0)) {
+    if (empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== '0')) {
 
         header("Location: " . home_url . "user_error.php?error=common");
         exit;

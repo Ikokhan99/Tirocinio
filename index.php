@@ -11,10 +11,14 @@ if(isset($_GET['PROLIFIC_PID']))
         $_SESSION['prolific'] = true;
         // $_SESSION['user-id'] = $_GET['PROLIFIC_PID'];  already set in user create
         $id = $_GET['PROLIFIC_PID'];
-        if($_GET['STUDY_ID'] === 'Mavatar')
-            $_SESSION['user-sex'] = 0; // male participants
-        else
-            $_SESSION['user-sex'] = 1; // female participants
+        if($_GET['STUDY_ID'] === 'Mavatar') {
+            $_SESSION['user-sex'] = 0;
+            $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=CC4A225F";
+        } // male participants
+        else {
+            $_SESSION['user-sex'] = 1;
+            $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=4F67FA61";
+        } // female participants
     }
 else{
     $id = null;
@@ -40,12 +44,12 @@ $_SESSION['time'] = time();
 $exp_order = range(1, 2); // 1 = male, 2 = female
 shuffle($exp_order);
 $_SESSION['exp'] = $exp_order; //saving in session
-array_push($_SESSION['exp'], 3); //the mix should always be last
+$_SESSION['exp'][] = 3; //the mix should always be last
 
 $q_order = range(3, 5);
 
 shuffle($q_order);
-array_push($q_order, 2);
+$q_order[] = 2;
 $_SESSION['Q'] = $q_order;
 //male order
 $_SESSION['p_male'] = array();
@@ -76,22 +80,19 @@ if (!fast_debug) {
     include_once 'objects/user.php';
     /** @var  $db , declared and initialized in head */
     $user = new User($db);
-    if(isset($_SESSION['user-sex']))
+    if(isset($_SESSION['user-sex'])) {
         $user->sex = $_SESSION['user-sex'];
+    }
     else {
         try {
             $user->sex = random_int(0, 1);
         } catch (Exception $e) {
-            echo "rip for php";
+            $error = true;
         }
     }
     $error = !$user->create($id);
 }
 
-
-//now, time for the avatar's img
-//if(fast_debug)
-//{
 $m_img = array('avatar/01_m' . IMG_EXT,
     'avatar/02_m' . IMG_EXT,
     'avatar/03_m' . IMG_EXT,
@@ -147,15 +148,7 @@ if (debug) {
     print_r($_SESSION['user-id']);
 }
 
-/*
-if(!fast_debug){
-    //start transaction
-    $_SESSION['db']->exec('DECLARE `_rollback` BOOL DEFAULT 0;');
-    $_SESSION['db']->exec('DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;');
-}*/
 
-
-// create the user and start transaction
 if ((isset($error) && $error === false) || fast_debug) {
 
     echo "

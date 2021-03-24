@@ -6,51 +6,49 @@ include_once 'config/Foes.php';
 $page_index = 'q1';
 
 
-if (!empty($_POST)) {
-    if(!fast_debug) {
+if (!empty($_POST) && !fast_debug) {
 
-        include_once 'config/database.php';
-        $database = new Database();
-        $db = $database->getConnection();
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $user = new User($db);
-        $user->sexor = check_int($_POST['user-sexor'],0,4);
-        $user->sex = check_int($_POST['user-sex'],0,1);
-        $user->age = check_int($_POST['user-age'],18,70);
+    include_once 'config/database.php';
+    $database = new Database();
+    $db = $database->getConnection();
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $user = new User($db);
+    $user->sexor = check_int($_POST['user-sexor'],0,4);
+    $user->sex = check_int($_POST['user-sex'],0,1);
+    $user->age = check_int($_POST['user-age'],18,70);
 
-        $user->create($_SESSION['user-id']);
+    $user->create($_SESSION['user-id']);
 
-    }
 }
-if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET)&& isset($_GET['action']) && $_GET['action']=='goto') )
+if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET)&& isset($_GET['action']) && $_GET['action']==='goto') )
 {
     switch ($_SESSION['Q'][$_SESSION['at']]){
         case 2:{
-        $_SESSION['at'] += 1;
+        ++$_SESSION['at'];
             header("Location: ".home_url."Q2.php?s=0");
             exit;
             //break;
         }
         case 3:{
-            $_SESSION['at'] += 1;
+            ++$_SESSION['at'];
             header("Location: ".home_url."Q3.php?s=0");
             exit;
             //break;
         }
         case 4:{
-            $_SESSION['at'] += 1;
+            ++$_SESSION['at'];
             header("Location: ".home_url."Q4.php?s=0");
             exit;
             //break;
         }
         case 5:{
-            $_SESSION['at'] += 1;
+            ++$_SESSION['at'];
             header("Location: ".home_url."Q5.php?s=0");
             exit;
             //break;
         }
         case 6:default:{
-            $_SESSION['at'] += 1;
+            ++$_SESSION['at'];
             header("Location: ".home_url."last.php?s=0");
             exit;
            // break;
@@ -64,7 +62,7 @@ else{
     include_once "layout_head.php";
     $_SESSION['visited_pages']['q1'] = true;
 //check for non-guided navigation
-    if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] != 0)){
+    if(empty($_GET) || (!isset($_GET['s']) || $_GET['s'] !== '0')){
         if(user_error) {
             header("Location: ".home_url."user_error.php?error=badQ1");
             exit;

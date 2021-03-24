@@ -4,7 +4,7 @@
 function permutations($pool, $r = null) {
     $n = count($pool);
 
-    if ($r == null) {
+    if ($r === null) {
         $r = $n;
     }
 
@@ -24,12 +24,12 @@ function permutations($pool, $r = null) {
     while (true) {
         $exit_early = false;
         for ($i = $r;$i--;$i >= 0) {
-            $cycles[$i]-= 1;
-            if ($cycles[$i] == 0) {
+            --$cycles[$i];
+            if ($cycles[$i] === 0) {
                 // Push whatever is at index $i to the end, move everything back
                 if ($i < count($indices)) {
                     $removed = array_splice($indices, $i, 1);
-                    array_push($indices, $removed[0]);
+                    $indices[] = $removed[0];
                 }
                 $cycles[$i] = $n - $i;
             } else {
@@ -42,9 +42,11 @@ function permutations($pool, $r = null) {
                 $result = [];
                 $counter = 0;
                 foreach ($indices as $indx) {
-                    array_push($result, $pool[$indx]);
+                    $result[] = $pool[$indx];
                     $counter++;
-                    if ($counter == $r) break;
+                    if ($counter === $r) {
+                        break;
+                    }
                 }
                 yield $result;
                 $exit_early = true;
@@ -112,13 +114,13 @@ function combine($array, $k, $callback,int $type)
 function exec_combine(int $k,$array,int $type)
 {
 
-    $callback = function ($record,$type) {
-        if($type == 1){
-            array_push($_SESSION['p_male'], $record);
-        } elseif($type==2){
-            array_push($_SESSION['p_female'], $record);
+    $callback = static function ($record, $type) {
+        if($type === 1){
+            $_SESSION['p_male'][] = $record;
+        } elseif($type===2){
+            $_SESSION['p_female'][] = $record;
         } else{
-            array_push($_SESSION['p_mix'], $record);
+            $_SESSION['p_mix'][] = $record;
         }
 
     };

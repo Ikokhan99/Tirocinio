@@ -26,7 +26,7 @@ class Experiment implements Interfaces
         $this->key = 0;
     }
 
-    function create(): bool
+    public function create(): bool
     {
 
         // var_dump($this);
@@ -51,25 +51,26 @@ class Experiment implements Interfaces
         {
             return true;
         }
-        else
-        {
-            $this->showError($stmt);
-            return false;
-        }
+
+        $this->showError($stmt);
+        return false;
 
     }
 
-    function get($id,$entry)
-    {
-        $query = "SELECT * FROM choice WHERE user_id = ? AND entry = ?";
-        $stmt = $this->conn->prepare( $query );
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
-        $stmt->bindParam(2, $entry, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt;
-    }
+// --Commented out by Inspection START (24/03/2021 15:30):
+//    public function get($id, $entry)
+//    {
+//        $query = "SELECT * FROM choice WHERE user_id = ? AND entry = ?";
+//        $stmt = $this->conn->prepare( $query );
+//        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+//        $stmt->bindParam(2, $entry, PDO::PARAM_INT);
+//        $stmt->execute();
+//        return $stmt;
+//    }
+// --Commented out by Inspection STOP (24/03/2021 15:30)
 
-    public function showError($stmt)
+
+    public function showError($stmt):void
     {
         echo "<pre>";
         print_r($stmt->errorInfo());

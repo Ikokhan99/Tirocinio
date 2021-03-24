@@ -10,25 +10,25 @@ if(skip_experiment)
     header("Location: ".home_url."Q1.php?s=0");
     exit;
 }
-if(fast_debug && $_SESSION['at']==2)
+/*if(fast_debug && $_SESSION['at']===2)
 {
     $_SESSION['at']=0;
     header("Location: ".home_url."Q1.php");
     exit;
-}
+}*/
 
 //prolific academic
 //this checks if the user has refreshed the page during the experiment  TODO:wip
 if($_SESSION['permutation']>0)
 {
-    if($_SESSION['last_chosen'] === (strval($_POST['a1']).strval($_POST['a2'])))
+    if($_SESSION['last_chosen'] === ($_POST['a1'] . $_POST['a2']))
     {
         if(user_error) {
             header("Location: " . home_url . "user_error.php?error=refresh");
             exit;
         }
     } else {
-        $_SESSION['last_chosen'] = strval($_POST['a1']).strval($_POST['a2']);
+        $_SESSION['last_chosen'] = $_POST['a1'] . $_POST['a2'];
     }
 } else {
     $_SESSION['last_chosen']="0";
@@ -51,10 +51,10 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $exp = new Experiment($db, $_SESSION['user-id']);
         $exp->entry = $_SESSION['permutation'] + 1;
-        if ($_SESSION['exp'][$_SESSION['at']] == 1) //male case
+        if ($_SESSION['exp'][$_SESSION['at']] === 1) //male case
         {
             $exp->type = 0;
-        } elseif ($_SESSION['exp'][$_SESSION['at']] == 2) // female case
+        } elseif ($_SESSION['exp'][$_SESSION['at']] === 2) // female case
         {
             $exp->type = 1;
         } else {
@@ -62,17 +62,17 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
         }
         $exp->chosen = $_POST['id'];
         $exp->time = $_POST['time'];
-        $exp->key = $_POST['key'] == 0?0:1;
+        $exp->key = $_POST['key'] === 0?0:1;
 
         $a1 = $_POST['a1'];
         $a2 = $_POST['a2'];
 
-        if ($exp->type == 0){
-            $a1 =  intval($a1) + 16;
-            $a2 = intval($a2) + 16;
+        if ($exp->type === 0){
+            $a1 =  (int)$a1 + 16;
+            $a2 = (int)$a2 + 16;
         }
 
-        if($exp->key == 0){
+        if($exp->key === 0){
             $exp->chosen = $a1;
             $exp->other = $a2;
         } else {
@@ -88,22 +88,20 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
     }
 
 
-    $_SESSION['permutation'] += 1;
+    ++$_SESSION['permutation'];
 }
-if($_SESSION['exp'][$_SESSION['at']]!=3){
+if($_SESSION['exp'][$_SESSION['at']]!==3){
     if ($_SESSION['permutation'] >= TOTAL_PERMUTATIONS){
         $_SESSION['permutation'] = 0;
-        $_SESSION['at'] +=1;
+        ++$_SESSION['at'];
         header("Location: ".home_url."SceltaAvatar.php");
         exit;
     }
-} else {
-    if ($_SESSION['permutation'] >= 25){
-       unset( $_SESSION['permutation'] );
-        $_SESSION['at'] =0;
-        header("Location: ".home_url."Q1.php?s=0");
-        exit;
-    }
+} else if ($_SESSION['permutation'] >= 25){
+    unset( $_SESSION['permutation'] );
+    $_SESSION['at'] =0;
+    header("Location: ".home_url."Q1.php?s=0");
+    exit;
 }
 //                          3
 /*if($_SESSION['at'] == n_experiment)
@@ -123,30 +121,30 @@ if(debug){
 }
 switch ($_SESSION['exp'][$_SESSION['at']]) {
     case 1:default:{ //male
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".strval($_SESSION['p_male'][$_SESSION['permutation']][0])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
-        echo "<img src=\"".$_SESSION['i_male'][$_SESSION['p_male'][$_SESSION['permutation']][0]-1]."\">";
-        echo "</button>";
-        echo "<input type='hidden' id='key' name='key' value='' >";
-        echo "<input type='hidden' id='time' name='time' value='0' >";
-        echo "<input type='hidden' id='a1' name='a1' value='".strval($_SESSION['p_male'][$_SESSION['permutation']][0])."'>";
-        echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_male'][$_SESSION['permutation']][1])."'>";
-        echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".strval($_SESSION['p_male'][$_SESSION['permutation']][1])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+    echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='". $_SESSION['p_male'][$_SESSION['permutation']][0] ."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+    echo "<img src=\"".$_SESSION['i_male'][$_SESSION['p_male'][$_SESSION['permutation']][0]-1]."\">";
+    echo "</button>";
+    echo "<input type='hidden' id='key' name='key' value='' >";
+    echo "<input type='hidden' id='time' name='time' value='0' >";
+    echo "<input type='hidden' id='a1' name='a1' value='". $_SESSION['p_male'][$_SESSION['permutation']][0] ."'>";
+    echo "<input type='hidden' id='a2' name='a2' value='". $_SESSION['p_male'][$_SESSION['permutation']][1] ."'>";
+    echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
+    echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='". $_SESSION['p_male'][$_SESSION['permutation']][1] ."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
     echo "<img src=\"".$_SESSION['i_male'][$_SESSION['p_male'][$_SESSION['permutation']][1]-1]."\">";
 
 
-        break;
-    }
+    break;
+}
     case 2:{//female
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".strval($_SESSION['p_female'][$_SESSION['permutation']][0])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='". $_SESSION['p_female'][$_SESSION['permutation']][0] ."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
         echo "<img src=\"".$_SESSION['i_female'][$_SESSION['p_female'][$_SESSION['permutation']][0]-1]."\">";
         echo "</button>";
         echo "<input type='hidden' id='key' name='key' value='' >";
         echo "<input type='hidden' id='time' name='time' value='0' >";
-        echo "<input type='hidden' id='a1' name='a1' value='".strval($_SESSION['p_female'][$_SESSION['permutation']][0])."'>";
-        echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_female'][$_SESSION['permutation']][1])."'>";
+        echo "<input type='hidden' id='a1' name='a1' value='". $_SESSION['p_female'][$_SESSION['permutation']][0] ."'>";
+        echo "<input type='hidden' id='a2' name='a2' value='". $_SESSION['p_female'][$_SESSION['permutation']][1] ."'>";
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
-        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".strval($_SESSION['p_female'][$_SESSION['permutation']][1])."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
+        echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='". $_SESSION['p_female'][$_SESSION['permutation']][1] ."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
         echo "<img src=\"".$_SESSION['i_female'][$_SESSION['p_female'][$_SESSION['permutation']][1]-1]."\">";
         break;
 
@@ -155,14 +153,14 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         if(debug){
             print_r( $_SESSION['p_mix']);
             print_r( $_SESSION['p_mix'][$_SESSION['permutation']]);
-            print_r($_SESSION['i_male'][ intval($_SESSION['p_mix'][$_SESSION['permutation']][0]) -16 - 1]);
-            print_r($_SESSION['i_female'][ intval($_SESSION['p_mix'][$_SESSION['permutation']][1]) - 1]);
+            print_r($_SESSION['i_male'][ (int)$_SESSION['p_mix'][$_SESSION['permutation']][0] -16 - 1]);
+            print_r($_SESSION['i_female'][ (int)$_SESSION['p_mix'][$_SESSION['permutation']][1] - 1]);
             echo "<br>";
-      echo $_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1];
+            echo $_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1];
         }
 
         echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][0]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
-        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][0]) ;
+        $n = (int)$_SESSION['p_mix'][$_SESSION['permutation']][0];
         if($n > 16){ //male case
             echo "<img src=\"".$_SESSION['i_male'][ $n-16 -1]."\">";
         } else {
@@ -172,12 +170,12 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
         echo "</button>";
         echo "<input type='hidden' id='time' name='time' value='0' >";
         echo "<input type='hidden' id='key' name='key' value='' >";
-        echo "<input type='hidden' id='a1' name='a1' value='".strval($_SESSION['p_mix'][$_SESSION['permutation']][0])."'>";
-        echo "<input type='hidden' id='a2' name='a2' value='".strval($_SESSION['p_mix'][$_SESSION['permutation']][1])."'>";
+        echo "<input type='hidden' id='a1' name='a1' value='". $_SESSION['p_mix'][$_SESSION['permutation']][0] ."'>";
+        echo "<input type='hidden' id='a2' name='a2' value='". $_SESSION['p_mix'][$_SESSION['permutation']][1] ."'>";
         echo "</td><td class='very-small' ><h3>+</h3></td><td class='half'>";
         echo "<button type= \"submit\" name=\"id\" id=\"chosenR\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][1]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
 
-        $n = intval($_SESSION['p_mix'][$_SESSION['permutation']][1]) ;
+        $n = (int)$_SESSION['p_mix'][$_SESSION['permutation']][1];
         if($n > 16){ //male case
             echo "<img src=\"".$_SESSION['i_male'][ $n-16 -1]."\">";
         } else {
@@ -199,7 +197,7 @@ echo    "</button>
 
 
 <script type="text/javascript" >
-loadCSS("libs/CSS/choice.css");
+    loadCSS("libs/CSS/choice.css");
 
     document.body.style.cursor = 'none';
     //const tempo1 = Math.round(+new Date() / 1000);
@@ -220,14 +218,14 @@ loadCSS("libs/CSS/choice.css");
             {
                 case 'ArrowLeft':
                 {
-                        button_click(0)
-                        break;
+                    button_click(0)
+                    break;
                 }
                 case 'ArrowRight':
-                    {
-                        button_click(1)
-                        break;
-                    }
+                {
+                    button_click(1)
+                    break;
+                }
                 default:{break;}
 
             }
@@ -240,56 +238,56 @@ loadCSS("libs/CSS/choice.css");
         document.getElementById('time').setAttribute("value",time.toString());
         if(n===0)
         {
-             button= document.getElementById("chosenL");
-             document.getElementById('key').setAttribute("value","0");
+            button= document.getElementById("chosenL");
+            document.getElementById('key').setAttribute("value","0");
         } else {
-             button= document.getElementById("chosenR");
-             document.getElementById('key').setAttribute("value","1");
+            button= document.getElementById("chosenR");
+            document.getElementById('key').setAttribute("value","1");
         }
 
         button.click();
     }
 
-window.setTimeout("click()", 1000);
+    window.setTimeout("click()", 1000);
 
 </script>
 
 <?php
-    include_once 'layout_foot.php';
-    ?>
+include_once 'layout_foot.php';
+?>
 
 <style>
-img {
-  cursor: none;
-  }
-  
-body {
-  overflow-y: hidden; 
-  overflow-x: hidden; 
-  cursor: none;
-  }
- 
-.centered {
-display:inline-block;
-width: 75%;
-height: 75%;
-/*padding: 20px; */
-padding-top: 20px;
-}
-@media only screen and ( max-height: 635px ){
-.centered {
-width: 800px;
-height: 800px;
-/*padding: 20px;  /*Lets give these guy's some padding*/
-padding-top: 20px;
-}
-}
-@media only screen and ( max-height: 445px ){
-.centered {
-width: 600px;
-height: 600px;
-/*padding: 20px;  /*Lets give these guy's some padding*/
-padding-top: 20px;
-}
-}
+    img {
+        cursor: none;
+    }
+
+    body {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        cursor: none;
+    }
+
+    .centered {
+        display:inline-block;
+        width: 75%;
+        height: 75%;
+        /*padding: 20px; */
+        padding-top: 20px;
+    }
+    @media only screen and ( max-height: 635px ){
+        .centered {
+            width: 800px;
+            height: 800px;
+            /*padding: 20px;  /*Lets give these guy's some padding*/
+            padding-top: 20px;
+        }
+    }
+    @media only screen and ( max-height: 445px ){
+        .centered {
+            width: 600px;
+            height: 600px;
+            /*padding: 20px;  /*Lets give these guy's some padding*/
+            padding-top: 20px;
+        }
+    }
 </style>

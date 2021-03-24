@@ -1,25 +1,12 @@
 <?php
 include_once "config/core.php";
-if(!isset($_SESSION['prolific']))
+if(!isset($_SESSION['prolific'])) {
     exit("Esperimento di prova terminato");
-if($_SESSION['user-sex'] === 0)
-{
-    $m = true;
 }
-else
-{
-    $m = false;
+if(debug){
+    echo ("Final url: ") . $_SESSION["final_url"];
+    exit();
 }
+header("Location:" . $_SESSION["final_url"]);/* Redirect browser *//* Make sure that code below does not get executed when we redirect. */
 session_destroy();
-
-if($m)
-{
-    header("Location: https://app.prolific.co/submissions/complete?cc=CC4A225F"); /* Redirect browser */
-    /* Make sure that code below does not get executed when we redirect. */
-    exit;
-}
-else {
-    header("Location: https://app.prolific.co/submissions/complete?cc=4F67FA61"); /* Redirect browser */
-    /* Make sure that code below does not get executed when we redirect. */
-    exit;
-}
+exit;
