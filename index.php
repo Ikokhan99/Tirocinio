@@ -11,7 +11,7 @@ if(isset($_GET['PROLIFIC_PID']))
         $_SESSION['prolific'] = true;
         // $_SESSION['user-id'] = $_GET['PROLIFIC_PID'];  already set in user create
         $id = $_GET['PROLIFIC_PID'];
-        if($_GET['STUDY_ID'] === 'Mavatar') {
+        if(isset($_GET['Mavatar']) ) {
             $_SESSION['user-sex'] = 0;
             $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=CC4A225F";
         } // male participants
