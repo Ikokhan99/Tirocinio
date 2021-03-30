@@ -2,9 +2,9 @@
 // core configuration
 include_once "config/core.php";
 
-include_once 'config/database.php';
-include_once 'objects/user.php';
-include_once 'objects/q5.php';
+include_once 'config/Database.php';
+include_once 'objects/User.php';
+include_once 'objects/Q5.php';
 
 // page title
 $order = range(1,10);
@@ -13,7 +13,7 @@ $page_index = 'q5';
 
 
 $page_title = "Survey";
-include_once 'config/database.php';
+include_once 'config/Database.php';
 $database = new Database();
 $db = $database->getConnection();
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

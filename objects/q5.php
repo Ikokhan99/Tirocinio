@@ -2,7 +2,7 @@
 include_once "./config/Foes.php";
 include_once "Q.php";
 
-class q5 extends Q
+class Q5 extends Q
 {
 
 /*'physical coordination',

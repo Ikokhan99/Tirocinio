@@ -4,7 +4,7 @@ include_once "Interfaces.php";
 class Experiment implements Interfaces
 {
     // database connection and table name
-    public $conn;
+    public PDO $conn;
     //object properties
     public int $entry;
     public int $type; //0 = male, 1= female, 3=mix
@@ -32,7 +32,7 @@ class Experiment implements Interfaces
         // var_dump($this);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $q = "INSERT INTO choice VALUES(null,:entry,:type,:time,:chosen,".$this->key.",:uid,:a1);";
+        $q = "INSERT INTO choice VALUES(null,:entry,:type,:time,:chosen,b'$this->key',:uid,:a1);";
 
 
         // var_dump($q);

@@ -6,9 +6,9 @@ class Database
     private string $db_name = "VaesDB";
     private string $username = "root";
     private string $password = "";
-    public $conn;
+    public ?PDO $conn;
  
-    public function getConnection(): PDO
+    public function getConnection(): ?PDO
     {
  
         $this->conn = null;

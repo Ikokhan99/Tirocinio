@@ -14,7 +14,7 @@ echo "
 </td></tr></table></td></tr></table>";
 
 
-include_once 'config/database.php';
+include_once 'config/Database.php';
 $database = new Database();
 $db = $database->getConnection();
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -47,6 +47,7 @@ $stmt->execute();
 
     // Run countdown function
     countdown();
+    $(document).off("keydown", disableF5);
 </script>
 <?php
 include_once "layout_foot.php";

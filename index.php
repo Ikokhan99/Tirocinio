@@ -77,7 +77,7 @@ $_SESSION['Q5'] = $q_order;
 
 //db
 if (!fast_debug) {
-    include_once 'objects/user.php';
+    include_once 'objects/User.php';
     /** @var  $db , declared and initialized in head */
     $user = new User($db);
     if(isset($_SESSION['user-sex'])) {

@@ -1,6 +1,6 @@
 <?php
 include_once 'config/core.php';
-include_once 'config/database.php';
+include_once 'config/Database.php';
 
 echo "Page was refreshed or reloaded. Bad user";
 $_SESSION['visited_pages']['error'] = true;

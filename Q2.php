@@ -11,7 +11,7 @@ $page_index = 'q2';
 
 if (!empty($_POST)) {
     if(!fast_debug) {
-        include_once 'config/database.php';
+        include_once 'config/Database.php';
         $database = new Database();
         $db = $database->getConnection();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

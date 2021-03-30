@@ -9,7 +9,7 @@ $page_title="Start";
 
 include_once 'config/Foes.php';
 
-include_once 'config/database.php';
+include_once 'config/Database.php';
 if(isset($page_title)&& ($page_title!=="Experiment" || $page_title!=="Survey")){
     $database = new Database();
     $db = $database->getConnection();

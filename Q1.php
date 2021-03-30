@@ -1,14 +1,14 @@
 <?php
 // core configuration
 include_once "config/core.php";
-include_once 'objects/user.php';
+include_once 'objects/User.php';
 include_once 'config/Foes.php';
 $page_index = 'q1';
 
 
 if (!empty($_POST) && !fast_debug) {
 
-    include_once 'config/database.php';
+    include_once 'config/Database.php';
     $database = new Database();
     $db = $database->getConnection();
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

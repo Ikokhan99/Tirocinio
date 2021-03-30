@@ -44,8 +44,8 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
             var_dump($_POST);
         }
         //inserting previous result at db
-        include_once 'objects/experiment.php';
-        include_once 'config/database.php';
+        include_once 'objects/Experiment.php';
+        include_once 'config/Database.php';
         $database = new Database();
         $db = $database->getConnection();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -62,7 +62,7 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
         }
         $exp->chosen = $_POST['id'];
         $exp->time = $_POST['time'];
-        $exp->key = $_POST['key'] === 0?0:1;
+        $exp->key = $_POST['key'] === '0'?0:1;
 
         $a1 = $_POST['a1'];
         $a2 = $_POST['a2'];
@@ -218,12 +218,14 @@ echo    "</button>
             {
                 case 'ArrowLeft':
                 {
-                    button_click(0)
+                    //console.log("0");
+                    button_click(0);
                     break;
                 }
                 case 'ArrowRight':
                 {
-                    button_click(1)
+                    //console.log("1");
+                    button_click(1);
                     break;
                 }
                 default:{break;}

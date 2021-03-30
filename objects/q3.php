@@ -89,8 +89,7 @@ class Q3 extends Q
             if(($this->control_questions[0] !== self::CONTROL_1_CORRECT) || ($this->control_questions[1] !== self::CONTROL_2_CORRECT))
             {
                 $q = "UPDATE user SET trusted = 1 where id='".$_SESSION['user-id']."';";
-                $stmt = $this->conn->prepare($q);
-                $stmt->execute();
+                $stmt = $this->conn->query($q);
             }
             return true;
         }

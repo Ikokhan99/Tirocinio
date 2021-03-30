@@ -4,7 +4,7 @@ include_once "Interfaces.php";
 abstract class Q implements Interfaces
 {
     // database connection and table name
-    public $conn;
+    public PDO $conn;
 
     // object properties
     public string $user_id;

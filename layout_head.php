@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- set the page title-->
-    <title><?php echo isset($page_title) ? strip_tags($page_title) : "Unitn Experiment"; ?></title>
+    <title><?php echo $page_title ?? "Unitn Experiment"; ?></title>
 
     <!-- Include ext. libs -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -29,6 +29,55 @@
 
         }
         loadCSS("libs/CSS/style.css");
+
+        //found on https://stackoverflow.com/questions/2482059/disable-f5-and-browser-refresh-using-javascript
+        // slight update to account for browsers not supporting e.which
+        function disableF5(e)
+        {
+            //82 for mac users
+            if (((e.which ||e.key) === 116) || ((e.which || e.key) === 82))
+            {
+                e.preventDefault();
+               //console.log(e)
+            }
+
+        }
+        $(document).ready(function(){
+            $(document).on("keydown", disableF5);
+        });
+
+
+        //prevent the user from going back
+        //props to https://stackoverflow.com/a/12381873/11384956
+        (function (global) {
+
+            if(typeof (global) === "undefined") {
+                throw new Error("window is undefined");
+            }
+
+            let _hash = "!";
+            let noBackPlease = function () {
+                global.location.href += "#";
+
+                // Making sure we have the fruit available for juice (^__^)
+                global.setTimeout(function () {
+                    global.location.href += "!";
+                }, 50);
+            };
+            global.onhashchange = function () {
+                if (global.location.hash !== _hash) {
+                    global.location.hash = _hash;
+                }
+            };
+            global.onload = function () {
+                noBackPlease();
+            }
+        })(window);
+
+
+        /*jQuery >= 1.7 */
+        //$(document).on("keydown", disableF5);
+
 
     </script>
 
@@ -60,7 +109,7 @@
                     }
               </script>";
         }
-    include_once 'config/database.php';
+    include_once 'config/Database.php';
     if(isset($page_title)&& ($page_title!=="Experiment" || $page_title!=="Survey" || $page_title !== "Start")){
         $database = new Database();
         $db = $database->getConnection();

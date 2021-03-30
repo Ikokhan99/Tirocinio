@@ -7,7 +7,7 @@ class User /*implements Interfaces*/
 {
  
     // database connection and table name
-    public $conn;
+    public PDO $conn;
  
     // object properties
     public int $id;
@@ -16,9 +16,7 @@ class User /*implements Interfaces*/
 	public int $sexor; //sexual orientation
 	public int $age;
 
-    private $stmt;
-
-	//constructor
+    //constructor
     public function __construct($db)
 	{
         $this->conn = $db;
@@ -45,7 +43,7 @@ class User /*implements Interfaces*/
             $_SESSION['user-id'] = $temp_id;
             $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
             // var_dump($q);
-            $this->stmt = $this->conn->query($q);
+            $stmt = $this->conn->query($q);
             //$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
@@ -60,7 +58,7 @@ class User /*implements Interfaces*/
             }
             // var_dump($q);
             try {
-                $this->stmt = $this->conn->query($q);
+                $stmt = $this->conn->query($q);
             } catch (PDOException $e){
                 print_r("This USER has already done the experiment" );
                 die;
@@ -72,7 +70,7 @@ class User /*implements Interfaces*/
             //$_SESSION['uid'] = $this->conn->lastInsertId();
             //we are going to use the prolific id
         }
-		if($this->stmt) {
+		if($stmt) {
             return true;
         }
 

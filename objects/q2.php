@@ -71,7 +71,7 @@ class Q2 extends Q
 }
 
 class GAME implements Interfaces {
-    public $conn;
+    public PDO $conn;
 
     public int $id;
     public string $title;
