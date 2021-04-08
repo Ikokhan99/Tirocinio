@@ -11,7 +11,7 @@ MALE <- 0
 FEMALE <- 1
 
 #mydb = dbConnect(MySQL(), user='user', password='password', dbname='database_name', host='host')
-mydb <- dbConnect(MySQL(), user='root', password='', dbname='vaesdb', host='localhost')
+mydb <- dbConnect(MySQL(), user='root', password='', dbname='vaesdb2', host='localhost')
 
 ris_gens  <- function (gens="",first=TRUE){
   ris <- data.frame(GENS = c("Platform","FPS","TPS","Danmaku","BattleRoyale", "Fighting", "Brawlers", "Stealth", "Survival", "SurvivalHorror", "Metroidvania", "TextAdv", "GraphicAdv", "VisualNovel", "InteractiveMovie", "RealTime3Dadventure", "Roguelike", "MMO", "MMORPG", "ActionRPG","TacticalRPG", "JRPG", "FPPBRPG", "MonsterTamer", "SandboxRPG", "Sandbox", "OpenWorld", "ConstructionSim", "LifeSim", "VehicleSim", "DatingSim", "Eroge", "4x", "Artillery", "AutoBattler", "MOBA", "RTS", "RTT", "TBS", "Arcade","TowerDefense", "Sport", "Card", "Horror", "Party", "Typing", "Logic", "Puzzle", "Other"), VALUES = rep(0,49))
@@ -337,5 +337,48 @@ ConjountAnalysis <- function (sex = MALE){
     write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\conj_analysis_male.csv")
   } else {
     write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\conj_analysis_female.csv")
+  }
+}
+
+checkUsers <- function (SEX = MALE){
+  query <- paste0("SELECT U.ID AS PID, U.TIME AS EXP_TIME,
+                      SUM(C.KEY) AS MALE_PRESS
+                  FROM user as u JOIN CHOICE AS C ON (U.ID = C.USER_ID AND C.TYPE = 0)
+                  WHERE u.time != 0 AND u.sex = ", SEX, "
+                  GROUP BY (U.ID)");
+  rs <- dbSendQuery(mydb, query)
+  users <- fetch(rs, n=-1)
+  query <- paste0("SELECT SUM(C.KEY) AS FEMALE_PRESS
+                  FROM user as u JOIN CHOICE AS C ON (U.ID = C.USER_ID AND C.TYPE = 1)
+                  WHERE u.time != 0 AND u.sex = ", SEX, "
+                  GROUP BY (U.ID)");
+  rs <- dbSendQuery(mydb, query)
+  users <- cbind(users,fetch(rs, n=-1))
+  query <- paste0("SELECT SUM(C.KEY) AS MIX_PRESS
+                  FROM user as u JOIN CHOICE AS C ON (U.ID = C.USER_ID AND C.TYPE = 3)
+                  WHERE u.time != 0 AND u.sex = ", SEX, "
+                  GROUP BY (U.ID)");
+  rs <- dbSendQuery(mydb, query)
+  users <- cbind(users,fetch(rs, n=-1))
+  query <- paste0("SELECT Q3.CONTROL_QUESTION1 AS Q3C1, Q3.CONTROL_QUESTION2 AS Q3C2,
+               (SUM(Q3.QUESTION1)+SUM(Q3.QUESTION2)+SUM(Q3.QUESTION3)+SUM(Q3.QUESTION4)+SUM(Q3.QUESTION5)+SUM(Q3.QUESTION6)+SUM(Q3.QUESTION7)+SUM(Q3.QUESTION8)+SUM(Q3.QUESTION9)+SUM(Q3.QUESTION10)+SUM(Q3.QUESTION11)+SUM(Q3.QUESTION12)+SUM(Q3.QUESTION13)+SUM(Q3.QUESTION14)+SUM(Q3.QUESTION15)+SUM(Q3.QUESTION16)+SUM(Q3.QUESTION17)+SUM(Q3.QUESTION18)+SUM(Q3.QUESTION19)+SUM(Q3.QUESTION20)+SUM(Q3.QUESTION21)+SUM(Q3.QUESTION22)) AS Q3SUM,
+               Q4.CONTROL_QUESTION AS Q4C,
+               (SUM(Q4.QUESTION1)+SUM(Q4.QUESTION2)+SUM(Q4.QUESTION3)+SUM(Q4.QUESTION4)+SUM(Q4.QUESTION5)+SUM(Q4.QUESTION6)+SUM(Q4.QUESTION7)+SUM(Q4.QUESTION8)+SUM(Q4.QUESTION9)+SUM(Q4.QUESTION10)) AS Q4SUM
+               FROM USER AS U LEFT JOIN Q3 ON U.ID = Q3.USER_ID
+                              LEFT JOIN Q4 ON U.ID = Q4.USER_ID
+                  WHERE u.time != 0 AND u.sex = ", SEX, "
+                  GROUP BY (U.ID)");
+  rs <- dbSendQuery(mydb, query)
+  users <- cbind(users,fetch(rs, n=-1))
+
+  users
+
+  if(SEX == MALE)
+  {
+    write.csv(users,"C:\\xampp\\htdocs\\avatar\\checkMALE.csv")
+  }
+  else
+  {
+    write.csv(users,"C:\\xampp\\htdocs\\avatar\\checkFEMALE.csv")
   }
 }

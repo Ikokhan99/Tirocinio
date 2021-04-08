@@ -6,6 +6,32 @@ include_once 'config/Database.php';
 include_once 'objects/User.php';
 include_once 'objects/Q5.php';
 
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+if (!empty($_POST))
+{
+    $q5 = new Q5($db,$_SESSION['user-id']);
+    $q5->questions = array(check_int((int)$_POST["R1"],0,9),
+        check_int((int)$_POST["R2"],0,9),
+        check_int((int)$_POST["R3"],0,9),
+        check_int((int)$_POST["R4"],0,9),
+        check_int((int)$_POST["R5"],0,9),
+        check_int((int)$_POST["R6"],0,9),
+        check_int((int)$_POST["R7"],0,9),
+        check_int((int)$_POST["R8"],0,9),
+        check_int((int)$_POST["R9"],0,9),
+        check_int((int)$_POST["R10"],0,9)
+    );
+
+    if (!$q5->create()) {
+        die("An error occured, but it's our fault, please contact the researcher");
+    }
+
+    header("Location: ".home_url."Q1.php?action=goto");
+    exit;
+}
+
 // page title
 $order = range(1,10);
 shuffle($order);
@@ -13,33 +39,9 @@ $page_index = 'q5';
 
 
 $page_title = "Survey";
-include_once 'config/Database.php';
-$database = new Database();
-$db = $database->getConnection();
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if (!empty($_POST)) {
-    if(!fast_debug) {
-        $q5 = new Q5($db,$_SESSION['user-id']);
-        $q5->questions = array(check_int($_POST["R1"],0,9),
-            check_int($_POST["R2"],0,9),
-            check_int($_POST["R3"],0,9),
-            check_int($_POST["R4"],0,9),
-            check_int($_POST["R5"],0,9),
-            check_int($_POST["R6"],0,9),
-            check_int($_POST["R7"],0,9),
-            check_int($_POST["R8"],0,9),
-            check_int($_POST["R9"],0,9),
-            check_int($_POST["R10"],0,9)
-        );
 
-        if (!$q5->create()) {
-            die();
-        }
-    }
-    header("Location: ".home_url."Q1.php?action=goto");
-    exit;
-}
+
 
 include_once 'q_common.php';
 $_SESSION['visited_pages']['q5'] = true;
@@ -181,32 +183,26 @@ foreach ($order as $num ) {
     const max = 9;
     const min = 0;
     let ans = [err,err,err,err,err, err,err,err,err,err];
-
-    //force focus
-    /*function boi(element){
-        if(element.value === ''){
-            document.getElementById(element.id).focus();
-        }
-    }*/
+    const toCheck = [0,1,2,3,4,5,6,7,8,9];
+    const countOccurrences = (arr, val) => arr.reduce((a, v) => (v == val ? a + 1 : a), 0);
 
     function check(element) {
         let n = parseInt(element.id.substring(1)) -1;
-        ans[n] =err;
-        if(ans.includes(element.value) || element.value > max || element.value < min)
+        ans[n] = element.value === "" ? -1 : element.value;
+        for(let i = 0; i < ans.length; i++)
         {
-            //auto delete number
-           //document.getElementById(element.id).value = '';
-
-            ans[n] =err;
-            document.getElementById('button').disabled = true;
-        } else {
-            ans[n] = element.value;
+            if(countOccurrences(ans,toCheck[i]) === 1)
+            {
+                console.log("ok");
+            }
+        else
+            {
+                console.log("not ok")
+                document.getElementById('button').disabled = true;
+                return;
+            }
         }
-        if(!ans.includes(err))
-        {
-            document.getElementById('button').disabled = false;
-        }
-
+        document.getElementById('button').disabled = false;
     }
 
     loadCSS("libs/CSS/Q5.css");

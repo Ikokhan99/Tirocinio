@@ -5,8 +5,8 @@ include_once "Q.php";
 
 class Q3 extends Q
 {
-    private const CONTROL_1_CORRECT = 5;
-    private const CONTROL_2_CORRECT = 1;
+    public const CONTROL_1_CORRECT = 5;
+    public const CONTROL_2_CORRECT = 1;
  
     // constructor
     public function __construct($db,$user_id)
@@ -89,7 +89,8 @@ class Q3 extends Q
             if(($this->control_questions[0] !== self::CONTROL_1_CORRECT) || ($this->control_questions[1] !== self::CONTROL_2_CORRECT))
             {
                 $q = "UPDATE user SET trusted = 1 where id='".$_SESSION['user-id']."';";
-                $stmt = $this->conn->query($q);
+                $stmt = $this->conn->prepare($q);
+                $stmt->execute();
             }
             return true;
         }

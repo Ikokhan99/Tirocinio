@@ -11,5 +11,3 @@ RewriteCond %{REQUEST_FILENAME} !-d
  
 # used for php pages such as "yoursite.com/login.php" will become "yoursite.com/login/"
 RewriteRule ^([a-z_]+)/?$ $1.php [NC]
-
-Options -Indexes

@@ -7,7 +7,7 @@ if(debug)
     echo "<p> DEBUG: ";
     print_r($_SESSION['Q'][$_SESSION['at']]);
     echo "</p>";
-    echo $_GET;
+    print_r($_GET);
 }
 include_once "layout_head.php";
 if(user_error) {

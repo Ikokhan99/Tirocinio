@@ -3,20 +3,24 @@
 # Created by: Maur
 # Created on: 05/03/2021
 
-dir <- "C:/xampp/htdocs/tirocinio/"
+dir <- "C:/xampp/htdocs/avatar/"
 
 setwd(dir)
 source("translate_functions.R")
 
+checkUsers(MALE)
+checkUsers(FEMALE)
 
-#ConjountAnalysis(MALE)
+ConjountAnalysis(MALE)
 ConjountAnalysis(FEMALE)
 
-#AnalisiClassiche(MALE)
+AnalisiClassiche(MALE)
 AnalisiClassiche(FEMALE)
 
-#AnalisiMiste(MALE)
+AnalisiMiste(MALE)
 AnalisiMiste(FEMALE)
+
+
 
 query <- "select time
           from user

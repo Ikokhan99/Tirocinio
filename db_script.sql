@@ -38,10 +38,11 @@ CREATE TABLE IF NOT EXISTS `user` (
     `SEXOR` INT(2) NOT NULL DEFAULT 0,  /* sexual orientation, at the moment: 0=don't want to express, 1=heterosexual, 2=homosexual, 3=bisexual, 4=other*/
     `TIME` INT NOT NULL DEFAULT 0,/*in seconds*/
     `TRUSTED` BIT(1) NOT NULL DEFAULT 0 COMMENT '0=yes, 1=no', /* if the user should be trusted. The user is untrustworthy if goes to the error page or fails the control questions */
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
 ) ENGINE = 'InnoDB';
 
-
+ALTER TABLE user ADD UNIQUE INDEX(ID);
+ALTER TABLE user ADD INDEX(TIME);
 
 -- first questionnaire, the one with the two games
 CREATE TABLE IF NOT EXISTS `Q2` (
@@ -84,28 +85,28 @@ CREATE TABLE IF NOT EXISTS `GAME`(
 CREATE TABLE IF NOT EXISTS `Q3` (
   `CONTROL_QUESTION1` INT NOT NULL DEFAULT 4,
   `CONTROL_QUESTION2` INT NOT NULL DEFAULT 4,
-  `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man not complete',  			/*---Should be between 0 and 5   -   No matter how accomplishable is, a man is not truly complete as a person unless he has the love of a woman.*/
-  `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'women seeking favors', 		/*---Should be between 0 and 5   -   Many women are actually seeking special favors, such as hiring policies that favor them over men, under the guise of asking for "equality."*/
-  `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT 'women not rescue', 			/*---Should be between 0 and 5   -   In a disaster, women ought not necessarily to be rescued before men.*/
-  `QUESTION4`INT NOT NULL DEFAULT 0 COMMENT 'woman remarks sexy',  		/*---Should be between 0 and 5   -   Most women interpret innocent remarks or acts as being sexist.*/
-  `QUESTION5`INT NOT NULL DEFAULT 0 COMMENT 'woman too offended', 		/*---Should be between 0 and 5   -   Women are too easily offended.*/
-  `QUESTION6`INT NOT NULL DEFAULT 0 COMMENT 'happy without romantic',  	/*---Should be between 0 and 5   -   People are often truly happy in life without being romantically involved with a member of the other sex.*/
-  `QUESTION7`INT NOT NULL DEFAULT 0 COMMENT 'fem not seeking power',  	/*--Should be between 0 and 5   -   Feminists are not seeking for women to have more power than men.*/
-  `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT 'women have purity',  		/*--Should be between 0 and 5   -   Many women have a quality of purity that few men possess.*/
-  `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT 'women should be protected',  /*--Should be between 0 and 5   -   Women should be cherished and protected by men.*/
-  `QUESTION10`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*--Should be between 0 and 5   -   Most women fail to appreciate fully all that men do for them.*/
-  `QUESTION11`INT NOT NULL DEFAULT 0 COMMENT 'women seek power',  		/*---Should be between 0 and 5   -   Women seek to gain power by getting control over men.*/
-  `QUESTION12`INT NOT NULL DEFAULT 0 COMMENT 'man must adore woman',  	/*--Should be between 0 and 5   -   Every man ought to have a woman whom he adores.*/
-  `QUESTION13`INT NOT NULL DEFAULT 0 COMMENT 'man complete no woman',  	/*---Should be between 0 and 5   -   Men are complete without women.*/
-  `QUESTION14`INT NOT NULL DEFAULT 0 COMMENT 'Women exaggerate problems', /*--Should be between 0 and 5   -   Women exaggerate problems they have at work.*/
-  `QUESTION15`INT NOT NULL DEFAULT 0 COMMENT 'women tight leash',  		/*---Should be between 0 and 5   -   Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.*/
-  `QUESTION16`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*--Should be between 0 and 5   -   When women lose to men in a fair competition, they typically complain about being discriminated against.*/
-  `QUESTION17`INT NOT NULL DEFAULT 0 COMMENT 'women complain competition',/*---Should be between 0 and 5   -   A good woman should be set on a pedestal by her man*/
-  `QUESTION18`INT NOT NULL DEFAULT 0 COMMENT 'women teasing',  			/*---Should be between 0 and 5   -   There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. */
-  `QUESTION19`INT NOT NULL DEFAULT 0 COMMENT 'women superior moral',  	/*---Should be between 0 and 5   -   Women, compared to men, tend to have a superior moral sensibility*/
-  `QUESTION20`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*---Should be between 0 and 5   -   Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives.*/
-  `QUESTION21`INT NOT NULL DEFAULT 0 COMMENT 'man financial sacrifice',  	/*--Should be between 0 and 5   -   Feminists are making entirely reasonable demands of men.*/
-  `QUESTION22`INT NOT NULL DEFAULT 0 COMMENT 'women more culture',  		/*--Should be between 0 and 5   -   Women, as compared to men, tend to have a more refined sense of culture and good taste.*/
+  `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man not complete',  			/*---Should be between 1 and 6   -   No matter how accomplishable is, a man is not truly complete as a person unless he has the love of a woman.*/
+  `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'women seeking favors', 		/*---Should be between 1 and 6   -   Many women are actually seeking special favors, such as hiring policies that favor them over men, under the guise of asking for "equality."*/
+  `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT 'women not rescue', 			/*---Should be between 1 and 6   -   In a disaster, women ought not necessarily to be rescued before men.*/
+  `QUESTION4`INT NOT NULL DEFAULT 0 COMMENT 'woman remarks sexy',  		/*---Should be between 1 and 6   -   Most women interpret innocent remarks or acts as being sexist.*/
+  `QUESTION5`INT NOT NULL DEFAULT 0 COMMENT 'woman too offended', 		/*---Should be between 1 and 6   -   Women are too easily offended.*/
+  `QUESTION6`INT NOT NULL DEFAULT 0 COMMENT 'happy without romantic',  	/*---Should be between 1 and 6   -   People are often truly happy in life without being romantically involved with a member of the other sex.*/
+  `QUESTION7`INT NOT NULL DEFAULT 0 COMMENT 'fem not seeking power',  	/*--Should be between 1 and 6   -   Feminists are not seeking for women to have more power than men.*/
+  `QUESTION8`INT NOT NULL DEFAULT 0 COMMENT 'women have purity',  		/*--Should be between 1 and 6   -   Many women have a quality of purity that few men possess.*/
+  `QUESTION9`INT NOT NULL DEFAULT 0 COMMENT 'women should be protected',  /*--Should be between 1 and 6   -   Women should be cherished and protected by men.*/
+  `QUESTION10`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*--Should be between 1 and 6   -   Most women fail to appreciate fully all that men do for them.*/
+  `QUESTION11`INT NOT NULL DEFAULT 0 COMMENT 'women seek power',  		/*---Should be between 1 and 6   -   Women seek to gain power by getting control over men.*/
+  `QUESTION12`INT NOT NULL DEFAULT 0 COMMENT 'man must adore woman',  	/*--Should be between 1 and 6   -   Every man ought to have a woman whom he adores.*/
+  `QUESTION13`INT NOT NULL DEFAULT 0 COMMENT 'man complete no woman',  	/*---Should be between 1 and 6   -   Men are complete without women.*/
+  `QUESTION14`INT NOT NULL DEFAULT 0 COMMENT 'Women exaggerate problems', /*--Should be between 1 and 6   -   Women exaggerate problems they have at work.*/
+  `QUESTION15`INT NOT NULL DEFAULT 0 COMMENT 'women tight leash',  		/*---Should be between 1 and 6   -   Once a woman gets a man to commit to her, she usually tries to put him on a tight leash.*/
+  `QUESTION16`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*--Should be between 1 and 6   -   When women lose to men in a fair competition, they typically complain about being discriminated against.*/
+  `QUESTION17`INT NOT NULL DEFAULT 0 COMMENT 'women complain competition',/*---Should be between 1 and 6   -   A good woman should be set on a pedestal by her man*/
+  `QUESTION18`INT NOT NULL DEFAULT 0 COMMENT 'women teasing',  			/*---Should be between 1 and 6   -   There are actually very few women who get a kick out of teasing men by seeming sexually available and then refusing male advances. */
+  `QUESTION19`INT NOT NULL DEFAULT 0 COMMENT 'women superior moral',  	/*---Should be between 1 and 6   -   Women, compared to men, tend to have a superior moral sensibility*/
+  `QUESTION20`INT NOT NULL DEFAULT 0 COMMENT 'women fail appreciate',  	/*---Should be between 1 and 6   -   Men should be willing to sacrifice their own well being in order to provide financially for the women in their lives.*/
+  `QUESTION21`INT NOT NULL DEFAULT 0 COMMENT 'man financial sacrifice',  	/*--Should be between 1 and 6   -   Feminists are making entirely reasonable demands of men.*/
+  `QUESTION22`INT NOT NULL DEFAULT 0 COMMENT 'women more culture',  		/*--Should be between 1 and 6   -   Women, as compared to men, tend to have a more refined sense of culture and good taste.*/
   `USER_ID` VARCHAR(100) NOT NULL,  -- The id of the user of course		primary and FOREIGN KEY
   
   PRIMARY KEY (`USER_ID`),
@@ -117,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `Q3` (
 ) ENGINE = 'InnoDB';
 
 CREATE TABLE IF NOT EXISTS `Q4` (
-  `CONTROL_QUESTION` INT NOT NULL DEFAULT 0,
+  `CONTROL_QUESTION` INT DEFAULT 0,
   `QUESTION1`INT NOT NULL DEFAULT 0 COMMENT 'man approach please himself', /*---Should be between 1 and 5   -   When approaching a woman, most men think more about what that women can do to please him than what he can do to please her*/
   `QUESTION2`INT NOT NULL DEFAULT 0 COMMENT 'man approach have sex', 		 /*--Should be between 1 and 5   -   Most men tend to approach a woman only when they want to have sex with her.*/
   `QUESTION3`INT NOT NULL DEFAULT 0 COMMENT 'man interest woman feelings', /*---Should be between 1 and 5   -   Most men are interested in women’s feelings because they want to be close to women.*/
@@ -196,4 +197,23 @@ CREATE TABLE IF NOT EXISTS `choice` (
 		ON UPDATE CASCADE
 )ENGINE = 'InnoDB' ;
 -- InnoDB for savepoints
+
+/*CREATE OR REPLACE
+    VIEW CONTROL_CHECK AS
+        SELECT U.ID AS PID, U.TIME AS EXP_TIME, Q3.CONTROL_QUESTION1 AS Q3C1, Q3.CONTROL_QUESTION2 AS Q3C2,
+               (SUM(Q3.QUESTION1)+SUM(Q3.QUESTION2)+SUM(Q3.QUESTION3)+SUM(Q3.QUESTION4)+SUM(Q3.QUESTION5)+SUM(Q3.QUESTION6)+SUM(Q3.QUESTION7)+SUM(Q3.QUESTION8)+SUM(Q3.QUESTION9)+SUM(Q3.QUESTION10)+SUM(Q3.QUESTION11)+SUM(Q3.QUESTION12)+SUM(Q3.QUESTION13)+SUM(Q3.QUESTION14)+SUM(Q3.QUESTION15)+SUM(Q3.QUESTION16)+SUM(Q3.QUESTION17)+SUM(Q3.QUESTION18)+SUM(Q3.QUESTION19)+SUM(Q3.QUESTION20)+SUM(Q3.QUESTION21)+SUM(Q3.QUESTION22)) AS Q3SUM,
+               Q4.CONTROL_QUESTION AS Q4C,
+               (SUM(Q4.QUESTION1)+SUM(Q4.QUESTION2)+SUM(Q4.QUESTION3)+SUM(Q4.QUESTION4)+SUM(Q4.QUESTION5)+SUM(Q4.QUESTION6)+SUM(Q4.QUESTION7)+SUM(Q4.QUESTION8)+SUM(Q4.QUESTION9)+SUM(Q4.QUESTION10)) AS Q4SUM,
+               SUM(C1.KEY) AS MALE_PRESS,
+               SUM(C2.KEY) AS FEMALE_PRESS,
+               SUM(C3.KEY) AS MIX_PRESS
+        FROM (((((USER AS U INNER JOIN Q3 ON U.ID = Q3.USER_ID)
+            INNER JOIN Q4 ON U.ID = Q4.USER_ID)
+            I
+        WHERE U.TIME != 0
+        GROUP BY (U.ID);*/
+
+
+
+
 

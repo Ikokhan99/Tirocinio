@@ -1,12 +1,10 @@
 <?php
-// core configuration
+
 include_once "config/core.php";
 include_once 'objects/User.php';
 include_once 'config/Foes.php';
-$page_index = 'q1';
 
-
-if (!empty($_POST) && !fast_debug) {
+if (!empty($_POST) ) {
 
     include_once 'config/Database.php';
     $database = new Database();
@@ -20,39 +18,46 @@ if (!empty($_POST) && !fast_debug) {
     $user->create($_SESSION['user-id']);
 
 }
+$page_index = 'q1';
 if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET)&& isset($_GET['action']) && $_GET['action']==='goto') )
 {
-    switch ($_SESSION['Q'][$_SESSION['at']]){
-        case 2:{
-        ++$_SESSION['at'];
-            header("Location: ".home_url."Q2.php?s=0");
-            exit;
-            //break;
-        }
-        case 3:{
-            ++$_SESSION['at'];
-            header("Location: ".home_url."Q3.php?s=0");
-            exit;
-            //break;
-        }
-        case 4:{
-            ++$_SESSION['at'];
-            header("Location: ".home_url."Q4.php?s=0");
-            exit;
-            //break;
-        }
-        case 5:{
-            ++$_SESSION['at'];
-            header("Location: ".home_url."Q5.php?s=0");
-            exit;
-            //break;
-        }
-        case 6:default:{
-            ++$_SESSION['at'];
-            header("Location: ".home_url."last.php?s=0");
-            exit;
-           // break;
-        }
+    switch ($_SESSION['Q'][$_SESSION['at']])
+    {
+        case 2:
+            {
+                ++$_SESSION['at'];
+                header("Location: ".home_url."Q2.php?s=0");
+                exit;
+                //break;
+            }
+        case 3:
+            {
+                ++$_SESSION['at'];
+                header("Location: ".home_url."Q3.php?s=0");
+                exit;
+                //break;
+            }
+        case 4:
+            {
+                ++$_SESSION['at'];
+                header("Location: ".home_url."Q4.php?s=0");
+                exit;
+                //break;
+            }
+        case 5:
+            {
+                ++$_SESSION['at'];
+                header("Location: ".home_url."Q5.php?s=0");
+                exit;
+                //break;
+            }
+        case 6:default:
+            {
+                ++$_SESSION['at'];
+                header("Location: ".home_url."last.php?s=0");
+                exit;
+               // break;
+            }
     }
 }
 
@@ -74,10 +79,13 @@ else{
 if(debug)
 {
     echo "<p> DEBUG: ";
-    print_r($_SESSION['at']);
+    print_r($_SESSION['at'] ?? "No at");
     echo "</p>";
     echo "<p> DEBUG: ";
-    var_dump($_POST['action'] === 'Continue');
+    if(isset($_POST['action']))
+    {
+        var_dump($_POST['action'] === 'Continue');
+    }
     echo "</p>";
     echo "<p> DEBUG: ";
     var_dump(isset($_POST['action'])  );
@@ -89,7 +97,7 @@ if(debug)
     var_dump(!empty($_POST));
     echo "</p>";
     echo "<p> DEBUG: ";
-    print_r($_POST['action']);
+    print_r($_POST['action'] ?? "No action");
     echo "</p>";
 }
 ?>

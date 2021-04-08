@@ -1,7 +1,3 @@
-<script>
-    screen.orientation.unlock()
-</script>
-
 <?php
 
 include_once "config/core.php";

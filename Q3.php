@@ -1,60 +1,58 @@
 <?php
 // core configuration
 include_once "config/core.php";
-
-include_once 'config/Database.php';
 include_once 'objects/User.php';
 include_once 'objects/Q3.php';
+include_once 'config/Database.php';
+
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//TODO
+if (!empty($_POST))
+{
+    $q3 = new Q3($db,$_SESSION['user-id']);
+    $q3->control_questions = array(check_int($_POST["control1"],1,6),check_int($_POST["control2"],1,6));
+    $q3->questions = array(check_int($_POST["Q1"],1,6),
+        check_int($_POST["Q2"],1,6),
+        check_int($_POST["Q3"],1,6),
+        check_int($_POST["Q4"],1,6),
+        check_int($_POST["Q5"],1,6),
+        check_int($_POST["Q6"],1,6),
+        check_int($_POST["Q7"],1,6),
+        check_int($_POST["Q8"],1,6),
+        check_int($_POST["Q9"],1,6),
+        check_int($_POST["Q10"],1,6),
+        check_int($_POST["Q11"],1,6),
+        check_int($_POST["Q12"],1,6),
+        check_int($_POST["Q13"],1,6),
+        check_int($_POST["Q14"],1,6),
+        check_int($_POST["Q15"],1,6),
+        check_int($_POST["Q16"],1,6),
+        check_int($_POST["Q17"],1,6),
+        check_int($_POST["Q18"],1,6),
+        check_int($_POST["Q19"],1,6),
+        check_int($_POST["Q20"],1,6),
+        check_int($_POST["Q21"],1,6),
+        check_int($_POST["Q22"],1,6)
+    );
+    if(debug) {
+        var_dump($q3);
+    }
+
+    if (!$q3->create()) {
+        die();
+    }
+
+    header("Location: ".home_url."Q1.php?action=goto");
+    exit;
+}
 
 // page title
 $order = range(0,23);
 shuffle($order);
 $page_index = 'q3';
 $page_title = "Survey";
-
-include_once 'config/Database.php';
-$database = new Database();
-$db = $database->getConnection();
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//TODO
-if (!empty($_POST)) {
-    if(!fast_debug) {
-        $q3 = new Q3($db,$_SESSION['user-id']);
-        $q3->control_questions = array(check_int($_POST["control1"],1,6),check_int($_POST["control2"],1,6));
-        $q3->questions = array(check_int($_POST["Q1"],1,6),
-            check_int($_POST["Q2"],1,6),
-            check_int($_POST["Q3"],1,6),
-            check_int($_POST["Q4"],1,6),
-            check_int($_POST["Q5"],1,6),
-            check_int($_POST["Q6"],1,6),
-            check_int($_POST["Q7"],1,6),
-            check_int($_POST["Q8"],1,6),
-            check_int($_POST["Q9"],1,6),
-            check_int($_POST["Q10"],1,6),
-            check_int($_POST["Q11"],1,6),
-            check_int($_POST["Q12"],1,6),
-            check_int($_POST["Q13"],1,6),
-            check_int($_POST["Q14"],1,6),
-            check_int($_POST["Q15"],1,6),
-            check_int($_POST["Q16"],1,6),
-            check_int($_POST["Q17"],1,6),
-            check_int($_POST["Q18"],1,6),
-            check_int($_POST["Q19"],1,6),
-            check_int($_POST["Q20"],1,6),
-            check_int($_POST["Q21"],1,6),
-            check_int($_POST["Q22"],1,6)
-        );
-        if(debug) {
-            var_dump($q3);
-        }
-        
-        if (!$q3->create()) {
-            die();
-        }
-    }
-    header("Location: ".home_url."Q1.php?action=goto");
-    exit;
-}
 
 include_once 'q_common.php';
 $_SESSION['visited_pages']['q3'] = true;
@@ -67,8 +65,8 @@ $_SESSION['visited_pages']['q3'] = true;
 Below is a series of statements concerning men and women and their
 relationships in contemporary society. Please indicate the degree to
 which you agree or disagree with each statement using the following
-scale: 0 = disagree strongly; 1 = disagree somewhat; 2 = disagree
-slightly; 3 = agree slightly; 4 = agree somewhat; 5 = agree strongly.
+scale: 1 = disagree strongly; 2 = disagree somewhat; 3 = disagree
+slightly; 4 = agree slightly; 5 = agree somewhat; 6 = agree strongly.
 </p>
 
 <table class="center">

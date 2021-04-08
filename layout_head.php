@@ -35,7 +35,7 @@
         function disableF5(e)
         {
             //82 for mac users
-            if (((e.which ||e.key) === 116) || ((e.which || e.key) === 82))
+            if (((e.key) === "F5"))
             {
                 e.preventDefault();
                //console.log(e)
@@ -87,11 +87,12 @@
     //TODO
     if(debug){
         echo "<p>DEBUG:";
-        var_dump($_SESSION['visited_pages']);
+        var_dump($_SESSION['visited_pages'] ?? "visited pages not set");
         echo"</p>";
     }
 
-    if(user_error){
+    if(user_error)
+    {
         if(isset($_SESSION['visited_pages']) && $_SESSION['visited_pages']['error']) {
             echo "<script>
                     location.replace('user_error.php?error=error');
@@ -109,12 +110,6 @@
                     }
               </script>";
         }
-    include_once 'config/Database.php';
-    if(isset($page_title)&& ($page_title!=="Experiment" || $page_title!=="Survey" || $page_title !== "Start")){
-        $database = new Database();
-        $db = $database->getConnection();
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
 
     ?>
 </head>

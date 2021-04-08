@@ -10,23 +10,23 @@ if(skip_experiment)
     header("Location: ".home_url."Q1.php?s=0");
     exit;
 }
-/*if(fast_debug && $_SESSION['at']===2)
-{
-    $_SESSION['at']=0;
-    header("Location: ".home_url."Q1.php");
-    exit;
-}*/
+
 
 //prolific academic
 //this checks if the user has refreshed the page during the experiment  TODO:wip
+$reload = false;
 if($_SESSION['permutation']>0)
 {
     if($_SESSION['last_chosen'] === ($_POST['a1'] . $_POST['a2']))
     {
-        if(user_error) {
-            header("Location: " . home_url . "user_error.php?error=refresh");
+        if(user_error)
+        {
+            error_log("User ".$_SESSION["user-id"]."\n\t"."Last chosen: ". $_SESSION['last_chosen'] ."\n\tPresented couple: ".$_POST['a1'] . $_POST['a2']);
+            header("Location: " . home_url . "user_error.php?error=avatars");
             exit;
         }
+        //--$_SESSION['permutation'];
+        $reload = true;
     } else {
         $_SESSION['last_chosen'] = $_POST['a1'] . $_POST['a2'];
     }
@@ -35,14 +35,15 @@ if($_SESSION['permutation']>0)
 }
 
 
-//insert previous choice in db                                120 rn
+//insert previous choice in db                                120
 if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
     //permutations starts at 0
 
-    if(!fast_debug) {
-        if(debug){
-            var_dump($_POST);
-        }
+    if(debug){
+        var_dump($_POST);
+    }
+    if(!$reload)
+    {
         //inserting previous result at db
         include_once 'objects/Experiment.php';
         include_once 'config/Database.php';
@@ -62,17 +63,17 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
         }
         $exp->chosen = $_POST['id'];
         $exp->time = $_POST['time'];
-        $exp->key = $_POST['key'] === '0'?0:1;
+        $exp->key = $_POST['key'] === '0' ? 0 : 1;
 
         $a1 = $_POST['a1'];
         $a2 = $_POST['a2'];
 
-        if ($exp->type === 0){
-            $a1 =  (int)$a1 + 16;
+        if ($exp->type === 0) {
+            $a1 = (int)$a1 + 16;
             $a2 = (int)$a2 + 16;
         }
 
-        if($exp->key === 0){
+        if ($exp->key === 0) {
             $exp->chosen = $a1;
             $exp->other = $a2;
         } else {
@@ -80,18 +81,17 @@ if ( isset($_POST['id']) && $_SESSION['permutation'] < TOTAL_PERMUTATIONS) {
             $exp->other = $a1;
         }
 
-        if(debug)
-        {
+        if (debug) {
             print_r($exp);
         }
         $exp->create();
+        ++$_SESSION['permutation'];
     }
 
-
-    ++$_SESSION['permutation'];
 }
 if($_SESSION['exp'][$_SESSION['at']]!==3){
-    if ($_SESSION['permutation'] >= TOTAL_PERMUTATIONS){
+    if ($_SESSION['permutation'] >= TOTAL_PERMUTATIONS)
+    {
         $_SESSION['permutation'] = 0;
         ++$_SESSION['at'];
         header("Location: ".home_url."SceltaAvatar.php");
@@ -117,7 +117,7 @@ echo "<table class='default-table'><tr>";
 echo "<form action=\"choice.php\" method=\"post\"  id=\"form\">
         <td class='half'>";
 if(debug){
-    echo $_SESSION['exp'][$_SESSION['at']];
+    echo "EXP AT: ".$_SESSION['exp'][$_SESSION['at']];
 }
 switch ($_SESSION['exp'][$_SESSION['at']]) {
     case 1:default:{ //male
@@ -150,14 +150,6 @@ switch ($_SESSION['exp'][$_SESSION['at']]) {
 
     }
     case 3:{//mix
-        if(debug){
-            print_r( $_SESSION['p_mix']);
-            print_r( $_SESSION['p_mix'][$_SESSION['permutation']]);
-            print_r($_SESSION['i_male'][ (int)$_SESSION['p_mix'][$_SESSION['permutation']][0] -16 - 1]);
-            print_r($_SESSION['i_female'][ (int)$_SESSION['p_mix'][$_SESSION['permutation']][1] - 1]);
-            echo "<br>";
-            echo $_SESSION['p_mix'][$_SESSION['permutation']][0][strlen($_SESSION['p_mix'][$_SESSION['permutation']][1])-1];
-        }
 
         echo "<button type= \"submit\" name=\"id\" id=\"chosenL\" value='".$_SESSION['p_mix'][$_SESSION['permutation']][0]."' style=\"border:none; background:none; padding:0; visibility:hidden; cursor: none\">";
         $n = (int)$_SESSION['p_mix'][$_SESSION['permutation']][0];

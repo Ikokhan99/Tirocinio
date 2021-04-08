@@ -2,19 +2,23 @@
 
 class Database
 {
-    private string $host = "localhost";
-    private string $db_name = "VaesDB";
-    private string $username = "root";
-    private string $password = "";
-    public ?PDO $conn;
+    private $host = //"193.205.204.226";
+    "localhost";
+    private $db_name = //"VaesDB";
+        "VAESDB2";
+    private $username = //"vaes";
+    "root";
+    private $password =//"54es!";
+    "";
+    public $conn;
  
-    public function getConnection(): ?PDO
+    public function getConnection(): PDO
     {
  
         $this->conn = null;
  
         try{
-				$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password,array(PDO::ATTR_PERSISTENT => true));
+				$this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password,array(PDO::ATTR_PERSISTENT => false));
 				$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
 		catch(PDOException $e)

@@ -5,7 +5,7 @@ include_once "Q.php";
 
 class Q4 extends Q
 {
-    private const CONTROL_CORRECT = 4;
+    public const CONTROL_CORRECT = 4;
     // constructor
     public function __construct($db,$user_id)
     {
@@ -55,7 +55,8 @@ class Q4 extends Q
             {
                 error_log("User ".$_SESSION["user-id"]." didn't read Q4 control question");
                 $q = "UPDATE user SET trusted = 1 where id='".$_SESSION['user-id']."';";
-                $stmt = $this->conn->query($q);
+                $stmt = $this->conn->prepare($q);
+                $stmt->execute();
             }
             return true;
         }

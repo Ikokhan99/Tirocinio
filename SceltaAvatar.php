@@ -1,20 +1,15 @@
 <?php
 include_once "config/core.php";
-if(!empty($_POST) && (!isset($_POST['navigation']) || $_POST['navigation'] !== 'safe') && $_SESSION['visited_pages']['error']) {
-    header("Location: ".home_url."user_error.php");
-}
 
 $action = '';
 $page_title="Start";
 
 include_once 'config/Foes.php';
-
 include_once 'config/Database.php';
-if(isset($page_title)&& ($page_title!=="Experiment" || $page_title!=="Survey")){
-    $database = new Database();
-    $db = $database->getConnection();
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
+
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if(isset($_SESSION['at']))
 {
@@ -31,113 +26,101 @@ if(isset($_SESSION['at']))
 
         $page_index = 'Scelta1';
 
-    } elseif ($_SESSION['at'] === 1){
+    } elseif ($_SESSION['at'] === 1)
+    {
         $page_index = 'Scelta2';
     }
-    elseif ($_SESSION['at'] === 2){
+    elseif ($_SESSION['at'] === 2)
+    {
         $page_index = 'Scelta3';
         //mix case
-        if(!fast_debug) {
-            //getting most chosen avatars
-            
-            $mix_av = array();
+
+        //getting most chosen avatars
+
+        $mix_av = array();
 //
-            //es: select chosen from choice where type = 0 AND user_id = 'dummyFYGkMfNP3B5CLt7YC965jazzS' group by chosen order by count(*) desc limit 5;
+        //es: select chosen from choice where type = 0 AND user_id = 'dummyFYGkMfNP3B5CLt7YC965jazzS' group by chosen order by count(*) desc limit 5;
 
-            //5 most frequent choices for males
-            $q = "select chosen from choice where type = :type AND user_id = '".$_SESSION['user-id']."' group by chosen order by count(*) desc limit 5;";
-            $type=0;
-            $k =0;
-            /** @var $db, declared in head */
-            $stmt = $db->prepare($q);
-           // $stmt->bindParam(':id', $_SESSION['user-id']);
-            $stmt->bindParam(':type', $type);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-            /*for($i = 0; $i< count($result);$i++)
-            {
-                $result[$i] = strval($result[$i]) . "m";
-            }*/
-            if(debug) {
-                print_r($result);
-            }
-            //5 most frequent choices for females
-            $type=1;
-           // $stmt->bindParam(':id', $_SESSION['user-id']);
-            $stmt->bindParam(':type', $type);
-            $stmt->execute();
-            $result2 = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
-            /*for($i = 0; $i< count($result2);$i++)
-            {
-                $result2[$i] = strval($result2[$i]) . "f";
-            }*/
-            $result = array_merge($result, $result2 );
+        //5 most frequent choices for males
+        $q = "select chosen from choice where type = :type AND user_id = '".$_SESSION['user-id']."' group by chosen order by count(*) desc limit 5;";
+        $type=0;
+        $k =0;
+        $stmt = $db->prepare($q);
+
+        $stmt->bindParam(':type', $type);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+
+        if(debug) {
+           print_r($result);
+        }
+        //5 most frequent choices for females
+        $type=1;
+        $stmt->bindParam(':type', $type);
+        $stmt->execute();
+        $result2 = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        $result = array_merge($result, $result2 );
 
 
-            if(debug){
-                print_r($q);
-                //var_dump($db);
-                echo "<p>Avatar scelti  </p>";
-                var_dump($result);
-
-            }
-
-            //permutations
-            include_once "config/permutations.php";
-            $_SESSION['p_mix'] = array();
-            exec_combine(2,$result,3);
-            shuffle($_SESSION['p_mix']);
-            if(debug)
-            {
-                echo "<p>Mix:  </p>";
-                print_r($_SESSION['p_mix']);
-            }
-
-            //deleting same sex couple
-            foreach ($_SESSION['p_mix'] as $key => $couple){
-                if(($couple[0] > 16) && ( $couple[1] > 16)){
-                    unset($_SESSION['p_mix'][$key]);
-                } elseif (($couple[0] <= 16) && ( $couple[1] <= 16)){
-                    unset($_SESSION['p_mix'][$key]);
-                }
-            }
-            //safe indexing
-            $safe_array=array();
-            $i = 0;
-            foreach ($_SESSION['p_mix'] as $couple)
-            {
-
-                $safe_array[$i] = $couple;
-                $i++;
-            }
-            $_SESSION['p_mix'] = equal_array($safe_array);
-            unset($safe_array);
-
-            foreach ($_SESSION['p_mix'] as $key => $couple){
-                if(debug)
-                {
-                    echo "<script>console.log(\"Shuffling ".implode("-",$couple)."\")</script>";
-                }
-                shuffle($couple);
-                $_SESSION['p_mix'][$key] = $couple;
-            }
-            if(debug)
-            {
-                echo "<p>Mix after same sex delete:  </p>";
-                print_r($_SESSION['p_mix']);
-            }
+        if(debug)
+        {
+            print_r($q);
+            //var_dump($db);
+            echo "<p>Avatar scelti  </p>";
+            var_dump($result);
 
         }
-        else{
-            echo "<pre>
-    FAST DEBUG: skipping mixed section
-   </pre>";
+
+        //permutations
+        include_once "config/permutations.php";
+        $_SESSION['p_mix'] = array();
+        exec_combine(2,$result,3);
+        shuffle($_SESSION['p_mix']);
+        if(debug)
+        {
+            echo "<p>Mix:  </p>";
+            print_r($_SESSION['p_mix']);
         }
+
+       //deleting same sex couple
+       foreach ($_SESSION['p_mix'] as $key => $couple){
+           if(($couple[0] > 16) && ( $couple[1] > 16)){
+               unset($_SESSION['p_mix'][$key]);
+           } elseif (($couple[0] <= 16) && ( $couple[1] <= 16)){
+               unset($_SESSION['p_mix'][$key]);
+           }
+       }
+       //safe indexing
+       $safe_array=array();
+       $i = 0;
+       foreach ($_SESSION['p_mix'] as $couple)
+       {
+
+           $safe_array[$i] = $couple;
+           $i++;
+       }
+       $_SESSION['p_mix'] = equal_array($safe_array);
+       unset($safe_array);
+
+       foreach ($_SESSION['p_mix'] as $key => $couple){
+           if(debug)
+           {
+               echo "<script>console.log(\"Shuffling ".implode("-",$couple)."\")</script>";
+           }
+           shuffle($couple);
+           $_SESSION['p_mix'][$key] = $couple;
+       }
+       if(debug)
+       {
+           echo "<p>Mix after same sex delete:  </p>";
+           print_r($_SESSION['p_mix']);
+       }
+
     }
 
-
     include_once 'layout_head.php';
-    switch($_SESSION['at']){
+    switch($_SESSION['at'])
+    {
         case 0:default:
         {$_SESSION['visited_pages']['Scelta1'] = true;break;}
         case 1:{$_SESSION['visited_pages']['Scelta2'] = true;break;}
@@ -153,10 +136,13 @@ if(isset($_SESSION['at']))
             </div>
           </div>";
 
-    if(debug){
+    if(debug)
+    {
+        echo "AT: ";
         print_r($_SESSION["at"]);
     }
-    if(skip_experiment){
+    if(skip_experiment)
+    {
         echo "<pre>
     Warning: skipping experiment!
    </pre>";
@@ -167,6 +153,7 @@ if(isset($_SESSION['at']))
     echo "<pre>
     An error has occurred. Don't worry, it's our fault, your Prolific reputation won't be affected.
    </pre>";
+    error_log("Session at not set: ". ($_SESSION['at']?? (string)isset($_SESSION['at']))."\n\t PAGE: SceltaAvatar.php");
 }
 
 ?>

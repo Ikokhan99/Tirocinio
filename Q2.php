@@ -1,54 +1,58 @@
 <?php
 // core configuration
 include_once 'config/core.php';
-
 include_once 'objects/q2.php';
 include_once 'config/Foes.php';
+
+include_once 'config/Database.php';
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 if(debug){
     var_dump($_POST);
 }
-$page_index = 'q2';
 
-if (!empty($_POST)) {
-    if(!fast_debug) {
-        include_once 'config/Database.php';
-        $database = new Database();
-        $db = $database->getConnection();
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-       // $user = new User($db);
-        $q2 = new Q2($db,$_SESSION['user-id']);
-        $q2->game1->title = test_input($_POST["game1"]);
-        $q2->game1->violence = check_int($_POST["violence1"],0,5);
-        $q2->gens = $_POST["type"];
-        $q2->game1->realism1 = check_int($_POST["realism11"],0,5);
-        $q2->game1->realism2 = check_int($_POST["realism12"],0,5);
-        $q2->game1->sexism = check_int($_POST["sexism1"],0,5);
-        $q2->playtime = check_int($_POST["playtime"],0,4);
-        if($_POST["game2"] === '')
-        {
-            $q2->game2 = null;
-        }
-        else
-        {
-            $q2->game2->title = test_input($_POST["game2"]);
-            $q2->game2->violence = check_int($_POST["violence2"],0,5);
-            $q2->game2->realism1 = check_int($_POST["realism21"],0,5);
-            $q2->game2->realism2 = check_int($_POST["realism22"],0,5);
-            $q2->game2->sexism = check_int($_POST["sexism2"],0,5);
-        }
-        if(debug)
-        {
-            echo "<p>";
-            var_dump($q2);
-            echo "</p>";
-        }
-        if (!$q2->create()) {
-            die("Server error");
-        }
-    }
-    header("Location: ".home_url."Q1.php?action=goto");
-}else
+
+if (!empty($_POST))
 {
+
+    // $user = new User($db);
+     $q2 = new Q2($db,$_SESSION['user-id']);
+     $q2->game1->title = test_input($_POST["game1"]);
+     $q2->game1->violence = check_int($_POST["violence1"],0,5);
+     $q2->gens = $_POST["type"];
+     $q2->game1->realism1 = check_int($_POST["realism11"],0,5);
+     $q2->game1->realism2 = check_int($_POST["realism12"],0,5);
+     $q2->game1->sexism = check_int($_POST["sexism1"],0,5);
+     $q2->playtime = check_int($_POST["playtime"],0,4);
+     if($_POST["game2"] === '')
+     {
+         $q2->game2 = null;
+     }
+     else
+     {
+         $q2->game2->title = test_input($_POST["game2"]);
+         $q2->game2->violence = check_int($_POST["violence2"],0,5);
+         $q2->game2->realism1 = check_int($_POST["realism21"],0,5);
+         $q2->game2->realism2 = check_int($_POST["realism22"],0,5);
+         $q2->game2->sexism = check_int($_POST["sexism2"],0,5);
+     }
+     if(debug)
+     {
+         echo "<p>";
+         var_dump($q2);
+         echo "</p>";
+     }
+     if (!$q2->create()) {
+         die("Server error");
+     }
+
+    header("Location: ".home_url."Q1.php?action=goto");
+}
+else
+{
+    $page_index = 'q2';
     include_once 'q_common.php';
     $_SESSION['visited_pages']['q2'] = true;
 }

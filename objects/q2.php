@@ -9,10 +9,10 @@ class Q2 extends Q
 
 
     // object properties
-    public int $playtime;
-    public ?GAME $game1;
-    public ?GAME $game2;
-    public array $gens;
+    public $playtime;
+    public $game1;
+    public $game2;
+    public $gens;
 
     public function __construct($db,$user_id)
     {
@@ -71,14 +71,14 @@ class Q2 extends Q
 }
 
 class GAME implements Interfaces {
-    public PDO $conn;
+    public $conn;
 
-    public int $id;
-    public string $title;
-    public int $sexism;  // Should be between 0 and 5
-    public int $violence;  // Should be between 0 and 5
-    public int $realism1;  // Should be between 0 and 5
-    public int $realism2;
+    public $id;
+    public $title;
+    public $sexism;  // Should be between 0 and 5
+    public $violence;  // Should be between 0 and 5
+    public $realism1;  // Should be between 0 and 5
+    public $realism2;
 
     public function __construct($db)
     {
@@ -128,7 +128,7 @@ class GAME implements Interfaces {
 
 
 
-    public function showError($stmt) :void
+    public function showError($stmt):void
     {
         echo "<pre>";
         print_r($stmt->errorInfo());

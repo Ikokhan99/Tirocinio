@@ -6,6 +6,35 @@ include_once 'config/Database.php';
 include_once 'objects/User.php';
 include_once 'objects/Q4.php';
 
+$database = new Database();
+$db = $database->getConnection();
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if (!empty($_POST))
+{
+    $q4 = new Q4($db,$_SESSION['user-id']);
+    $q4->control_questions = array(check_int($_POST["control1"],1,5));
+    $q4->questions = array(check_int($_POST["Q1"],1,5),
+        check_int($_POST["Q2"],1,5),
+        check_int($_POST["Q3"],1,5),
+        check_int($_POST["Q4"],1,5),
+        check_int($_POST["Q5"],1,5),
+        check_int($_POST["Q6"],1,5),
+        check_int($_POST["Q7"],1,5),
+        check_int($_POST["Q8"],1,5),
+        check_int($_POST["Q9"],1,5),
+        check_int($_POST["Q10"],1,5)
+    );
+
+    if (!$q4->create()) {
+        die();
+    }
+
+    header("Location: ".home_url."Q1.php?action=goto");
+    exit;
+
+}
+
 // page title
 $order = range(0,10);
 shuffle($order);
@@ -13,39 +42,13 @@ shuffle($order);
 $page_title = "Survey";
 $page_index = 'q4';
 
-include_once 'config/Database.php';
-$database = new Database();
-$db = $database->getConnection();
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
 
 if(debug) {
     var_dump($_POST);
 }
 
-if (!empty($_POST)) {
-    if(!fast_debug) {
-        $q4 = new Q4($db,$_SESSION['user-id']);
-        $q4->control_questions = array(check_int($_POST["control1"],1,5));
-        $q4->questions = array(check_int($_POST["Q1"],1,5),
-            check_int($_POST["Q2"],1,5),
-            check_int($_POST["Q3"],1,5),
-            check_int($_POST["Q4"],1,5),
-            check_int($_POST["Q5"],1,5),
-            check_int($_POST["Q6"],1,5),
-            check_int($_POST["Q7"],1,5),
-            check_int($_POST["Q8"],1,5),
-            check_int($_POST["Q9"],1,5),
-            check_int($_POST["Q10"],1,5)
-        );
 
-        if (!$q4->create()) {
-            die();
-        }
-    }
-    header("Location: ".home_url."Q1.php?action=goto");
-    exit;
-
-}
 
 include_once 'q_common.php';
 $_SESSION['visited_pages']['q4'] = true;
