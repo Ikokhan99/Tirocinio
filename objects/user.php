@@ -41,7 +41,7 @@ class User implements Interfaces
                 var_dump($temp_id);
             }
             $_SESSION['user-id'] = $temp_id;
-            $q = "INSERT INTO user VALUES(\"$temp_id\",$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
+            $q = "INSERT INTO user VALUES('$temp_id',$this->sex,$this->sexid,$this->age,$this->sexor,default,default);";
             // var_dump($q);
             $stmt = $this->conn->query($q);
             //$this->conn->exec(' IF `_rollback` THEN ROLLBACK; END IF;');

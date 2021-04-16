@@ -15,7 +15,7 @@ if($md->isMobile() || $md->isTablet()){
         <body>
             <pre>
             This experiment should be done only from desktop, mobile and tablets are not allowed. If you think this is our or prolific fault, please contact the researcher.<br>
-            Your prolific id has not been recorded yet, so you can come back here from Prolific of copy and paste the URL in a desktop browser.
+            Your prolific id has not been recorded yet, so you can come back here from a desktop browser (remember to copy the link).
             </pre>
         </body>
     </html>";
@@ -39,11 +39,11 @@ if(isset($_GET['PROLIFIC_PID']))
         $id = $_GET['PROLIFIC_PID'];
         if(isset($_GET['Mavatar']) ) {
             $_SESSION['user-sex'] = 0;
-            $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=DF3BAB38";
+            $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=1ACF2487";
         } // male participants
         else {
             $_SESSION['user-sex'] = 1;
-            $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=2D683736";
+            $_SESSION['final_url'] = "https://app.prolific.co/submissions/complete?cc=192E01ED";
         } // female participants
     }
 else{

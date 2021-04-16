@@ -2,7 +2,7 @@
 -- Data for table `avatar`
 --
 
-USE VaesDB;
+USE VaesDB2;
 -- ID  SEX  POWER  EXPERIENCE  SEXUAL  INTENTION  pic
 
 INSERT INTO `avatar` VALUES 
@@ -39,4 +39,4 @@ INSERT INTO `avatar` VALUES
 ( 31	,0	,0		,0			,0		,0,		'15_m'),
 ( 32	,0	,0		,0			,0		,1,		'16_m');
 
-INSERT INTO `game` VALUES (-1," ",0,0,0,0);
+INSERT INTO `GAME` VALUES (-1,' ',0,0,0,0);

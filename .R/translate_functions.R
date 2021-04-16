@@ -38,7 +38,7 @@ ris_gens  <- function (gens="",first=TRUE){
 AnalisiClassiche <- function(sex = MALE){
   query <- paste0("select u.id as ID,HEX(u.sex) as sex, HEX(u.sexid) as sexid,u.age,u.time AS Total_Time
           from (user as u inner join choice as c on u.id = c.user_id) INNER JOIN avatar as a on c.chosen = a.id
-          where u.sex = ",sex," AND (u.time != 0)
+          where u.sexid = ",sex," AND (u.time != 0)
           GROUP BY (u.id)")
   rs <- dbSendQuery(mydb, query)
   data1 <- fetch(rs, n=-1)
@@ -46,7 +46,7 @@ AnalisiClassiche <- function(sex = MALE){
   #time
   query <- paste0("select u.id as ID, sum(c.time) as time
           from (user as u inner join choice as c on u.id = c.user_id)
-          where (c.type = 0) AND (u.sex = ",sex,") AND (u.time != 0)
+          where (c.type = 0) AND (u.sexid = ",sex,") AND (u.time != 0)
           GROUP BY (u.id)")
   rs <- dbSendQuery(mydb, query)
   dataTIME1 <- fetch(rs, n=-1)
@@ -58,14 +58,14 @@ AnalisiClassiche <- function(sex = MALE){
   #print(dataTIME1$time)
   query <- paste0("select u.id as ID, sum(c.time) as time
           from (user as u inner join choice as c on u.id = c.user_id)
-          where (c.type = 1) AND (u.sex = ",sex,") AND (u.time != 0)
+          where (c.type = 1) AND (u.sexid = ",sex,") AND (u.time != 0)
           GROUP BY (u.id)")
   rs <- dbSendQuery(mydb, query)
   dataTIME2 <- fetch(rs, n=-1)
   dataTIME2$time <- dataTIME2$time/120
   query <- paste0("select u.id as ID, sum(c.time) as time
           from (user as u inner join choice as c on u.id = c.user_id)
-          where (c.type = 3) AND (u.sex = ",sex,") AND (u.time != 0)
+          where (c.type = 3) AND (u.sexid = ",sex,") AND (u.time != 0)
           GROUP BY (u.id)")
   rs <- dbSendQuery(mydb, query)
   dataTIME3 <- fetch(rs, n=-1)
@@ -73,12 +73,12 @@ AnalisiClassiche <- function(sex = MALE){
   #q2
   query <- paste0("select u.id as ID,q.playtime,g.title as GAME1_TITLE,g.sexism as GAME1_SEXISM,g.violence as GAME1_VIOLENCE,g.realism1 as GAME1_GRAPHIC_REALISM ,g.realism2 as GAME1_MECHANICS_REALISM
           from (user as u inner join q2 as q on u.id = q.user_id) INNER JOIN game as g on q.game1 = g.id
-          where (u.sex = ",sex,") AND (u.time != 0)")
+          where (u.sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   dataQ21 <- fetch(rs, n=-1)
   query <- paste0("select u.id as ID,g.id,g.title as GAME2_TITLE,g.sexism as GAME2_SEXISM,g.violence as GAME2_VIOLENCE,g.realism1 as GAME2_GRAPHIC_REALISM ,g.realism2 as GAME2_MECHANICS_REALISM
           from (user as u inner join q2 as q on u.id = q.user_id) INNER JOIN game as g on q.game2 = g.id
-          where (u.sex = ",sex,") AND (u.time != 0)")
+          where (u.sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   dataQ22 <- fetch(rs, n=-1)
   dataQ2 <- merge(dataQ21,dataQ22,by="ID")
@@ -86,7 +86,7 @@ AnalisiClassiche <- function(sex = MALE){
 
   query <- paste0("select u.id as ID, q.fav_gens
           from user as u inner join Q2 as q on u.id = q.user_id
-          where (u.sex = ",sex,") AND (u.time != 0)")
+          where (u.sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   dataGENS <- fetch(rs, n=-1)
 
@@ -111,19 +111,19 @@ AnalisiClassiche <- function(sex = MALE){
   #q3
   query <- paste0("select u.id as ID, q.question1 as Q3_1, q.question2 as Q3_2, q.question3 as Q3_3, q.question4 as Q3_4, q.question5 as Q3_5, q.question6 as Q3_6, q.question7 as Q3_7, q.question8 as Q3_8, q.question9 as Q3_9, q.question10 as Q3_10, q.question11 as Q3_11, q.question12 as Q3_12, q.question13 as Q3_13, q.question14 as Q3_14, q.question15 as Q3_15, q.question16 as Q3_16, q.question17 as Q3_17, q.question18 as Q3_18, q.question19 as Q3_19, q.question20 as Q3_20, q.question21 as Q3_21, q.question22 as Q3_22
           from user as u inner join Q3 as q on u.id = q.user_id
-          where (u.sex = ",sex,") AND (u.time != 0)")
+          where (u.sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   dataQ3 <- fetch(rs, n=-1)
   #q4
   query <- paste0("select u.id as ID, q.question1 as Q4_1, q.question2 as Q4_2, q.question3 as Q4_3, q.question4 as Q4_4, q.question5 as Q4_5, q.question6 as Q4_6, q.question7 as Q4_7, q.question8 as Q4_8, q.question9 as Q4_9, q.question10  as Q4_10
           from user as u inner join Q4 as q on u.id = q.user_id
-          where (u.sex = ",sex,") AND (u.time != 0)")
+          where (u.sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   dataQ4 <- fetch(rs, n=-1)
   #q5
   query <- paste0("select u.id as ID, q.question1 as Q5_1, q.question2  as Q5_2, q.question3 as Q5_3, q.question4 as Q5_4, q.question5 as Q5_5, q.question6 as Q5_6, q.question7 as Q5_7, q.question8 as Q5_8, q.question9 as Q5_9, q.question10 as Q5_10
           from user as u inner join Q5 as q on u.id = q.user_id
-          where (u.sex = ",sex,") AND (u.time != 0)")
+          where (u.sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   dataQ5 <- fetch(rs, n=-1)
   #stop()
@@ -163,16 +163,16 @@ AnalisiClassiche <- function(sex = MALE){
 
   #stop()
   if(sex == 0){
-    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_classiche_male.csv")
+    write.csv(total,"C:\\xampp\\htdocs\\avatar\\analisi_classiche_male.csv")
   } else {
-    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_classiche_female.csv")
+    write.csv(total,"C:\\xampp\\htdocs\\avatar\\analisi_classiche_female.csv")
   }
 }
 
 AnalisiMiste <- function (sex = MALE){
   query <- paste0("select u.id as USER, u.sexid as GENDER
             from (user as u)
-            where (sex = ",sex,") AND (u.time != 0)")
+            where (sexid = ",sex,") AND (u.time != 0)")
   rs <- dbSendQuery(mydb, query)
   users <- fetch(rs, n=-1)
   total <- users
@@ -223,7 +223,7 @@ AnalisiMiste <- function (sex = MALE){
     for(avatar in avatars){
       query <- paste0("select count(c.chosen) as co
             from (user as u INNER JOIN choice as c on c.user_id = u.id)
-            where (sex = ",sex,") AND (u.id='",user,"') AND (c.type = 3) AND (c.chosen = ",avatar,")")
+            where (sexid = ",sex,") AND (u.id='",user,"') AND (c.type = 3) AND (c.chosen = ",avatar,")")
       rs <- dbSendQuery(mydb, query)
       co <- fetch(rs, n=-1)
       count <- c(count,co$co)
@@ -279,9 +279,9 @@ AnalisiMiste <- function (sex = MALE){
   #writeLines("------------------")
 
   if(sex == 0){
-    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_miste_male.csv")
+    write.csv(total,"C:\\xampp\\htdocs\\avatar\\analisi_miste_male.csv")
   } else {
-    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\analisi_miste_female.csv")
+    write.csv(total,"C:\\xampp\\htdocs\\avatar\\analisi_miste_female.csv")
   }
 }
 
@@ -304,7 +304,7 @@ ConjountAnalysis <- function (sex = MALE){
 
   query <- paste0("select id
               from user
-              where (sex = ",sex,") AND (time != 0)")
+              where (sexid = ",sex,") AND (time != 0)")
   rs <- dbSendQuery(mydb, query)
   users <- fetch(rs, n=-1)
   users <- users$id
@@ -334,9 +334,9 @@ ConjountAnalysis <- function (sex = MALE){
 
   total <- cbind(total,upt)
   if(sex == 0){
-    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\conj_analysis_male.csv")
+    write.csv(total,"C:\\xampp\\htdocs\\avatar\\conj_analysis_male.csv")
   } else {
-    write.csv(total,"C:\\xampp\\htdocs\\tirocinio\\conj_analysis_female.csv")
+    write.csv(total,"C:\\xampp\\htdocs\\avatar\\conj_analysis_female.csv")
   }
 }
 
@@ -344,20 +344,20 @@ checkUsers <- function (SEX = MALE){
   query <- paste0("SELECT U.ID AS PID, U.TIME AS EXP_TIME,
                       SUM(C.KEY) AS MALE_PRESS
                   FROM user as u JOIN CHOICE AS C ON (U.ID = C.USER_ID AND C.TYPE = 0)
-                  WHERE u.time != 0 AND u.sex = ", SEX, "
-                  GROUP BY (U.ID)");
+                  WHERE u.time != 0 AND u.sexid = ", SEX, "
+                  GROUP BY (U.ID)")
   rs <- dbSendQuery(mydb, query)
   users <- fetch(rs, n=-1)
   query <- paste0("SELECT SUM(C.KEY) AS FEMALE_PRESS
                   FROM user as u JOIN CHOICE AS C ON (U.ID = C.USER_ID AND C.TYPE = 1)
-                  WHERE u.time != 0 AND u.sex = ", SEX, "
-                  GROUP BY (U.ID)");
+                  WHERE u.time != 0 AND u.sexid = ", SEX, "
+                  GROUP BY (U.ID)")
   rs <- dbSendQuery(mydb, query)
   users <- cbind(users,fetch(rs, n=-1))
   query <- paste0("SELECT SUM(C.KEY) AS MIX_PRESS
                   FROM user as u JOIN CHOICE AS C ON (U.ID = C.USER_ID AND C.TYPE = 3)
-                  WHERE u.time != 0 AND u.sex = ", SEX, "
-                  GROUP BY (U.ID)");
+                  WHERE u.time != 0 AND u.sexid = ", SEX, "
+                  GROUP BY (U.ID)")
   rs <- dbSendQuery(mydb, query)
   users <- cbind(users,fetch(rs, n=-1))
   query <- paste0("SELECT Q3.CONTROL_QUESTION1 AS Q3C1, Q3.CONTROL_QUESTION2 AS Q3C2,
@@ -366,19 +366,17 @@ checkUsers <- function (SEX = MALE){
                (SUM(Q4.QUESTION1)+SUM(Q4.QUESTION2)+SUM(Q4.QUESTION3)+SUM(Q4.QUESTION4)+SUM(Q4.QUESTION5)+SUM(Q4.QUESTION6)+SUM(Q4.QUESTION7)+SUM(Q4.QUESTION8)+SUM(Q4.QUESTION9)+SUM(Q4.QUESTION10)) AS Q4SUM
                FROM USER AS U LEFT JOIN Q3 ON U.ID = Q3.USER_ID
                               LEFT JOIN Q4 ON U.ID = Q4.USER_ID
-                  WHERE u.time != 0 AND u.sex = ", SEX, "
-                  GROUP BY (U.ID)");
+                  WHERE u.time != 0 AND u.sexid = ", SEX, "
+                  GROUP BY (U.ID)")
   rs <- dbSendQuery(mydb, query)
   users <- cbind(users,fetch(rs, n=-1))
 
-  users
+  # users
 
   if(SEX == MALE)
   {
     write.csv(users,"C:\\xampp\\htdocs\\avatar\\checkMALE.csv")
-  }
-  else
-  {
+  } else {
     write.csv(users,"C:\\xampp\\htdocs\\avatar\\checkFEMALE.csv")
   }
 }

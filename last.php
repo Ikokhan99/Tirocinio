@@ -15,7 +15,7 @@ $database = new Database();
 $db = $database->getConnection();
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $time = time() - $_SESSION['time'];
-$q = "UPDATE user SET time = ".$time." where id= \"".$_SESSION['user-id']."\"; ";
+$q = "UPDATE user SET time = ".$time." where id= '".$_SESSION['user-id']."'; ";
 $stmt = $db->prepare($q);
 if(debug){
     var_dump($stmt);

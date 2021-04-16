@@ -3,31 +3,24 @@
 # Created by: Maur
 # Created on: 05/03/2021
 
-dir <- "C:/xampp/htdocs/avatar/"
+dir <- "C:/xampp/htdocs/avatar/.R"
 
 setwd(dir)
 source("translate_functions.R")
 
 checkUsers(MALE)
 checkUsers(FEMALE)
-
+writeLines("check done")
 ConjountAnalysis(MALE)
 ConjountAnalysis(FEMALE)
-
+writeLines("conjount done")
 AnalisiClassiche(MALE)
 AnalisiClassiche(FEMALE)
-
+writeLines("classical done")
 AnalisiMiste(MALE)
 AnalisiMiste(FEMALE)
+writeLines("mixed done")
 
-
-
-query <- "select time
-          from user
-          where time != 0"
-rs <- dbSendQuery(mydb, query)
-tempi <- fetch(rs, n=-1)
-boxplot(tempi/60)
 #microbenchmark(foo(), times = 200)
 
 ile <- length(dbListConnections(MySQL())  )
