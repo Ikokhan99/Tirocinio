@@ -7,7 +7,7 @@ dir <- "C:/xampp/htdocs/avatar/.R"
 
 setwd(dir)
 source("translate_functions.R")
-
+# select user_id,id from choice group by user_id order by id desc limit 35;--   per vedere chi sono
 checkUsers(MALE)
 checkUsers(FEMALE)
 writeLines("check done")
@@ -20,6 +20,12 @@ writeLines("classical done")
 AnalisiMiste(MALE)
 AnalisiMiste(FEMALE)
 writeLines("mixed done")
+
+#times_avg()
+
+#boxplot(data$time)
+#plot(density(data$time))
+
 
 #microbenchmark(foo(), times = 200)
 

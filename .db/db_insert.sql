@@ -1,12 +1,26 @@
 --
 -- Data for table `avatar`
 --
-
-USE VaesDB2;
+DELETE from game where id <9  OR
+        id = 15 OR
+        id = 50 OR
+        id = 110 OR
+    id between  163 and 166 or
+    id between  187 and 190 or
+    id between  193 and 194 or
+    id between 200 and  227 or
+    id between 232 and 233 or
+    id between 236 and 270 or
+    id between 274 and 296 or
+    id between 298 and 314 or
+    id between 316 and 358 ;
+-- or;
+select count(id) from game;
+/*USE VaesDB2;
 -- ID  SEX  POWER  EXPERIENCE  SEXUAL  INTENTION  pic
 
 INSERT INTO `avatar` VALUES 
- (1,    1, 	0, 	 	0,   		1,		0, 		'01_f'),/* --f*/
+ (1,    1, 	0, 	 	0,   		1,		0, 		'01_f'),
 ( 2,    1, 	0, 	 	0,   		1,		1, 	 	'02_f'),
 ( 3,	1,	1,		0,			0,		0,		'03_f'),
 ( 4,	1,	1,		0,			0,		1,		'04_f'),
@@ -22,7 +36,7 @@ INSERT INTO `avatar` VALUES
 ( 14	,1	,1		,1			,1		,1,		'14_f'),
 ( 15	,1	,0		,0			,0		,0,		'15_f'),
 ( 16	,1	,0		,0			,0		,1,		'16_f'),
-( 17	,0	,0		,0			,1		,0,		'01_m'),  /*---m */
+( 17	,0	,0		,0			,1		,0,		'01_m'),
 ( 18	,0	,0		,0			,1		,1,		'02_m'),
 ( 19	,0	,1		,0			,0		,0,		'03_m'),
 ( 20	,0	,1		,0			,0		,1,		'04_m'),
@@ -39,4 +53,4 @@ INSERT INTO `avatar` VALUES
 ( 31	,0	,0		,0			,0		,0,		'15_m'),
 ( 32	,0	,0		,0			,0		,1,		'16_m');
 
-INSERT INTO `GAME` VALUES (-1,' ',0,0,0,0);
+INSERT INTO `GAME` VALUES (-1,' ',0,0,0,0);*/

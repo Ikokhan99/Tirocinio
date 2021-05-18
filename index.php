@@ -1,5 +1,10 @@
 <?php
 
+if(!isset($_GET['consent']))
+{
+    include_once 'consent.php';
+    die(0);
+}
 include_once 'config/core.php';
 
 include_once 'libs/PHP/Mobile_Detect.php';
@@ -198,7 +203,7 @@ if(user_error)
                         </div>
                         <div class='button-section' style='grid-row: 2 ;  grid-column: 1;'>
                             <form action='SceltaAvatar.php' method='post' style='grid-row: 1 ;  grid-column: 2;'>
-                                <input type='submit' class='btn btn-primary btn-lg' name='submit' id='submit' value=\"Let's go!\">
+                                <input type='submit' class='btn btn-primary btn-lg' name='submit' id='submit' value=\"Next\">
                                 <input type='hidden' name='navigation' id='navigation' value='safe'>
                             </form>   
                         </div>

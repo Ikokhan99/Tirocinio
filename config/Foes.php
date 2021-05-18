@@ -20,9 +20,7 @@ function test_input($string): string
     $string = str_replace(array("\r", "\n", "\t"), '', $string);   // --- replace with empty space
 
     // ----- remove multiple spaces -----
-    $string = trim(preg_replace('/ {2,}/', ' ', $string));
-
-    return $string;
+    return trim(preg_replace('/ {2,}/', ' ', $string));
 }
 function check_int(int $val, int $min,int $max): int
 {

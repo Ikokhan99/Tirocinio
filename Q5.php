@@ -186,18 +186,20 @@ foreach ($order as $num ) {
     const toCheck = [0,1,2,3,4,5,6,7,8,9];
     const countOccurrences = (arr, val) => arr.reduce((a, v) => (v == val ? a + 1 : a), 0);
 
-    function check(element) {
+    function check(element)
+    {
         let n = parseInt(element.id.substring(1)) -1;
         ans[n] = element.value === "" ? -1 : element.value;
-        for(let i = 0; i < ans.length; i++)
+
+        for(let i = 0; i < toCheck.length; i++)
         {
-            if(countOccurrences(ans,toCheck[i]) === 1)
+            if(countOccurrences(ans,toCheck[i]))
             {
                 console.log("ok");
             }
-        else
+            else
             {
-                console.log("not ok")
+                console.log("missing ",toCheck[i])
                 document.getElementById('button').disabled = true;
                 return;
             }

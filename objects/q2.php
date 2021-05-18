@@ -37,12 +37,15 @@ class Q2 extends Q
         }
 
         $gens = "";
-        foreach ($this->gens as $key => $gen)
+        if(!empty($this->gens))
         {
-            if($key !== 0) {
-                $gens .= ",";
+            foreach ($this->gens as $key => $gen)
+            {
+                if($key !== 0) {
+                    $gens .= ",";
+                }
+                $gens.=$gen;
             }
-            $gens.=$gen;
         }
 
         $q = "INSERT INTO Q2 VALUES(

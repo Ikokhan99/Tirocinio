@@ -48,14 +48,13 @@ if (!empty($_POST))
          die("Server error");
      }
 
-    header("Location: ".home_url."Q1.php?action=goto");
+    header("Location: ".home_url."last.php?s=0");
+    exit;
 }
-else
-{
-    $page_index = 'q2';
-    include_once 'q_common.php';
-    $_SESSION['visited_pages']['q2'] = true;
-}
+
+$page_index = 'q2';
+include_once 'q_common.php';
+$_SESSION['visited_pages']['q2'] = true;
 ?>
     <form action='Q2.php' method='post'>
     <!-- fixed order for this one -->

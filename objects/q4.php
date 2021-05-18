@@ -53,7 +53,7 @@ class Q4 extends Q
         {
             if($this->control_questions[0] !== self::CONTROL_CORRECT)
             {
-                error_log("User ".$_SESSION["user-id"]." didn't read Q4 control question");
+               // error_log("User ".$_SESSION["user-id"]." didn't read Q4 control question");
                 $q = "UPDATE user SET trusted = 1 where id='".$_SESSION['user-id']."';";
                 $stmt = $this->conn->prepare($q);
                 $stmt->execute();

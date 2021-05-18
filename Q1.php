@@ -25,7 +25,8 @@ if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET
     {
         case 2:
             {
-                ++$_SESSION['at'];
+                //not needed, Q2 is always the last one
+                //++$_SESSION['at'];
                 header("Location: ".home_url."Q2.php?s=0");
                 exit;
                 //break;
@@ -50,13 +51,6 @@ if((isset($_POST['action']) && $_POST['action'] === 'Continue') || (!empty($_GET
                 header("Location: ".home_url."Q5.php?s=0");
                 exit;
                 //break;
-            }
-        case 6:default:
-            {
-                ++$_SESSION['at'];
-                header("Location: ".home_url."last.php?s=0");
-                exit;
-               // break;
             }
     }
 }

@@ -1,5 +1,13 @@
 <?php
 include_once "config/core.php";
+
+if(!isset($_SESSION['i_male']))
+{
+    error_log("SESSION PROBLEMS WITH USER ".$_SERVER['REMOTE_ADDR']);
+    die("An error has occurred. It probably has to do with cookies, please contact the researcher specifying the browser used and whether or not you have cookies enabled");
+
+}
+
 $action = '';
 $page_title="Experiment";
 
